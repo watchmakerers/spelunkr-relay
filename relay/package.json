@@ -1,0 +1,12 @@
+{
+  "name": "spelunkr-ps3-relay",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Runs Spelunkr's schedule on a PC and serves a channel guide + MPEG-1 streams to the PS3 app",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node src/server.js",
+    "vendor-engine": "node tools/vendor-engine.js"
+  }
+}

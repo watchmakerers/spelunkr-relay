@@ -1,0 +1,6 @@
+node_modules/
+*.log
+ps3/build/
+*.pkg
+*.self
+*.elf
