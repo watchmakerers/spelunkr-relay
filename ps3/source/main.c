@@ -518,6 +518,7 @@ int main(int argc, char *argv[])
 	L = gfx_is_4x3() ? LAYOUT_4X3 : LAYOUT_HD;
 	if (ui_init(gfx_overlay_canvas()) != 0) { LOG("ui_init failed"); return 1; }
 	LOG("graphics ready");
+	gfx_selftest();
 	ioPadInit(7);
 	sysUtilRegisterCallback(SYSUTIL_EVENT_SLOT0, sysutil_cb, NULL);
 	LOG("net_start %d", net_start());

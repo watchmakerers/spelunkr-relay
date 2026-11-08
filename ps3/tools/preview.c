@@ -19,6 +19,7 @@ void gfx_overlay_commit(void) {}
 void gfx_frame(float a, float b, float c, float d, int e) { (void)a; (void)b; (void)c; (void)d; (void)e; }
 int gfx_init(void) { return 0; }
 void gfx_shutdown(void) {}
+void gfx_selftest(void) {}
 int net_start(void) { return 0; }
 int net_discover(char *h, int *p) { (void)h; (void)p; return -1; }
 char *http_get_all(const char *h, int p, const char *path, int *l) { (void)h; (void)p; (void)path; (void)l; return NULL; }

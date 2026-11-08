@@ -9,6 +9,7 @@
 
 #include "gfx.h"
 #include "log.h"
+#include "net.h"
 
 // PSL1GHT changed several RSX signatures between releases; build against either.
 #ifdef GCM_TF_COLOR_X8R8G8B8          // older PSL1GHT (e.g. the ps3devextra image)
@@ -317,12 +318,21 @@ static void use_program(program_t *p)
 	rsxLoadFragmentProgramLocation(ctx, p->fp, p->fp_offset, GCM_LOCATION_RSX);
 }
 
+// Waits (bounded) for the previously queued flip to happen. Returns 0 if it did.
+static int wait_flip(int timeout_ms)
+{
+	for (int t = 0; t < timeout_ms * 5; t++) {
+		if (gcmGetFlipStatus() == 0) { gcmResetFlipStatus(); return 0; }
+		usleep(200);
+	}
+	return -1;
+}
+
 static void flip(void)
 {
-	if (!first_flip) {
-		while (gcmGetFlipStatus() != 0) usleep(200);
-	}
-	gcmResetFlipStatus();
+	static int timeouts;
+	if (!first_flip && wait_flip(250) != 0 && timeouts++ < 5) LOG("flip did not complete within 250 ms (GPU stalled?)");
+	if (first_flip) gcmResetFlipStatus();
 	gcmSetFlip(ctx, cur_fb);
 	rsxFlushBuffer(ctx);
 	gcmSetWaitFlip(ctx);
@@ -346,7 +356,7 @@ void gfx_frame(float vx, float vy, float vw_ui, float vh_ui, int show_video)
 	for (int i = 0; i < 8; i++) rsxSetViewportClip(ctx, i, gfx_width, gfx_height);
 	rsxSetUserClipPlaneControl(ctx, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE,
 	                           GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE);
-	rsxSetClearColor(ctx, 0xff000000);
+	rsxSetClearColor(ctx, show_video ? 0xff000000 : 0xff1C0A57);
 	rsxClearSurface(ctx, GCM_CLEAR_R | GCM_CLEAR_G | GCM_CLEAR_B | GCM_CLEAR_A);
 	rsxInvalidateTextureCache(ctx, GCM_INVALIDATE_TEXTURE);
 
@@ -377,4 +387,29 @@ void gfx_frame(float vx, float vy, float vw_ui, float vh_ui, int show_video)
 		rsxSetBlendEnable(ctx, GCM_FALSE);
 	}
 	flip();
+}
+
+// Startup self-test: draws a few frames, each adding one more piece of the pipeline, and logs
+// whether each reached the screen. Whichever stage first fails to flip is the culprit.
+void gfx_selftest(void)
+{
+	static const char *names[] = { "clear only", "clear + overlay quad", "clear + overlay + video quad" };
+	u32 *c = gfx_overlay_canvas();
+	for (int i = 0; i < UI_W * UI_H; i++) c[i] = 0x801C0A57;
+	gfx_overlay_commit();
+	static u8 grey[64 * 64];
+	memset(grey, 128, sizeof(grey));
+	for (int stage = 0; stage < 3; stage++) {
+		if (stage == 2) gfx_video_upload(grey, 64, grey, grey, 32, 64, 64);
+		int saved_oset = oset_cur;
+		if (stage == 0) oset_cur = -1;
+		gfx_frame(0, 0, UI_W, UI_H, stage == 2);
+		oset_cur = saved_oset;
+		s64 t0 = now_us();
+		int ok = wait_flip(2000) == 0;
+		LOG("selftest %d (%s): %s in %lld ms", stage, names[stage], ok ? "flipped" : "TIMED OUT", (long long)((now_us() - t0) / 1000));
+		first_flip = 1; // we already waited
+		if (!ok) break;
+	}
+	gfx_video_clear();
 }
