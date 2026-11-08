@@ -23,6 +23,7 @@
 #include "guide.h"
 #include "player.h"
 #include "audio.h"
+#include "log.h"
 
 SYS_PROCESS_PARAM(1001, 0x100000);
 
@@ -114,6 +115,7 @@ static void tune(int idx)
 {
 	if (idx < 0 || idx >= guide.nch) return;
 	watching = idx;
+	LOG("tune %s", guide.ch[idx].id);
 	player_tune(guide.ch[idx].id);
 	save_last(guide.ch[idx].id);
 	banner_until_us = now_us() + 5000000;
@@ -450,7 +452,10 @@ static void handle_input(void)
 
 static void connect_relay(void)
 {
-	if (net_discover(relay_host, &relay_port) != 0 || fetch_guide() != 0) { mode = MODE_NORELAY; dirty = 1; return; }
+	if (net_discover(relay_host, &relay_port) != 0) { LOG("relay not found"); mode = MODE_NORELAY; dirty = 1; return; }
+	LOG("relay at %s:%d", relay_host, relay_port);
+	if (fetch_guide() != 0) { LOG("guide fetch failed"); mode = MODE_NORELAY; dirty = 1; return; }
+	LOG("guide: %d channels", guide.nch);
 	static int player_up = 0;
 	if (!player_up) { player_start(relay_host, relay_port); player_up = 1; }
 	tune(load_last());
@@ -460,12 +465,15 @@ static void connect_relay(void)
 int main(int argc, char *argv[])
 {
 	(void)argc; (void)argv;
-	if (gfx_init() != 0) return 1;
-	if (ui_init(gfx_overlay_canvas()) != 0) return 1;
+	log_open();
+	LOG("SPELUNKR starting");
+	if (gfx_init() != 0) { LOG("gfx_init failed"); return 1; }
+	if (ui_init(gfx_overlay_canvas()) != 0) { LOG("ui_init failed"); return 1; }
+	LOG("graphics ready");
 	ioPadInit(7);
 	sysUtilRegisterCallback(SYSUTIL_EVENT_SLOT0, sysutil_cb, NULL);
-	net_start();
-	audio_start();
+	LOG("net_start %d", net_start());
+	LOG("audio_start %d", audio_start());
 
 	s64 last = now_us(), last_tick = 0;
 	player_state_t last_state = PLAYER_IDLE;
@@ -491,7 +499,7 @@ int main(int argc, char *argv[])
 
 		player_status_t ps;
 		player_status(&ps);
-		if (ps.state != last_state) { last_state = ps.state; dirty = 1; }
+		if (ps.state != last_state) { LOG("player state %d (%s) %s", ps.state, ps.type, ps.error); last_state = ps.state; dirty = 1; }
 		if (t - last_tick > 1000000) { last_tick = t; dirty = 1; } // clock, progress, banner timeout
 		if (dirty) { render_overlay(); dirty = 0; }
 
@@ -499,6 +507,7 @@ int main(int argc, char *argv[])
 		else gfx_frame(0, 0, UI_W, UI_H, mode == MODE_WATCH);
 	}
 
+	LOG("exiting");
 	player_stop();
 	audio_stop();
 	gfx_shutdown();

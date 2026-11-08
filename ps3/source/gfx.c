@@ -8,6 +8,7 @@
 #include <sysutil/video.h>
 
 #include "gfx.h"
+#include "log.h"
 
 // PSL1GHT changed several RSX signatures between releases; build against either.
 #ifdef GCM_TF_COLOR_X8R8G8B8          // older PSL1GHT (e.g. the ps3devextra image)
@@ -125,29 +126,26 @@ static void set_render_target(u32 i)
 
 static int configure_video(void)
 {
-	static const u32 ids[] = { VIDEO_RESOLUTION_1080, VIDEO_RESOLUTION_720, VIDEO_RESOLUTION_480, VIDEO_RESOLUTION_576 };
-	s32 rid = -1;
-	// Prefer 720p: the guide is designed for it and the video is SD anyway.
-	static const u32 order[] = { 1, 0, 2, 3 };
-	for (u32 k = 0; k < 4; k++) {
-		u32 id = ids[order[k]];
-		if (videoGetResolutionAvailability(VIDEO_PRIMARY, id, VIDEO_ASPECT_AUTO, 0) != 1) continue;
-		if (videoGetResolution(id, &res) == 0) { rid = id; break; }
-	}
-	if (rid < 0) return -1;
+	// Keep the display mode the XMB is already using. Picking our own (e.g. 720p) blacks out
+	// TVs that can't show it, such as a CRT on composite/component at 480i.
+	videoState st;
+	if (videoGetState(VIDEO_PRIMARY, 0, &st) != 0) { LOG("videoGetState failed"); return -1; }
+	u32 rid = st.displayMode.resolution;
+	LOG("display: resolution id %u, aspect %u", rid, st.displayMode.aspect);
+	if (videoGetResolution(rid, &res) != 0) return -1;
 
 	videoConfiguration cfg;
 	memset(&cfg, 0, sizeof(cfg));
 	cfg.resolution = (u8)rid;
 	cfg.format = VIDEO_BUFFER_FORMAT_XRGB;
-	cfg.aspect = VIDEO_ASPECT_AUTO;
+	cfg.aspect = st.displayMode.aspect;
 	cfg.pitch = res.width * 4;
 	if (videoConfigure(VIDEO_PRIMARY, &cfg, NULL, 0) != 0) return -1;
 
-	videoState st;
-	if (videoGetState(VIDEO_PRIMARY, 0, &st) == 0 && st.displayMode.aspect == VIDEO_ASPECT_4_3) gfx_aspect = 4.0f / 3.0f;
+	gfx_aspect = st.displayMode.aspect == VIDEO_ASPECT_4_3 ? 4.0f / 3.0f : 16.0f / 9.0f;
 	gfx_width = res.width;
 	gfx_height = res.height;
+	LOG("video configured %ux%u", gfx_width, gfx_height);
 	return 0;
 }
 
