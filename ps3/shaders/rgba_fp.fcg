@@ -1,0 +1,7 @@
+// UI overlay: an ARGB texture the CPU draws the guide into, alpha-blended over the video.
+void main(float2 uv : TEXCOORD0,
+          uniform sampler2D tex,
+          out float4 oColor : COLOR0)
+{
+	oColor = tex2D(tex, uv);
+}

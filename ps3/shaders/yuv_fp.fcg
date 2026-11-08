@@ -1,0 +1,16 @@
+// Video: MPEG-1 decodes to three planes (Y full size, Cb/Cr half size), each uploaded as a
+// single-channel texture. Convert to RGB here (BT.601, studio range) so the PPU doesn't have to.
+void main(float2 uv : TEXCOORD0,
+          uniform sampler2D texY,
+          uniform sampler2D texCb,
+          uniform sampler2D texCr,
+          out float4 oColor : COLOR0)
+{
+	float y  = (tex2D(texY,  uv).x - 0.0625) * 1.164;
+	float cb =  tex2D(texCb, uv).x - 0.5;
+	float cr =  tex2D(texCr, uv).x - 0.5;
+	oColor = float4(y + 1.596 * cr,
+	                y - 0.391 * cb - 0.813 * cr,
+	                y + 2.018 * cb,
+	                1.0);
+}

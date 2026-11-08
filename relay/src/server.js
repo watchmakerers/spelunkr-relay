@@ -11,6 +11,7 @@
 // Guide format, one record per line, fields separated by TAB (titles never contain tabs):
 //   SPELUNKR  1
 //   NOW       <relay clock, ms since epoch>
+//   TZ        <relay's local offset from UTC, minutes> (the PS3 shows times in it)
 //   CH        <id> <dial> <NAME> <#rrggbb> <description>
 //   LOGO      <32 rows of 32 palette letters, concatenated, '.' = transparent> <k=rrggbb,c=rrggbb,...>
 //   S         <startMs> <endMs> <title> <year>     a show; spans until the next show begins
@@ -44,7 +45,7 @@ function shows(id, fromMs, untilMs) {
 
 function guide(hours) {
   const now = Date.now();
-  const lines = ['SPELUNKR\t1', `NOW\t${now}`];
+  const lines = ['SPELUNKR\t1', `NOW\t${now}`, `TZ\t${-new Date(now).getTimezoneOffset()}`];
   for (const ch of bc.list()) {
     if (!bc.get(ch.id)) continue;
     lines.push(['CH', ch.id, ch.dial ?? '', clean(ch.name), ch.color || '#888888', clean(ch.description)].join('\t'));
