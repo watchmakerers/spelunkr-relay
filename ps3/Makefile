@@ -25,7 +25,7 @@ CFLAGS		=	-O2 -Wall -mcpu=cell $(MACHDEP) $(INCLUDE)
 CXXFLAGS	=	$(CFLAGS)
 LDFLAGS		=	$(MACHDEP) -Wl,-Map,$(notdir $@).map
 
-LIBS	:=	-lrsx -lgcm_sys -lio -lsysutil -lsysmodule -laudio -lnet -lrt -llv2 -lm
+LIBS	:=	-lrsx -lgcm_sys -lio -lsysutil -laudio -lnet -lsysmodule -lrt -llv2 -lm
 LIBDIRS	:=
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
@@ -39,10 +39,10 @@ export BUILDDIR	:=	$(CURDIR)/$(BUILD)
 
 CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.ttf)))
-VCGFILES	:=	$(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.vcg)))
-FCGFILES	:=	$(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.fcg)))
-VPOFILES	:=	$(VCGFILES:.vcg=.vpo)
-FPOFILES	:=	$(FCGFILES:.fcg=.fpo)
+# Shaders are precompiled (shaders/src has the Cg sources and how to rebuild them): NVIDIA's
+# Cg compiler that PSL1GHT's cgcomp needs only runs on glibc, not in the Alpine toolchain image.
+VPOFILES	:=	$(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.vpo)))
+FPOFILES	:=	$(foreach dir,$(SHADERS),$(notdir $(wildcard $(dir)/*.fpo)))
 
 export LD	:=	$(CC)
 export OFILES	:=	$(addsuffix .o,$(BINFILES)) \

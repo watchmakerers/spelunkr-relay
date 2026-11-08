@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/thread.h>
 #include <sys/mutex.h>
+#include "compat.h"
 
 #include "pl_mpeg.h"
 #include "player.h"
@@ -291,9 +292,7 @@ int player_start(const char *h, int p)
 	port = p;
 	ring = malloc(RING_SIZE);
 	if (!ring) return -1;
-	sys_mutex_attr_t attr;
-	sysMutexAttrInitialize(attr);
-	if (sysMutexCreate(&lock, &attr) != 0) return -1;
+	if (mutex_create(&lock) != 0) return -1;
 	running = 1;
 	return sysThreadCreate(&thread, net_thread, NULL, 1200, 0x8000, THREAD_JOINABLE, "spelunkr_net");
 }

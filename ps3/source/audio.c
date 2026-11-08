@@ -2,6 +2,7 @@
 #include <audio/audio.h>
 #include <sys/thread.h>
 #include <sys/mutex.h>
+#include "compat.h"
 #include <sys/event_queue.h>
 
 #include "audio.h"
@@ -53,9 +54,7 @@ static void audio_thread(void *arg)
 
 int audio_start(void)
 {
-	sys_mutex_attr_t attr;
-	sysMutexAttrInitialize(attr);
-	if (sysMutexCreate(&lock, &attr) != 0) return -1;
+	if (mutex_create(&lock) != 0) return -1;
 	if (audioInit() != 0) return -1;
 	audioPortParam p;
 	memset(&p, 0, sizeof(p));

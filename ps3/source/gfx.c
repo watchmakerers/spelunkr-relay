@@ -9,6 +9,41 @@
 
 #include "gfx.h"
 
+// PSL1GHT changed several RSX signatures between releases; build against either.
+#ifdef GCM_TF_COLOR_X8R8G8B8          // older PSL1GHT (e.g. the ps3devextra image)
+#define SURF_COLOR_X8R8G8B8 GCM_TF_COLOR_X8R8G8B8
+#define SURF_TARGET_0       GCM_TF_TARGET_0
+#define SURF_ZETA_Z24S8     GCM_TF_ZETA_Z24S8
+#define SURF_TYPE_LINEAR    GCM_TF_TYPE_LINEAR
+#define SURF_CENTER_1       GCM_TF_CENTER_1
+#define TEX_FORMAT_8BIT     GCM_TEXTURE_FORMAT_L8
+#define COLOR_MASK_MRT(c,m) rsxSetColorMaskMRT(c, m)
+#define TEX_FILTER(c,u,mn,mg,cv) rsxTextureFilter(c, u, mn, mg, cv)
+#define VTX2(c,i,v)         rsxDrawVertex2f(c, i, (v)[0], (v)[1])
+#define VTX4(c,i,v)         rsxDrawVertex4f(c, i, (v)[0], (v)[1], (v)[2], (v)[3])
+#define ATTR(p, name)       rsxVertexProgramGetAttrib(p, name)
+#define FATTR(p, name)      rsxFragmentProgramGetAttrib(p, name)
+#define RSX_INIT(ctx, cb, sz, host) ((*(ctx) = rsxInit(cb, sz, host)) ? 0 : -1)
+#define VP_UCODE(vp, out, size)     (*(out) = rsxVertexProgramGetUCode(vp), (void)(size))
+#define FP_UCODE(fp, out, size)     (*(out) = rsxFragmentProgramGetUCode(fp, size))
+#else                                 // current PSL1GHT
+#define SURF_COLOR_X8R8G8B8 GCM_SURFACE_X8R8G8B8
+#define SURF_TARGET_0       GCM_SURFACE_TARGET_0
+#define SURF_ZETA_Z24S8     GCM_SURFACE_ZETA_Z24S8
+#define SURF_TYPE_LINEAR    GCM_SURFACE_TYPE_LINEAR
+#define SURF_CENTER_1       GCM_SURFACE_CENTER_1
+#define TEX_FORMAT_8BIT     GCM_TEXTURE_FORMAT_B8
+#define COLOR_MASK_MRT(c,m) rsxSetColorMaskMrt(c, m)
+#define TEX_FILTER(c,u,mn,mg,cv) rsxTextureFilter(c, u, 0, mn, mg, cv)
+#define VTX2(c,i,v)         rsxDrawVertex2f(c, i, v)
+#define VTX4(c,i,v)         rsxDrawVertex4f(c, i, v)
+#define ATTR(p, name)       (rsxVertexProgramGetAttrib(p, name)->index)
+#define FATTR(p, name)      (rsxFragmentProgramGetAttrib(p, name)->index)
+#define RSX_INIT(ctx, cb, sz, host) rsxInit(ctx, cb, sz, host)
+#define VP_UCODE(vp, out, size)     rsxVertexProgramGetUCode(vp, out, size)
+#define FP_UCODE(fp, out, size)     rsxFragmentProgramGetUCode(fp, out, size)
+#endif
+
 #include "quad_vp_vpo.h"
 #include "yuv_fp_fpo.h"
 #include "rgba_fp_fpo.h"
@@ -32,11 +67,11 @@ static int first_flip = 1;
 typedef struct {
 	rsxVertexProgram *vp; void *vp_ucode;
 	rsxFragmentProgram *fp; u32 fp_offset;
-	rsxProgramAttrib *pos, *tex;
+	s32 pos, tex;    // vertex attribute indices
 } program_t;
 
 static program_t yuv_prog, rgba_prog;
-static rsxProgramAttrib *u_y, *u_cb, *u_cr, *u_tex;
+static s32 u_y, u_cb, u_cr, u_tex;  // texture units
 
 // Video: two sets of three planes, so the CPU writes one while the GPU reads the other.
 typedef struct { u8 *y, *cb, *cr; u32 oy, ocb, ocr; } vset_t;
@@ -57,32 +92,32 @@ static void load_program(program_t *p, const void *vpo, const void *fpo)
 	void *ucode; u32 size;
 	p->vp = (rsxVertexProgram *)vpo;
 	p->fp = (rsxFragmentProgram *)fpo;
-	rsxVertexProgramGetUCode(p->vp, &p->vp_ucode, &size);
-	rsxFragmentProgramGetUCode(p->fp, &ucode, &size);
+	VP_UCODE(p->vp, &p->vp_ucode, &size);
+	FP_UCODE(p->fp, &ucode, &size);
 	void *fp_mem = rsxMemalign(64, size);
 	memcpy(fp_mem, ucode, size);
 	rsxAddressToOffset(fp_mem, &p->fp_offset);
-	p->pos = rsxVertexProgramGetAttrib(p->vp, "position");
-	p->tex = rsxVertexProgramGetAttrib(p->vp, "texcoord");
+	p->pos = ATTR(p->vp, "position");
+	p->tex = ATTR(p->vp, "texcoord");
 }
 
 static void set_render_target(u32 i)
 {
 	gcmSurface sf;
 	memset(&sf, 0, sizeof(sf));
-	sf.colorFormat = GCM_SURFACE_X8R8G8B8;
-	sf.colorTarget = GCM_SURFACE_TARGET_0;
+	sf.colorFormat = SURF_COLOR_X8R8G8B8;
+	sf.colorTarget = SURF_TARGET_0;
 	sf.colorLocation[0] = GCM_LOCATION_RSX;
 	sf.colorOffset[0] = color_offset[i];
 	sf.colorPitch[0] = color_pitch;
 	sf.colorLocation[1] = sf.colorLocation[2] = sf.colorLocation[3] = GCM_LOCATION_RSX;
 	sf.colorPitch[1] = sf.colorPitch[2] = sf.colorPitch[3] = 64;
-	sf.depthFormat = GCM_SURFACE_ZETA_Z24S8;
+	sf.depthFormat = SURF_ZETA_Z24S8;
 	sf.depthLocation = GCM_LOCATION_RSX;
 	sf.depthOffset = depth_offset;
 	sf.depthPitch = depth_pitch;
-	sf.type = GCM_SURFACE_TYPE_LINEAR;
-	sf.antiAlias = GCM_SURFACE_CENTER_1;
+	sf.type = SURF_TYPE_LINEAR;
+	sf.antiAlias = SURF_CENTER_1;
 	sf.width = gfx_width;
 	sf.height = gfx_height;
 	rsxSetSurface(ctx, &sf);
@@ -129,7 +164,7 @@ int gfx_init(void)
 {
 	void *host = memalign(1024 * 1024, HOST_SIZE);
 	if (!host) return -1;
-	if (rsxInit(&ctx, CB_SIZE, HOST_SIZE, host) != 0) return -1;
+	if (RSX_INIT(&ctx, CB_SIZE, HOST_SIZE, host) != 0) return -1;
 	if (configure_video() != 0) return -1;
 	wait_idle();
 	gcmSetFlipMode(GCM_FLIP_VSYNC);
@@ -146,10 +181,10 @@ int gfx_init(void)
 
 	load_program(&yuv_prog, quad_vp_vpo, yuv_fp_fpo);
 	load_program(&rgba_prog, quad_vp_vpo, rgba_fp_fpo);
-	u_y = rsxFragmentProgramGetAttrib(yuv_prog.fp, "texY");
-	u_cb = rsxFragmentProgramGetAttrib(yuv_prog.fp, "texCb");
-	u_cr = rsxFragmentProgramGetAttrib(yuv_prog.fp, "texCr");
-	u_tex = rsxFragmentProgramGetAttrib(rgba_prog.fp, "tex");
+	u_y = FATTR(yuv_prog.fp, "texY");
+	u_cb = FATTR(yuv_prog.fp, "texCb");
+	u_cr = FATTR(yuv_prog.fp, "texCr");
+	u_tex = FATTR(rgba_prog.fp, "tex");
 
 	for (int i = 0; i < 2; i++) {
 		vsets[i].y = rsxMemalign(128, VPITCH_Y * MAX_VH);
@@ -201,13 +236,13 @@ void gfx_overlay_commit(void)
 	oset_cur = next;
 }
 
-static void bind_texture(rsxProgramAttrib *unit, u32 offset, u32 w, u32 h, u32 pitch, int single_channel)
+static void bind_texture(s32 unit, u32 offset, u32 w, u32 h, u32 pitch, int single_channel)
 {
 	gcmTexture t;
 	memset(&t, 0, sizeof(t));
 	if (single_channel) {
 		// 8-bit plane: replicate the one channel (B) into all four.
-		t.format = GCM_TEXTURE_FORMAT_B8 | GCM_TEXTURE_FORMAT_LIN;
+		t.format = TEX_FORMAT_8BIT | GCM_TEXTURE_FORMAT_LIN;
 		t.remap = GCM_TEXTURE_REMAP_TYPE_REMAP << GCM_TEXTURE_REMAP_TYPE_B_SHIFT |
 		          GCM_TEXTURE_REMAP_TYPE_REMAP << GCM_TEXTURE_REMAP_TYPE_G_SHIFT |
 		          GCM_TEXTURE_REMAP_TYPE_REMAP << GCM_TEXTURE_REMAP_TYPE_R_SHIFT |
@@ -236,11 +271,11 @@ static void bind_texture(rsxProgramAttrib *unit, u32 offset, u32 w, u32 h, u32 p
 	t.location = GCM_LOCATION_RSX;
 	t.pitch = pitch;
 	t.offset = offset;
-	rsxLoadTexture(ctx, unit->index, &t);
-	rsxTextureControl(ctx, unit->index, GCM_TRUE, 0 << 8, 12 << 8, GCM_TEXTURE_MAX_ANISO_1);
-	rsxTextureFilter(ctx, unit->index, 0, GCM_TEXTURE_LINEAR, GCM_TEXTURE_LINEAR, GCM_TEXTURE_CONVOLUTION_QUINCUNX);
-	rsxTextureWrapMode(ctx, unit->index, GCM_TEXTURE_CLAMP_TO_EDGE, GCM_TEXTURE_CLAMP_TO_EDGE, GCM_TEXTURE_CLAMP_TO_EDGE,
-	                   GCM_TEXTURE_UNSIGNED_REMAP_NORMAL, GCM_TEXTURE_ZFUNC_LESS, 0);
+	rsxLoadTexture(ctx, unit, &t);
+	rsxTextureControl(ctx, unit, GCM_TRUE, 0 << 8, 12 << 8, GCM_TEXTURE_MAX_ANISO_1);
+	TEX_FILTER(ctx, unit, GCM_TEXTURE_LINEAR, GCM_TEXTURE_LINEAR, GCM_TEXTURE_CONVOLUTION_QUINCUNX);
+	rsxTextureWrapMode(ctx, unit, GCM_TEXTURE_CLAMP_TO_EDGE, GCM_TEXTURE_CLAMP_TO_EDGE, GCM_TEXTURE_CLAMP_TO_EDGE,
+	                   0 /* unsigned remap: normal */, GCM_TEXTURE_ZFUNC_LESS, 0);
 }
 
 // Draws a quad covering UI rect (x,y,w,h) with texture coords (0,0)-(u1,v1).
@@ -252,8 +287,8 @@ static void quad(program_t *p, float x, float y, float w, float h, float u1, flo
 	const float uv[4][2] = { { 0, 0 }, { u1, 0 }, { u1, v1 }, { 0, v1 } };
 	rsxDrawVertexBegin(ctx, GCM_TYPE_QUADS);
 	for (int i = 0; i < 4; i++) {
-		rsxDrawVertex2f(ctx, p->tex->index, uv[i]);
-		rsxDrawVertex4f(ctx, p->pos->index, pos[i]);
+		VTX2(ctx, p->tex, uv[i]);
+		VTX4(ctx, p->pos, pos[i]);
 	}
 	rsxDrawVertexEnd(ctx);
 }
@@ -284,7 +319,7 @@ void gfx_frame(float vx, float vy, float vw_ui, float vh_ui, int show_video)
 	float offset[4] = { gfx_width * 0.5f, gfx_height * 0.5f, 0.5f, 0.0f };
 
 	rsxSetColorMask(ctx, GCM_COLOR_MASK_B | GCM_COLOR_MASK_G | GCM_COLOR_MASK_R | GCM_COLOR_MASK_A);
-	rsxSetColorMaskMrt(ctx, 0);
+	COLOR_MASK_MRT(ctx, 0);
 	rsxSetViewport(ctx, 0, 0, gfx_width, gfx_height, 0.0f, 1.0f, scale, offset);
 	rsxSetScissor(ctx, 0, 0, gfx_width, gfx_height);
 	rsxSetDepthTestEnable(ctx, GCM_FALSE);

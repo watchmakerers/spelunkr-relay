@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#pragma GCC diagnostic ignored "-Wunused-function"
 #define STB_TRUETYPE_IMPLEMENTATION
 #define STBTT_STATIC
 #include "stb_truetype.h"
