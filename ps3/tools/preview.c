@@ -11,6 +11,9 @@ static s64 fake_now_us;
 
 // --- stubs for what main.c / guide.c use from the hardware modules
 static u32 canvas_mem[1280 * 720];
+int ui_w = 1280, ui_h = 720;
+static int fake_4x3;
+int gfx_is_4x3(void) { return fake_4x3; }
 u32 *gfx_overlay_canvas(void) { return canvas_mem; }
 void gfx_overlay_commit(void) {}
 void gfx_frame(float a, float b, float c, float d, int e) { (void)a; (void)b; (void)c; (void)d; (void)e; }
@@ -26,6 +29,8 @@ void player_tune(const char *id) { (void)id; }
 void player_update(double dt) { (void)dt; }
 void player_status(player_status_t *o) { *o = fake_status; }
 int audio_start(void) { return 0; }
+void log_open(void) {}
+void logf_(const char *f, ...) { (void)f; }
 void audio_stop(void) {}
 
 #define main app_main
@@ -58,6 +63,9 @@ int main(int argc, char **argv)
 	fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
 	char *text = malloc(n + 1); fread(text, 1, n, f); text[n] = 0; fclose(f);
 	fake_now_us = 1000000;
+	fake_4x3 = argc > 6 && !strcmp(argv[6], "4x3");
+	if (fake_4x3) { ui_w = 720; ui_h = 540; }
+	L = fake_4x3 ? LAYOUT_4X3 : LAYOUT_HD;
 	if (ui_init(gfx_overlay_canvas()) != 0 || guide_parse(&guide, text) != 0) { fprintf(stderr, "init/parse failed\n"); return 1; }
 	printf("%d channels, tz %d\n", guide.nch, guide.tz_minutes);
 

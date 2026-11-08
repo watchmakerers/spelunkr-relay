@@ -5,9 +5,14 @@
 
 #include <ppu-types.h>
 
-// The UI is laid out on a 1280x720 canvas and scaled to whatever the TV runs at.
-#define UI_W 1280
-#define UI_H 720
+// The UI is laid out on a canvas scaled to whatever the TV runs at: 1280x720 on widescreen,
+// 720x540 on 4:3 sets (bigger text for SD/CRT). Fixed once gfx_init has run.
+extern int ui_w, ui_h;
+#define UI_W ui_w
+#define UI_H ui_h
+#define UI_MAX_W 1280
+#define UI_MAX_H 720
+int gfx_is_4x3(void);
 
 extern u32 gfx_width, gfx_height;
 extern float gfx_aspect; // display aspect ratio (16:9 or 4:3)

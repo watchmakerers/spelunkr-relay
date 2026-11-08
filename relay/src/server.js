@@ -1,7 +1,7 @@
 // Spelunkr PS3 relay: HTTP server + LAN discovery.
 //
 //   GET /ps3/guide?hours=4    channel guide, tab-separated text (format below)
-//   GET /ps3/seg/:channel?at=ms
+//   GET /ps3/seg/:channel?at=ms[&aspect=4x3]
 //                             MPEG-1/MP2 program stream of the entry on air at `at`
 //                             (default: now), from that moment to the entry's end
 //   GET /watch/:channel       continuous stream, segment after segment (for testing in mpv/VLC)
@@ -57,9 +57,10 @@ function guide(hours) {
   return lines.join('\n');
 }
 
-function context(id, entry) {
+function context(id, entry, aspect) {
   const ch = bc.get(id);
   return {
+    aspect,
     channel: ch?.meta,
     audioBase: bc.lineup?.audioBase || 'https://audio.spelunkr.tv/bumps/',
     upNext: entry.item.type === 'up-next' ? bc.nextShows(id, entry.endMs, 2) : [],
@@ -67,9 +68,9 @@ function context(id, entry) {
 }
 
 /** Streams the entry on air at `atMs` into `res`; on a source failure fills the slot with a card. */
-async function streamEntry(id, atMs, res, signal) {
+async function streamEntry(id, atMs, res, signal, aspect) {
   const entry = bc.at(id, atMs);
-  const ctx = context(id, entry);
+  const ctx = context(id, entry, aspect);
   const p = plan(entry, ctx);
   const t0 = Date.now();
   const r = await run(p, res, { signal, log });
@@ -77,7 +78,7 @@ async function streamEntry(id, atMs, res, signal) {
     // Fill whatever the slot still has. ffmpeg runs faster than real time, so this is
     // measured against the entry, not the wall clock (an error can come mid-stream).
     const left = entry.remaining - Math.min(entry.remaining, (Date.now() - t0) / 1000);
-    if (left > 1) await run(troublePlan(left, ctx.channel), res, { signal, log });
+    if (left > 1) await run(troublePlan(left, ctx.channel, aspect), res, { signal, log });
   }
   log.info(`[${id}] ${entry.item.type} "${entry.item.title || ''}" +${entry.offset}s sent ${(r.bytes / 1e6).toFixed(1)}MB in ${((Date.now() - t0) / 1000).toFixed(0)}s`);
   return entry;
@@ -110,7 +111,7 @@ const server = http.createServer(async (req, res) => {
         'x-seg-type': entry.item.type,
         'x-seg-title': encodeURIComponent(entry.item.title || ''),
       });
-      await streamEntry(id, at, res, abort.signal);
+      await streamEntry(id, at, res, abort.signal, url.searchParams.get('aspect'));
       return res.end();
     }
 
@@ -120,7 +121,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'content-type': 'video/mpeg', 'cache-control': 'no-store' });
       let at = Date.now();
       while (!abort.signal.aborted) {
-        const entry = await streamEntry(id, at, res, abort.signal);
+        const entry = await streamEntry(id, at, res, abort.signal, url.searchParams.get('aspect'));
         at = Math.max(entry.endMs, Date.now());
       }
       return res.end();

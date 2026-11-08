@@ -20,8 +20,9 @@
 #define TEX_FORMAT_8BIT     GCM_TEXTURE_FORMAT_L8
 #define COLOR_MASK_MRT(c,m) rsxSetColorMaskMRT(c, m)
 #define TEX_FILTER(c,u,mn,mg,cv) rsxTextureFilter(c, u, mn, mg, cv)
-#define VTX2(c,i,v)         rsxDrawVertex2f(c, i, (v)[0], (v)[1])
-#define VTX4(c,i,v)         rsxDrawVertex4f(c, i, (v)[0], (v)[1], (v)[2], (v)[3])
+#define BIND_ATTR(c,a,off,stride,n) rsxBindVertexArrayAttrib(c, a, off, stride, n, GCM_VERTEX_DATA_TYPE_F32, GCM_LOCATION_RSX)
+#define ZCONTROL(c)         rsxZControl(c, 0, 1, 1)
+#define INVALIDATE_VTX(c)   ((void)0)
 #define ATTR(p, name)       rsxVertexProgramGetAttrib(p, name)
 #define FATTR(p, name)      rsxFragmentProgramGetAttrib(p, name)
 #define RSX_INIT(ctx, cb, sz, host) ((*(ctx) = rsxInit(cb, sz, host)) ? 0 : -1)
@@ -36,8 +37,9 @@
 #define TEX_FORMAT_8BIT     GCM_TEXTURE_FORMAT_B8
 #define COLOR_MASK_MRT(c,m) rsxSetColorMaskMrt(c, m)
 #define TEX_FILTER(c,u,mn,mg,cv) rsxTextureFilter(c, u, 0, mn, mg, cv)
-#define VTX2(c,i,v)         rsxDrawVertex2f(c, i, v)
-#define VTX4(c,i,v)         rsxDrawVertex4f(c, i, v)
+#define BIND_ATTR(c,a,off,stride,n) rsxBindVertexArrayAttrib(c, a, 0, off, stride, n, GCM_VERTEX_DATA_TYPE_F32, GCM_LOCATION_RSX)
+#define ZCONTROL(c)         rsxSetZMinMaxControl(c, 0, 1, 1)
+#define INVALIDATE_VTX(c)   rsxInvalidateVertexCache(c)
 #define ATTR(p, name)       (rsxVertexProgramGetAttrib(p, name)->index)
 #define FATTR(p, name)      (rsxFragmentProgramGetAttrib(p, name)->index)
 #define RSX_INIT(ctx, cb, sz, host) rsxInit(ctx, cb, sz, host)
@@ -56,6 +58,15 @@
 #define MAX_VH         576
 
 u32 gfx_width, gfx_height;
+int ui_w = 1280, ui_h = 720;
+
+// Quads are drawn from a ring of vertex slots in RSX memory, so a slot is never rewritten
+// while a frame still in flight reads it.
+typedef struct { f32 x, y, z, w, u, v; } vtx_t;
+#define VSLOTS 64
+static vtx_t *vbuf;
+static u32 vbuf_off;
+static u32 vslot;
 float gfx_aspect = 16.0f / 9.0f;
 
 static gcmContextData *ctx;
@@ -145,7 +156,8 @@ static int configure_video(void)
 	gfx_aspect = st.displayMode.aspect == VIDEO_ASPECT_4_3 ? 4.0f / 3.0f : 16.0f / 9.0f;
 	gfx_width = res.width;
 	gfx_height = res.height;
-	LOG("video configured %ux%u", gfx_width, gfx_height);
+	if (gfx_is_4x3()) { ui_w = 720; ui_h = 540; }
+	LOG("video configured %ux%u, aspect %s, ui %dx%d", gfx_width, gfx_height, gfx_is_4x3() ? "4:3" : "16:9", ui_w, ui_h);
 	return 0;
 }
 
@@ -191,12 +203,15 @@ int gfx_init(void)
 		rsxAddressToOffset(vsets[i].y, &vsets[i].oy);
 		rsxAddressToOffset(vsets[i].cb, &vsets[i].ocb);
 		rsxAddressToOffset(vsets[i].cr, &vsets[i].ocr);
-		otex[i] = rsxMemalign(128, UI_W * UI_H * 4);
+		otex[i] = rsxMemalign(128, UI_MAX_W * UI_MAX_H * 4);
 		rsxAddressToOffset(otex[i], &ooff[i]);
 	}
-	canvas = memalign(128, UI_W * UI_H * 4);
-	memset(canvas, 0, UI_W * UI_H * 4);
+	canvas = memalign(128, UI_MAX_W * UI_MAX_H * 4);
 	if (!canvas || !vsets[1].cr || !otex[1]) return -1;
+	memset(canvas, 0, UI_MAX_W * UI_MAX_H * 4);
+	vbuf = rsxMemalign(128, VSLOTS * 4 * sizeof(vtx_t));
+	if (!vbuf) return -1;
+	rsxAddressToOffset(vbuf, &vbuf_off);
 
 	set_render_target(cur_fb);
 	return 0;
@@ -224,6 +239,8 @@ void gfx_video_upload(const u8 *y, u32 ystride, const u8 *cb, const u8 *cr, u32 
 }
 
 void gfx_video_clear(void) { vset_cur = -1; }
+
+int gfx_is_4x3(void) { return gfx_aspect < 1.5f; }
 
 u32 *gfx_overlay_canvas(void) { return canvas; }
 
@@ -281,14 +298,17 @@ static void quad(program_t *p, float x, float y, float w, float h, float u1, flo
 {
 	float x0 = x / UI_W * 2.0f - 1.0f, x1 = (x + w) / UI_W * 2.0f - 1.0f;
 	float y0 = 1.0f - y / UI_H * 2.0f, y1 = 1.0f - (y + h) / UI_H * 2.0f;
-	const float pos[4][4] = { { x0, y0, 0, 1 }, { x1, y0, 0, 1 }, { x1, y1, 0, 1 }, { x0, y1, 0, 1 } };
-	const float uv[4][2] = { { 0, 0 }, { u1, 0 }, { u1, v1 }, { 0, v1 } };
-	rsxDrawVertexBegin(ctx, GCM_TYPE_QUADS);
-	for (int i = 0; i < 4; i++) {
-		VTX2(ctx, p->tex, uv[i]);
-		VTX4(ctx, p->pos, pos[i]);
-	}
-	rsxDrawVertexEnd(ctx);
+	vtx_t *v = vbuf + vslot * 4;
+	u32 off = vbuf_off + vslot * 4 * sizeof(vtx_t);
+	vslot = (vslot + 1) % VSLOTS;
+	v[0] = (vtx_t){ x0, y0, 0, 1, 0, 0 };
+	v[1] = (vtx_t){ x1, y0, 0, 1, u1, 0 };
+	v[2] = (vtx_t){ x1, y1, 0, 1, u1, v1 };
+	v[3] = (vtx_t){ x0, y1, 0, 1, 0, v1 };
+	BIND_ATTR(ctx, p->pos, off, sizeof(vtx_t), 4);
+	BIND_ATTR(ctx, p->tex, off + 4 * sizeof(f32), sizeof(vtx_t), 2);
+	INVALIDATE_VTX(ctx);
+	rsxDrawVertexArray(ctx, GCM_TYPE_QUADS, 0, 4);
 }
 
 static void use_program(program_t *p)
@@ -322,15 +342,18 @@ void gfx_frame(float vx, float vy, float vw_ui, float vh_ui, int show_video)
 	rsxSetScissor(ctx, 0, 0, gfx_width, gfx_height);
 	rsxSetDepthTestEnable(ctx, GCM_FALSE);
 	rsxSetCullFaceEnable(ctx, GCM_FALSE);
+	ZCONTROL(ctx);
+	for (int i = 0; i < 8; i++) rsxSetViewportClip(ctx, i, gfx_width, gfx_height);
+	rsxSetUserClipPlaneControl(ctx, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE,
+	                           GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE, GCM_USER_CLIP_PLANE_DISABLE);
 	rsxSetClearColor(ctx, 0xff000000);
 	rsxClearSurface(ctx, GCM_CLEAR_R | GCM_CLEAR_G | GCM_CLEAR_B | GCM_CLEAR_A);
 	rsxInvalidateTextureCache(ctx, GCM_INVALIDATE_TEXTURE);
 
 	if (show_video && vset_cur >= 0 && vw && vh) {
-		// Fit the frame into the rect keeping its shape. UI units are square pixels on a
-		// 16:9 screen; correct for 4:3 displays.
+		// Fit the frame into the rect keeping its shape (UI units are square on screen).
 		float frame_aspect = (float)vw / (float)vh;
-		float rect_aspect = (vw_ui / vh_ui) * (gfx_aspect / (16.0f / 9.0f));
+		float rect_aspect = (vw_ui / vh_ui) * (gfx_aspect / ((float)UI_W / UI_H));
 		float w = vw_ui, h = vh_ui;
 		if (frame_aspect > rect_aspect) h = vh_ui * rect_aspect / frame_aspect;
 		else w = vw_ui * frame_aspect / rect_aspect;

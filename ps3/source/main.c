@@ -36,23 +36,59 @@ SYS_PROCESS_PARAM(1001, 0x100000);
 #define C_SLATE  0x8899cc
 #define C_ORANGE 0xd2500c
 
-#define MARGIN_X 48
-#define MARGIN_Y 32
-
-#define GRID_X     304
-#define GRID_W     (UI_W - MARGIN_X - GRID_X)
-#define GRID_Y     308
-#define GRID_HEAD  32
-#define ROW_H      56
-#define ROWS       6
-#define WINDOW_MIN 90
 #define GUIDE_HOURS 4
 #define GUIDE_REFRESH_US (5 * 60 * 1000000LL)
 
-#define PIP_X 912
-#define PIP_Y 112
-#define PIP_W 320
-#define PIP_H 180
+// Screen layout, picked once the display is known: widescreen HD, or 4:3 (SD/CRT) with
+// bigger text, wider overscan margins, a shorter guide window and a 4:3 preview.
+typedef struct {
+	int mx, my;
+	int f_brand, f_tag, f_clock, info_y;
+	int pip_x, pip_y, pip_w, pip_h;
+	int logo_px, f_name, f_title, title_lh, f_meta, f_desc, desc_lh, desc_y;
+	int grid_x, grid_y, grid_head, row_h, rows, window_min;
+	int f_head, f_cell, f_dial, f_chname, row_logo_x, f_hint;
+	int ban_h, ban_logo_px, f_ban_dial, f_ban_name, f_ban_title, f_ban_meta, ban_bar_w, ban_meta_below;
+	int f_msg_title, f_msg_body;
+} layout_t;
+
+static const layout_t LAYOUT_HD = {
+	48, 32,
+	40, 16, 30, 112,
+	912, 112, 320, 180,
+	2, 28, 22, 28, 18, 16, 22, 252,
+	304, 308, 32, 56, 6, 90,
+	18, 18, 22, 16, 56, 16,
+	136, 3, 34, 26, 22, 18, 360, 0,
+	34, 22,
+};
+
+static const layout_t LAYOUT_4X3 = {
+	40, 30,
+	30, 0, 24, 80,
+	500, 80, 180, 135,
+	2, 22, 18, 22, 15, 14, 18, 176,
+	124, 226, 26, 50, 5, 60,
+	15, 15, 18, 0, 46, 0,
+	108, 2, 26, 20, 17, 14, 220, 1,
+	24, 16,
+};
+
+static layout_t L;
+
+#define MARGIN_X   (L.mx)
+#define MARGIN_Y   (L.my)
+#define GRID_X     (L.grid_x)
+#define GRID_W     (UI_W - MARGIN_X - GRID_X)
+#define GRID_Y     (L.grid_y)
+#define GRID_HEAD  (L.grid_head)
+#define ROW_H      (L.row_h)
+#define ROWS       (L.rows)
+#define WINDOW_MIN (L.window_min)
+#define PIP_X      (L.pip_x)
+#define PIP_Y      (L.pip_y)
+#define PIP_W      (L.pip_w)
+#define PIP_H      (L.pip_h)
 
 typedef enum { MODE_CONNECT, MODE_NORELAY, MODE_WATCH, MODE_GUIDE } mode_t_;
 
@@ -149,80 +185,86 @@ static void dial_label(const channel_t *c, char *out, int len)
 
 static void draw_header(void)
 {
-	ui_text(MARGIN_X, MARGIN_Y, 40, RGB(C_GOLD), "SPELUNKR", 0);
-	ui_text(MARGIN_X + 2, MARGIN_Y + 48, 16, RGB(C_SLATE), "CABLE TV, BUT WEIRDER", 0);
+	ui_text(MARGIN_X, MARGIN_Y, L.f_brand, RGB(C_GOLD), "SPELUNKR", 0);
+	if (L.f_tag) ui_text(MARGIN_X + 2, MARGIN_Y + L.f_brand + 8, L.f_tag, RGB(C_SLATE), "CABLE TV, BUT WEIRDER", 0);
 	char clk[16];
 	format_clock(clock_ms(), guide.tz_minutes, clk, sizeof(clk));
-	int w = ui_text_width(30, clk);
-	ui_text(UI_W - MARGIN_X - w, MARGIN_Y + 6, 30, RGB(C_PAPER), clk, 0);
+	int w = ui_text_width(L.f_clock, clk);
+	ui_text(UI_W - MARGIN_X - w, MARGIN_Y + (L.f_brand - L.f_clock) / 2, L.f_clock, RGB(C_PAPER), clk, 0);
 }
 
 static void draw_center_message(const char *title, const char *body)
 {
 	ui_clear(RGB(C_PURPLE));
 	draw_header();
-	int w = ui_text_width(34, title);
-	ui_text((UI_W - w) / 2, 270, 34, RGB(C_GOLD), title, 0);
-	ui_text_wrap(UI_W / 2 - 420, 330, 22, 32, RGB(C_PAPER), body, 840, 6);
+	int w = ui_text_width(L.f_msg_title, title);
+	ui_text((UI_W - w) / 2, UI_H * 3 / 8, L.f_msg_title, RGB(C_GOLD), title, 0);
+	ui_text_wrap(MARGIN_X + 20, UI_H * 3 / 8 + L.f_msg_title * 2, L.f_msg_body, L.f_msg_body * 3 / 2, RGB(C_PAPER), body,
+	             UI_W - 2 * MARGIN_X - 40, 7);
 }
 
 static void draw_tuning_card(const channel_t *c, const char *what)
 {
 	// Shown over black while a channel starts (the relay is seeking into the tape).
+	int px = UI_H >= 720 ? 4 : 3;
 	ui_clear(0);
-	ui_logo(UI_W / 2 - 64, 200, 4, c);
+	ui_logo(UI_W / 2 - 16 * px, UI_H * 2 / 7, px, c);
 	char line[96];
 	snprintf(line, sizeof(line), "%s %s", what, c->name);
-	int w = ui_text_width(28, line);
-	ui_text((UI_W - w) / 2, 360, 28, RGB(C_PAPER), line, 0);
+	int w = ui_text_width(L.f_msg_body + 6, line);
+	ui_text((UI_W - w) / 2, UI_H / 2, L.f_msg_body + 6, RGB(C_PAPER), line, 0);
 }
 
 static void draw_banner(const channel_t *c, const player_status_t *ps)
 {
-	int x = MARGIN_X, y = 552, w = UI_W - 2 * MARGIN_X, h = 136;
+	int x = MARGIN_X, h = L.ban_h, y = UI_H - MARGIN_Y - h, w = UI_W - 2 * MARGIN_X;
+	int pad = h / 6;
 	ui_rect(x, y, w, h, ARGB(235, C_INK));
-	ui_rect(x, y, 8, h, RGB(c->color));
-	ui_logo(x + 28, y + 20, 3, c);
+	ui_rect(x, y, 6, h, RGB(c->color));
+	int logo = 32 * L.ban_logo_px;
+	ui_logo(x + pad + 6, y + (h - logo) / 2, L.ban_logo_px, c);
 
 	char dial[16];
 	dial_label(c, dial, sizeof(dial));
-	int tx = x + 148;
-	int dw = ui_text(tx, y + 14, 34, RGB(C_GOLD), dial, 0);
-	ui_text(tx + dw + (dw ? 16 : 0), y + 20, 26, RGB(C_PAPER), c->name, 0);
-
+	int tx = x + pad + 6 + logo + pad, right = x + w - pad;
+	int dw = ui_text(tx, y + pad - 4, L.f_ban_dial, RGB(C_GOLD), dial, 0);
 	s64 now = clock_ms();
-	const show_t *s = guide_show_at(c, now);
 	char clk[16];
 	format_clock(now, guide.tz_minutes, clk, sizeof(clk));
-	int cw = ui_text_width(24, clk);
-	ui_text(x + w - 24 - cw, y + 18, 24, RGB(C_PAPER), clk, 0);
+	int cw = ui_text_width(L.f_ban_name, clk);
+	ui_text(right - cw, y + pad, L.f_ban_name, RGB(C_PAPER), clk, 0);
+	int nx = tx + dw + (dw ? 12 : 0);
+	ui_text(nx, y + pad + (L.f_ban_dial - L.f_ban_name) / 2 - 2, L.f_ban_name, RGB(C_PAPER), c->name, right - cw - 12 - nx);
 
-	if (s) {
-		const char *tag = NULL;
-		if (!strcmp(ps->type, "bump-break")) tag = "STATION BREAK";
-		else if (!strcmp(ps->type, "ad")) tag = "COMMERCIAL";
-		else if (!strcmp(ps->type, "up-next")) tag = "UP NEXT";
-		int tagw = 0;
-		if (tag) tagw = ui_text(tx, y + 62, 18, RGB(C_ORANGE), tag, 0) + 16;
-		ui_text(tx + tagw, y + 60, 22, RGB(C_PAPER), s->title, x + w - 24 - tx - tagw);
-		// Progress through the show.
-		int bx = tx, by = y + 98, bw = 360;
-		float p = (float)(now - s->start) / (float)(s->end - s->start);
-		if (p < 0) p = 0;
-		if (p > 1) p = 1;
-		ui_rect(bx, by, bw, 8, RGB(C_NAVY));
-		ui_rect(bx, by, (int)(bw * p), 8, RGB(C_GOLD));
-		char tr[48];
-		time_range(s, tr, sizeof(tr));
-		ui_text(bx + bw + 16, by - 8, 18, RGB(C_SLATE), tr, 0);
-		const show_t *next = s + 1 < c->shows + c->nshows ? s + 1 : NULL;
-		if (next) {
-			char nx[160], t[16];
-			format_clock(next->start, guide.tz_minutes, t, sizeof(t));
-			snprintf(nx, sizeof(nx), "NEXT %s  %s", t, next->title);
-			int nxx = bx + bw + 16 + ui_text_width(18, tr) + 32;
-			ui_text(nxx, by - 8, 18, RGB(C_SLATE), nx, x + w - 24 - nxx);
-		}
+	const show_t *s = guide_show_at(c, now);
+	if (!s) return;
+	const char *tag = NULL;
+	if (!strcmp(ps->type, "bump-break")) tag = "STATION BREAK";
+	else if (!strcmp(ps->type, "ad")) tag = "COMMERCIAL";
+	else if (!strcmp(ps->type, "up-next")) tag = "UP NEXT";
+	int ty = y + pad + L.f_ban_dial + 6;
+	int tagw = tag ? ui_text(tx, ty + 2, L.f_ban_meta, RGB(C_ORANGE), tag, 0) + 12 : 0;
+	ui_text(tx + tagw, ty, L.f_ban_title, RGB(C_PAPER), s->title, right - tx - tagw);
+
+	// Progress through the show, with its times beside it (or below on 4:3).
+	int by = ty + L.f_ban_title + 12;
+	float p = (float)(now - s->start) / (float)(s->end - s->start);
+	if (p < 0) p = 0;
+	if (p > 1) p = 1;
+	ui_rect(tx, by, L.ban_bar_w, 6, RGB(C_NAVY));
+	ui_rect(tx, by, (int)(L.ban_bar_w * p), 6, RGB(C_GOLD));
+	char tr[48];
+	time_range(s, tr, sizeof(tr));
+	int mx = L.ban_meta_below ? tx + L.ban_bar_w + 12 : tx + L.ban_bar_w + 16;
+	int my = by - L.f_ban_meta / 2 + 2;
+	int trw = ui_text(mx, my, L.f_ban_meta, RGB(C_SLATE), tr, right - mx);
+	const show_t *next = s + 1 < c->shows + c->nshows ? s + 1 : NULL;
+	if (next && !L.ban_meta_below) {
+		char nxt[160], t[16];
+		format_clock(next->start, guide.tz_minutes, t, sizeof(t));
+		snprintf(nxt, sizeof(nxt), "NEXT %s  %s", t, next->title);
+		int nxx = mx + trw + 28;
+		ui_text(nxx, my, L.f_ban_meta, RGB(C_SLATE), nxt, right - nxx);
 	}
 }
 
@@ -239,7 +281,7 @@ static s64 window_start(void)
 static void draw_guide(void)
 {
 	ui_clear(ARGB(240, C_PURPLE));
-	ui_rect(PIP_X - 4, PIP_Y - 4, PIP_W + 8, PIP_H + 8, RGB(C_GOLD));
+	ui_rect(PIP_X - 3, PIP_Y - 3, PIP_W + 6, PIP_H + 6, RGB(C_GOLD));
 	ui_clear_rect(PIP_X, PIP_Y, PIP_W, PIP_H);  // hole: the live channel shows through here
 	draw_header();
 	if (!guide.nch) return;
@@ -249,21 +291,23 @@ static void draw_guide(void)
 	const show_t *focus = show_at(sc, focus_ms);
 
 	// Info panel for the focused show.
-	ui_logo(MARGIN_X, 116, 2, sc);
+	int logo = 32 * L.logo_px, tx = MARGIN_X + logo + 14, tw = PIP_X - 16 - tx;
+	ui_logo(MARGIN_X, L.info_y + 4, L.logo_px, sc);
 	char dial[16], head[96];
 	dial_label(sc, dial, sizeof(dial));
 	snprintf(head, sizeof(head), "%s%s%s", dial, dial[0] ? "  " : "", sc->name);
-	ui_text(MARGIN_X + 80, 120, 28, RGB(C_GOLD), head, PIP_X - 32 - MARGIN_X - 80);
+	ui_text(tx, L.info_y, L.f_name, RGB(C_GOLD), head, tw);
 	if (focus) {
-		int lines = ui_text_wrap(MARGIN_X + 80, 160, 22, 28, RGB(C_PAPER), focus->title, PIP_X - 32 - MARGIN_X - 80, 2);
+		int ty = L.info_y + L.f_name + 12;
+		int lines = ui_text_wrap(tx, ty, L.f_title, L.title_lh, RGB(C_PAPER), focus->title, tw, 2);
 		char tr[48];
 		time_range(focus, tr, sizeof(tr));
 		int on_now = focus->start <= now && now < focus->end;
-		int ty = 160 + lines * 28 + 6;
-		int tw = ui_text(MARGIN_X + 80, ty, 18, RGB(on_now ? C_ORANGE : C_SLATE), on_now ? "ON NOW" : "LATER", 0);
-		ui_text(MARGIN_X + 80 + tw + 16, ty, 18, RGB(C_SLATE), tr, 0);
+		int my = ty + lines * L.title_lh + 4;
+		int w = ui_text(tx, my, L.f_meta, RGB(on_now ? C_ORANGE : C_SLATE), on_now ? "ON NOW" : "LATER", 0);
+		ui_text(tx + w + 12, my, L.f_meta, RGB(C_SLATE), tr, tw - w - 12);
 	}
-	ui_text_wrap(MARGIN_X, 252, 16, 22, RGB(C_SLATE), sc->desc, PIP_X - 32 - MARGIN_X, 2);
+	ui_text_wrap(MARGIN_X, L.desc_y, L.f_desc, L.desc_lh, RGB(C_SLATE), sc->desc, PIP_X - 16 - MARGIN_X, 2);
 
 	// Time header.
 	s64 ws = window_start(), we = ws + WINDOW_MIN * 60 * 1000LL;
@@ -272,9 +316,9 @@ static void draw_guide(void)
 	for (int k = 0; k < WINDOW_MIN / 30; k++) {
 		char t[16];
 		format_clock(ws + k * 30 * 60 * 1000LL, guide.tz_minutes, t, sizeof(t));
-		ui_text(GRID_X + 8 + (int)(k * 30 * 60 * 1000LL * ppm), GRID_Y + 6, 18, RGB(C_PAPER), t, 0);
+		ui_text(GRID_X + 8 + (int)(k * 30 * 60 * 1000LL * ppm), GRID_Y + (GRID_HEAD - L.f_head) / 2 - 2, L.f_head, RGB(C_PAPER), t, 0);
 	}
-	ui_text(MARGIN_X + 8, GRID_Y + 6, 18, RGB(C_GOLD), "CHANNEL", 0);
+	if (L.f_chname) ui_text(MARGIN_X + 8, GRID_Y + (GRID_HEAD - L.f_head) / 2 - 2, L.f_head, RGB(C_GOLD), "CHANNEL", 0);
 
 	for (int r = 0; r < ROWS && top_row + r < guide.nch; r++) {
 		int ci = top_row + r;
@@ -283,12 +327,14 @@ static void draw_guide(void)
 		int selected = ci == sel_row;
 
 		ui_rect(MARGIN_X, y + 2, GRID_X - MARGIN_X - 4, ROW_H - 4, RGB(selected ? C_NAVY : C_INK));
-		if (ci == watching) ui_rect(MARGIN_X, y + 2, 6, ROW_H - 4, RGB(C_ORANGE));
+		if (ci == watching) ui_rect(MARGIN_X, y + 2, 5, ROW_H - 4, RGB(C_ORANGE));
 		char d[16];
 		dial_label(c, d, sizeof(d));
-		ui_text(MARGIN_X + 14, y + 14, 22, RGB(C_GOLD), d, 0);
-		ui_logo(MARGIN_X + 56, y + 12, 1, c);
-		ui_text(MARGIN_X + 96, y + 18, 16, RGB(C_PAPER), c->name, GRID_X - MARGIN_X - 104);
+		ui_text(MARGIN_X + 10, y + (ROW_H - L.f_dial) / 2 - 2, L.f_dial, RGB(C_GOLD), d, 0);
+		ui_logo(MARGIN_X + L.row_logo_x, y + (ROW_H - 32) / 2, 1, c);
+		if (L.f_chname)
+			ui_text(MARGIN_X + L.row_logo_x + 40, y + (ROW_H - L.f_chname) / 2 - 2, L.f_chname, RGB(C_PAPER), c->name,
+			        GRID_X - MARGIN_X - L.row_logo_x - 48);
 
 		for (int k = 0; k < c->nshows; k++) {
 			show_t *s = &c->shows[k];
@@ -301,14 +347,15 @@ static void draw_guide(void)
 			ui_rect(x0 + 2, y + 2, x1 - x0 - 4, ROW_H - 4, bg);
 			char label[128];
 			snprintf(label, sizeof(label), "%s%s", s->start < ws ? "< " : "", s->title);
-			ui_text(x0 + 10, y + 17, 18, RGB(focused ? C_INK : C_PAPER), label, x1 - x0 - 20);
+			ui_text(x0 + 8, y + (ROW_H - L.f_cell) / 2 - 2, L.f_cell, RGB(focused ? C_INK : C_PAPER), label, x1 - x0 - 16);
 		}
 	}
 	// Now line.
 	if (now >= ws && now < we) ui_rect(GRID_X + (int)((now - ws) * ppm) - 1, GRID_Y, 3, GRID_HEAD + ROWS * ROW_H, RGB(C_ORANGE));
 
-	ui_text(MARGIN_X, UI_H - 30, 16, RGB(C_SLATE),
-	        "X WATCH     LEFT/RIGHT SHOWS     L1/R1 PAGE     TRIANGLE CLOSE", 0);
+	if (L.f_hint)
+		ui_text(MARGIN_X, UI_H - MARGIN_Y + 2, L.f_hint, RGB(C_SLATE),
+		        "X WATCH     LEFT/RIGHT SHOWS     L1/R1 PAGE     TRIANGLE CLOSE", 0);
 }
 
 static void render_overlay(void)
@@ -335,7 +382,7 @@ static void render_overlay(void)
 			draw_tuning_card(c, "TUNING TO");
 		}
 		if (now_us() < banner_until_us || ps.state == PLAYER_BUFFERING) draw_banner(c, &ps);
-		if (ps.state == PLAYER_BUFFERING) ui_text(UI_W - MARGIN_X - 170, MARGIN_Y, 22, RGB(C_GOLD), "BUFFERING...", 0);
+		if (ps.state == PLAYER_BUFFERING) ui_text(UI_W - MARGIN_X - ui_text_width(L.f_ban_name, "BUFFERING..."), MARGIN_Y, L.f_ban_name, RGB(C_GOLD), "BUFFERING...", 0);
 		break;
 	}
 	case MODE_GUIDE:
@@ -468,6 +515,7 @@ int main(int argc, char *argv[])
 	log_open();
 	LOG("SPELUNKR starting");
 	if (gfx_init() != 0) { LOG("gfx_init failed"); return 1; }
+	L = gfx_is_4x3() ? LAYOUT_4X3 : LAYOUT_HD;
 	if (ui_init(gfx_overlay_canvas()) != 0) { LOG("ui_init failed"); return 1; }
 	LOG("graphics ready");
 	ioPadInit(7);

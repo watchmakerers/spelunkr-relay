@@ -102,7 +102,7 @@ static void net_thread(void *arg)
 		if (!id[0] || full) { usleep(20000); continue; }
 
 		char path[160];
-		snprintf(path, sizeof(path), "/ps3/seg/%s?at=%lld", id, (long long)at);
+		snprintf(path, sizeof(path), "/ps3/seg/%s?at=%lld%s", id, (long long)at, gfx_is_4x3() ? "&aspect=4x3" : "");
 		http_t h;
 		if (http_open(&h, host, port, path) != 0 || h.status != 200) {
 			if (h.sock >= 0) http_close(&h);

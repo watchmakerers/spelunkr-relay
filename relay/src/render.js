@@ -12,7 +12,9 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-export const OUT = { w: 848, h: 480, fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
+export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
+// Frame sizes: widescreen by default, 4:3 for SD sets (the PS3 asks with ?aspect=4x3).
+export const SIZES = { '16x9': { w: 848, h: 480 }, '4x3': { w: 640, h: 480 } };
 const ARCHIVE = 'https://archive.org/download/';
 const UA = 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)';
 
@@ -53,17 +55,19 @@ const clock = ms => new Date(ms).toLocaleTimeString('en-US', { hour: 'numeric', 
  * `ctx`: { channel (lineup meta), audioBase, upNext: [entries] }.
  */
 export function plan(entry, ctx) {
+  const size = SIZES[ctx.aspect] || SIZES['16x9'];
+  const wrapAt = Math.round(28 * size.w / 848);
   const it = entry.item;
   const offset = Math.max(0, entry.offsetExact);
   const duration = Math.max(0.5, entry.remaining);
 
   if (it.type === 'video') {
     const file = it.file || it.mp4;
-    return { kind: 'source', url: archiveUrl(it.id, file), seek: (it.inS || 0) + offset, duration };
+    return { kind: 'source', size, url: archiveUrl(it.id, file), seek: (it.inS || 0) + offset, duration };
   }
   if (it.type === 'ad' && it.slice) {
     const s = it.slice;
-    return { kind: 'source', url: archiveUrl(s.tape, s.file), seek: (s.inMs || 0) / 1000 + offset, duration, gainDb: s.gainDb };
+    return { kind: 'source', size, url: archiveUrl(s.tape, s.file), seek: (s.inMs || 0) / 1000 + offset, duration, gainDb: s.gainDb };
   }
 
   const name = (ctx.channel?.name || '').toUpperCase();
@@ -73,7 +77,7 @@ export function plan(entry, ctx) {
   const audio = [];
   let t = 0;
   const push = (text, ms, size = 40) => { texts.push({ text, from: t / 1000, to: (t + ms) / 1000, size }); t += ms; };
-  const slides = (bump, ms0) => { for (const s of bump?.slides || []) push(wrap(s.text, 28), slideMs(s.text)); return t - ms0; };
+  const slides = (bump, ms0) => { for (const s of bump?.slides || []) push(wrap(s.text, wrapAt), slideMs(s.text)); return t - ms0; };
 
   if (it.type === 'bump-break') {
     if (it.half !== 'close') {
@@ -96,13 +100,13 @@ export function plan(entry, ctx) {
   } else {
     texts.push({ text: name || 'SPELUNKR', from: 0, to: total / 1000, size: 48 });
   }
-  return { kind: 'card', color, texts, audio, cardSeconds: total / 1000, seek: offset, duration };
+  return { kind: 'card', size, color, texts, audio, cardSeconds: total / 1000, seek: offset, duration };
 }
 
 /** A card shown when a source can't be played, for whatever time the slot has left. */
-export function troublePlan(duration, channel) {
+export function troublePlan(duration, channel, aspect) {
   return {
-    kind: 'card', color: '#1C0A57', audio: [], cardSeconds: duration, seek: 0, duration,
+    kind: 'card', size: SIZES[aspect] || SIZES['16x9'], color: '#1C0A57', audio: [], cardSeconds: duration, seek: 0, duration,
     texts: [{ text: 'WE ARE EXPERIENCING\nTECHNICAL DIFFICULTIES', from: 0, to: duration, size: 40, y: 0.42 },
       { text: (channel?.name || 'SPELUNKR').toUpperCase() + ' WILL RETURN SHORTLY', from: 0, to: duration, size: 24, y: 0.65 }],
   };
@@ -119,7 +123,9 @@ const httpIn = url => ['-user_agent', UA, '-reconnect', '1', '-reconnect_on_netw
 /** Builds ffmpeg arguments for a plan. Returns { args, cleanup }. */
 export function ffmpegArgs(p) {
   const base = ['-hide_banner', '-loglevel', 'error', '-nostdin'];
-  const { w, h, fps } = OUT;
+  const { w, h } = p.size || SIZES['16x9'];
+  const { fps } = OUT;
+  const k = w / 848; // card text scales with frame width
   if (p.kind === 'source') {
     const af = ['aresample=async=1:first_pts=0'];
     if (Number.isFinite(p.gainDb) && p.gainDb) af.push(`volume=${p.gainDb}dB`);
@@ -139,7 +145,7 @@ export function ffmpegArgs(p) {
     const file = path.join(dir, `t${i}.txt`);
     fs.writeFileSync(file, t.text);
     const y = t.y != null ? `h*${t.y}-text_h/2` : '(h-text_h)/2';
-    return `drawtext=fontfile='${fontfile}':textfile='${file}':fontsize=${t.size}:fontcolor=0xe8eaf0:` +
+    return `drawtext=fontfile='${fontfile}':textfile='${file}':fontsize=${Math.round(t.size * k)}:fontcolor=0xe8eaf0:` +
       `line_spacing=10:x=(w-text_w)/2:y=${y}:text_align=C:enable='between(t,${t.from.toFixed(3)},${t.to.toFixed(3)})'`;
   });
   const band = `drawbox=x=0:y=ih-36:w=iw:h=36:color=${p.color}:t=fill`;
