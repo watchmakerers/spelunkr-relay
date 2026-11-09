@@ -5,6 +5,10 @@
 #include "guide.h"
 #include "net.h"
 
+#ifdef _MSC_VER
+#define strtok_r strtok_s   // same function, Microsoft's name
+#endif
+
 static s64 sync_relay_ms, sync_us;
 static int synced;
 
