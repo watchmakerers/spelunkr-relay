@@ -23,6 +23,12 @@ const UA = 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)';
 const SLIDE_MIN = 2500, SLIDE_BASE = 1500, SLIDE_PER_CHAR = 55, IDENT = 3500, GAP = 1000, TAIL = 1000, BETWEEN = 300;
 const slideMs = text => Math.max(SLIDE_MIN, SLIDE_BASE + text.length * SLIDE_PER_CHAR);
 
+/** How long a station-break half lasts as plan() draws it (relay-only channels schedule with this). */
+export function breakHalfMs(half, slides) {
+  const body = (slides || []).reduce((t, s) => t + slideMs(s.text), 0) + GAP + TAIL;
+  return half === 'open' ? IDENT + body : body;
+}
+
 let FONT = process.env.SPELUNKR_FONT || null;
 export function font() {
   if (FONT) return FONT;

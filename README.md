@@ -43,11 +43,16 @@ Install `ps3/spelunkr.pkg` with Package Manager (HEN/CFW). It appears in the XMB
 
 Besides Spelunkr's lineup, the relay can run channels of its own (`relay/src/custom.js`).
 Each loops a list of archive.org videos on a clock-anchored, seeded-shuffle schedule, so
-every viewer sees the same thing at the same time, just like the real channels.
+every viewer sees the same thing at the same time, just like the real channels. Between
+episodes they run Spelunkr-style breaks: a station break with the channel's own slides,
+2-3 commercials, a station break with Spelunkr's slides (`channels/spelunkr-platform.json`,
+a snapshot of the site's), and an "up next" card.
 
 - **Channel 4 - X-Play**: G4's X-Play, 161 full episodes from 2008-2012 (~59 hours per
   cycle). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
-  `node tools/build-xplay.js` (in `relay/`) to pick up newly uploaded episodes.
+  `node tools/build-xplay.js` (in `relay/`) to pick up newly uploaded episodes. Its breaks
+  play video game commercials from archive.org (`channels/gameads.json`, built by
+  `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`).
 
 ## Controls
 

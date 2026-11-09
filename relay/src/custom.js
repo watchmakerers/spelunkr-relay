@@ -2,15 +2,24 @@
 //
 // A custom channel loops a fixed list of archive.org videos on a clock-anchored cycle, so
 // like the real channels every viewer (and every PS3) sees the same thing at the same time.
-// The order is shuffled once with a fixed seed, so reruns come round in a TV-like order
-// rather than strictly by date. Entries have the same shape as the Spelunkr engine's.
+// Between episodes it runs a Spelunkr-style break:
+//
+//   episode -> station break (channel ident + channel slides, over music)
+//           -> 2-3 commercials -> station break (Spelunkr slides) -> "up next" card -> episode
+//
+// The whole cycle (episode order, which slides, songs and ads) is laid out once from a
+// fixed seed, so it is identical on every relay and every run. Entries have the same shape
+// as the Spelunkr engine's, so render.js draws the breaks exactly like the real channels.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { breakHalfMs } from './render.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ANCHOR_MS = Date.UTC(2026, 0, 1); // the cycle starts here; any fixed date works
+const UP_NEXT_MS = 8000;
+const read = f => JSON.parse(fs.readFileSync(path.join(HERE, f), 'utf8'));
 
 // 32x32 logomark in the site's pixel-logo letters: c = channel colour, d = its shade,
 // p = white, k = near-black, g = gold. A chunky "X" with a gold underline.
@@ -33,34 +42,67 @@ const X_LOGO = (() => {
   return { type: 'pixel', rows };
 })();
 
-const DEFINITIONS = [
+export const DEFINITIONS = [
   {
     id: 'relay-xplay', dial: 4, name: 'X-Play', color: '#d2232a',
-    description: "G4's X-Play, around the clock: reviews, previews and sketches, 2008-2012.",
-    logomark: X_LOGO, episodes: 'channels/xplay.json', seed: 4,
+    description: "G4's X-Play, around the clock: reviews, previews and sketches, 2008-2012. Gaming ads in the breaks.",
+    logomark: X_LOGO, seed: 4,
+    shows: ['channels/xplay.json'], bumps: 'channels/xplay-bumps.json', ads: 'channels/gameads.json', adsPerBreak: [2, 3],
   },
 ];
 
-function shuffle(list, seed) {
-  const a = list.slice();
+function rng(seed) {
   let s = seed >>> 0 || 1;
-  const rand = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
+  return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
+}
+function shuffle(list, rand) {
+  const a = list.slice();
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
 }
+/** Draws from a shuffled list without repeats until it runs out, then reshuffles. */
+function deck(list, rand) {
+  let order = [], i = 0;
+  return () => {
+    if (!list.length) return null;
+    if (i >= order.length) { order = shuffle(list, rand); i = 0; }
+    return order[i++];
+  };
+}
 
 export class CustomChannel {
   constructor(def) {
-    const { episodes, seed, ...meta } = def;
+    const { shows, bumps, ads, adsPerBreak = [2, 3], seed, ...meta } = def;
     this.meta = meta;
-    const list = JSON.parse(fs.readFileSync(path.join(HERE, episodes), 'utf8'));
-    this.items = shuffle(list, seed).map(e => ({
-      type: 'video', id: e.id, file: e.file, title: e.title, year: e.year,
-      description: e.description, durMs: Math.round(e.durationS * 1000),
-    }));
+    const rand = rng(seed);
+    const platform = read('channels/spelunkr-platform.json');
+    const episodes = shuffle(shows.flatMap(read), rand);
+    const channelBump = deck(bumps ? read(bumps) : [], rand);
+    const platformBump = deck(platform.bumps, rand);
+    const song = deck(platform.audio, rand);
+    const ad = deck(ads ? read(ads) : [], rand);
+    const tune = () => { const a = song(); return a && { filename: a.filename, startOffset: Math.floor(rand() * 20) }; };
+
+    this.items = [];
+    const push = (it, durMs) => this.items.push({ ...it, durMs: Math.round(durMs) });
+    for (const e of episodes) {
+      push({ type: 'video', id: e.id, file: e.file, title: e.title, year: e.year, description: e.description }, e.durationS * 1000);
+      const open = channelBump();
+      if (open) push({ type: 'bump-break', half: 'open', channelBump: open, channelAudio: tune() }, breakHalfMs('open', open.slides));
+      const n = adsPerBreak[0] + Math.floor(rand() * (adsPerBreak[1] - adsPerBreak[0] + 1));
+      for (let k = 0; k < n; k++) {
+        const a = ad();
+        if (!a) break;
+        push({ type: 'ad', title: a.title, slice: { tape: a.id, file: a.file, inMs: 0, lengthMs: Math.round(a.durationS * 1000) } }, a.durationS * 1000);
+      }
+      const close = platformBump();
+      if (close) push({ type: 'bump-break', half: 'close', platformBump: close, platformAudio: tune() }, breakHalfMs('close', close.slides));
+      const sting = song();
+      push({ type: 'up-next', sting: sting && { track: sting.filename, startMs: 0 } }, UP_NEXT_MS);
+    }
     this.starts = [];
     let t = 0;
     for (const it of this.items) { this.starts.push(t); t += it.durMs; }
@@ -97,8 +139,7 @@ export class CustomChannel {
   *walk(fromMs) {
     let { cycleStart, index } = this.locate(fromMs);
     for (;;) {
-      const e = this.entry(cycleStart, index, fromMs);
-      yield e;
+      yield this.entry(cycleStart, index, fromMs);
       if (++index === this.items.length) { index = 0; cycleStart += this.cycleMs; }
     }
   }
