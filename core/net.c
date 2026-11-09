@@ -19,6 +19,7 @@
 #  define CLOSESOCK close
 #else
 #  include <unistd.h>
+#  include <fcntl.h>
 #  include <sys/types.h>
 #  include <sys/socket.h>
 #  include <sys/select.h>
@@ -89,11 +90,192 @@ static int read_config(char *host, int *port)
 	return ok ? parse_hostport(line, host, port) : -1;
 }
 
+#ifndef __PPU__
+// ---------------------------------------------------------------- LAN scan (not on PS3)
+//
+// Broadcast discovery fails on machines whose firewall drops the relay's reply (Linux with
+// ufw/firewalld does: the reply comes from an address the request wasn't sent to). As a
+// fallback, try TCP connections to port 8642 across the local network (the /22 around our
+// address, which covers ordinary /24 home networks and mesh systems that use /22), then ask
+// each answering host /ps3/hello. Outgoing connections pass any stateful firewall.
+
+#define SCAN_PORT 8642
+#define SCAN_BATCH 128
+
+static void set_nonblocking(int s, int on)
+{
+#ifdef _WIN32
+	u_long v = on;
+	ioctlsocket(s, FIONBIO, &v);
+#else
+	int f = fcntl(s, F_GETFL, 0);
+	fcntl(s, F_SETFL, on ? (f | O_NONBLOCK) : (f & ~O_NONBLOCK));
+#endif
+}
+
+// Our LAN address (host order), via a UDP "connect" that sends nothing.
+static u32 local_ipv4(void)
+{
+	int s = (int)socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	if (s < 0) return 0;
+	struct sockaddr_in a;
+	memset(&a, 0, sizeof(a));
+	a.sin_family = AF_INET;
+	a.sin_port = htons(53);
+	a.sin_addr.s_addr = htonl(0x08080808);
+	u32 ip = 0;
+	socklen_t al = sizeof(a);
+	if (connect(s, (struct sockaddr *)&a, sizeof(a)) == 0 && getsockname(s, (struct sockaddr *)&a, &al) == 0)
+		ip = ntohl(a.sin_addr.s_addr);
+	CLOSESOCK(s);
+	return ip;
+}
+
+// Connects to addr:port within ms; returns a blocking socket or -1.
+static int connect_within(u32 addr_host, int port, int ms)
+{
+	int s = (int)socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (s < 0) return -1;
+	set_nonblocking(s, 1);
+	struct sockaddr_in a;
+	memset(&a, 0, sizeof(a));
+	a.sin_family = AF_INET;
+	a.sin_port = htons(port);
+	a.sin_addr.s_addr = htonl(addr_host);
+	connect(s, (struct sockaddr *)&a, sizeof(a));
+	fd_set wr;
+	FD_ZERO(&wr);
+	FD_SET(s, &wr);
+	struct timeval tv = { ms / 1000, (ms % 1000) * 1000 };
+	int err = 1;
+	socklen_t el = sizeof(err);
+	if (select(s + 1, NULL, &wr, NULL, &tv) <= 0 || getsockopt(s, SOL_SOCKET, SO_ERROR, (char *)&err, &el) != 0 || err) {
+		CLOSESOCK(s);
+		return -1;
+	}
+	set_nonblocking(s, 0);
+	return s;
+}
+
+// Is there a relay at addr:port? (GET /ps3/hello, a couple of seconds at most.)
+static int is_relay(u32 addr_host, int port)
+{
+	int s = connect_within(addr_host, port, 1500);
+	if (s < 0) return 0;
+	char req[] = "GET /ps3/hello HTTP/1.0\r\n\r\n", buf[512];
+	int len = 0;
+	if (send(s, req, sizeof(req) - 1, 0) == (int)sizeof(req) - 1) {
+		while (len < (int)sizeof(buf) - 1 && wait_readable(s, 2000) > 0) {
+			int n = (int)recv(s, buf + len, sizeof(buf) - 1 - len, 0);
+			if (n <= 0) break;
+			len += n;
+		}
+	}
+	CLOSESOCK(s);
+	buf[len] = 0;
+	return strstr(buf, "\r\n\r\nSPELUNKR ") != NULL;
+}
+
+static int scan_lan(char *host, int *port)
+{
+	u32 me = local_ipv4();
+	if (!me) return -1;
+	u32 base = me & 0xFFFFFC00u; // the /22 around us; our own /24 first
+	u32 order[1024];
+	int n = 0;
+	for (u32 i = 0; i < 256; i++) order[n++] = (me & 0xFFFFFF00u) | i;
+	for (u32 i = 0; i < 1024; i++) { u32 a = base | i; if ((a & 0xFFFFFF00u) != (me & 0xFFFFFF00u)) order[n++] = a; }
+
+	for (int b = 0; b < n; b += SCAN_BATCH) {
+		int socks[SCAN_BATCH], cnt = b + SCAN_BATCH <= n ? SCAN_BATCH : n - b, maxfd = -1;
+		for (int i = 0; i < cnt; i++) {
+			u32 a = order[b + i];
+			socks[i] = -1;
+			if ((a & 0xff) == 0 || (a & 0xff) == 255) continue;
+			int s = (int)socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+			if (s < 0) continue;
+			set_nonblocking(s, 1);
+			struct sockaddr_in sa;
+			memset(&sa, 0, sizeof(sa));
+			sa.sin_family = AF_INET;
+			sa.sin_port = htons(SCAN_PORT);
+			sa.sin_addr.s_addr = htonl(a);
+			connect(s, (struct sockaddr *)&sa, sizeof(sa));
+			socks[i] = s;
+			if (s > maxfd) maxfd = s;
+		}
+		// Collect whatever connects within ~350 ms.
+		s64 until = now_us() + 350000;
+		int found = -1;
+		while (found < 0 && now_us() < until) {
+			fd_set wr;
+			FD_ZERO(&wr);
+			int any = 0;
+			for (int i = 0; i < cnt; i++) if (socks[i] >= 0) { FD_SET(socks[i], &wr); any = 1; }
+			if (!any) break;
+			s64 left = until - now_us();
+			struct timeval tv = { 0, (long)(left > 0 ? left : 0) };
+			if (select(maxfd + 1, NULL, &wr, NULL, &tv) <= 0) break;
+			for (int i = 0; i < cnt; i++) {
+				if (socks[i] < 0 || !FD_ISSET(socks[i], &wr)) continue;
+				int err = 1;
+				socklen_t el = sizeof(err);
+				getsockopt(socks[i], SOL_SOCKET, SO_ERROR, (char *)&err, &el);
+				CLOSESOCK(socks[i]);
+				socks[i] = -1;
+				if (!err && is_relay(order[b + i], SCAN_PORT)) { found = i; break; }
+			}
+		}
+		for (int i = 0; i < cnt; i++) if (socks[i] >= 0) CLOSESOCK(socks[i]);
+		if (found >= 0) {
+			format_ipv4(htonl(order[b + found]), host);
+			*port = SCAN_PORT;
+			return 0;
+		}
+	}
+	return -1;
+}
+
+// Where the relay was last found, so the next start doesn't have to search.
+static void remember(const char *host, int port)
+{
+	char path[512];
+	snprintf(path, sizeof(path), "%s/relay-found.txt", plat_data_dir());
+	FILE *f = fopen(path, "w");
+	if (f) { fprintf(f, "%s:%d\n", host, port); fclose(f); }
+}
+
+static int recall(char *host, int *port)
+{
+	char path[512], line[128] = { 0 };
+	snprintf(path, sizeof(path), "%s/relay-found.txt", plat_data_dir());
+	FILE *f = fopen(path, "r");
+	if (!f) return -1;
+	int ok = fgets(line, sizeof(line), f) != NULL;
+	fclose(f);
+	u32 a;
+	if (!ok || parse_hostport(line, host, port) != 0 || parse_ipv4(host, &a) != 0) return -1;
+	return is_relay(ntohl(a), *port) ? 0 : -1;
+}
+#endif
+
+static int broadcast_discover(char *host, int *port);
+
 int net_discover(char *host, int *port)
 {
 	if (plat_relay_override && parse_hostport(plat_relay_override, host, port) == 0) return 0;
 	if (read_config(host, port) == 0) return 0;
+#ifdef __PPU__
+	return broadcast_discover(host, port);
+#else
+	if (recall(host, port) == 0) return 0;
+	if (broadcast_discover(host, port) == 0 || scan_lan(host, port) == 0) { remember(host, *port); return 0; }
+	return -1;
+#endif
+}
 
+static int broadcast_discover(char *host, int *port)
+{
 	int s = (int)socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (s < 0) return -1;
 	int yes = 1;

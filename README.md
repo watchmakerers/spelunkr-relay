@@ -31,9 +31,12 @@ cd relay
 npm start            # http://<pc>:8642/ shows what's on; /watch/<channel> plays in mpv/VLC
 ```
 
-Clients find it automatically (UDP broadcast on port 47555). If your network blocks that (a
-firewall: `sudo ufw allow 8642/tcp && sudo ufw allow 47555/udp`), give clients its address
-as described below.
+Clients find it automatically: a UDP broadcast on port 47555 first, then (desktop and Vita)
+a quick scan of the local network for port 8642, which works even where a firewall drops
+broadcast replies. The address found is remembered (`relay-found.txt` in the data folder).
+The relay's PC must accept 8642/tcp (and 47555/udp for the broadcast; with ufw:
+`sudo ufw allow 8642/tcp && sudo ufw allow 47555/udp`). You can always give clients the
+address directly, as described below.
 
 ## The apps
 

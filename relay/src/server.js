@@ -1,5 +1,6 @@
 // Spelunkr PS3 relay: HTTP server + LAN discovery.
 //
+//   GET /ps3/hello            "SPELUNKR <port>": lets clients scanning the LAN recognise a relay
 //   GET /ps3/guide?hours=4    channel guide, tab-separated text (format below)
 //   GET /ps3/seg/:channel?at=ms[&aspect=4x3]
 //                             MPEG-1/MP2 program stream of the entry on air at `at`
@@ -91,6 +92,12 @@ const server = http.createServer(async (req, res) => {
   res.on('close', () => abort.abort());
 
   try {
+    if (url.pathname === '/ps3/hello') {
+      // Lets clients confirm an address really is a relay (used when scanning the LAN).
+      res.writeHead(200, { 'content-type': 'text/plain', 'cache-control': 'no-store' });
+      return res.end(`SPELUNKR ${PORT}\n`);
+    }
+
     if (url.pathname === '/ps3/guide') {
       const hours = Math.min(24, Math.max(1, Number(url.searchParams.get('hours')) || 4));
       res.writeHead(200, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' });
