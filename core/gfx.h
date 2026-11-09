@@ -1,21 +1,22 @@
-// RSX (GPU) setup and the two things the app draws: the video (three YUV planes converted
-// to RGB in a fragment shader) and the UI overlay (an ARGB texture drawn by the CPU).
+// Video output, implemented per platform (PS3: RSX shaders; desktop/Vita: SDL2). Two
+// things are drawn: the video (three YUV planes) and the UI overlay (an ARGB canvas the
+// CPU draws into).
 #ifndef SPELUNKR_GFX_H
 #define SPELUNKR_GFX_H
 
-#include <ppu-types.h>
+#include "platform.h"
 
-// The UI is laid out on a canvas scaled to whatever the TV runs at: 1280x720 on widescreen,
-// 720x540 on 4:3 sets (bigger text for SD/CRT). Fixed once gfx_init has run.
+// The UI is laid out on a canvas scaled to the display: 1280x720 on widescreen, 720x540 on
+// 4:3 sets (bigger text for SD/CRT). Fixed once gfx_init has run.
 extern int ui_w, ui_h;
 #define UI_W ui_w
 #define UI_H ui_h
 #define UI_MAX_W 1280
 #define UI_MAX_H 720
 int gfx_is_4x3(void);
-
-extern u32 gfx_width, gfx_height;
-extern float gfx_aspect; // display aspect ratio (16:9 or 4:3)
+// The frame shape to ask the relay for: "16x9" (848x480), "4x3" (640x480) or "16x9s"
+// (640x360, for small screens / slower CPUs).
+const char *gfx_stream_aspect(void);
 
 int  gfx_init(void);
 void gfx_shutdown(void);

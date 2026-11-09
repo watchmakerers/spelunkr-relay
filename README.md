@@ -1,22 +1,26 @@
-# SPELUNKR for PS3
+# SPELUNKR relay and clients
 
-A cable-TV style client for [spelunkr.tv](https://spelunkr.tv) on a PlayStation 3 (HEN or CFW):
-a channel guide you drive with the controller, channel surfing, and the same synchronized
-schedule the website plays.
+A cable-TV style way to watch [spelunkr.tv](https://spelunkr.tv) on a PlayStation 3, a PS Vita,
+or a Windows / macOS / Linux computer: a channel guide you drive with a controller (or
+keyboard), channel surfing, and the same synchronized schedule the website plays, plus a few
+channels of our own.
 
-The PS3's browser can't run the site, so the work is split in two:
+Consoles can't run the site, so the work is split in two:
 
 ```
- spelunkr.tv  ──lineup + manifests──▶  relay (your PC)  ──guide + MPEG-1 over LAN──▶  PS3 app
+ spelunkr.tv  ──lineup + manifests──▶  relay (your PC)  ──guide + MPEG-1 over LAN──▶  PS3 / Vita / desktop app
  archive.org  ──────videos──────────▶   Node + ffmpeg
 ```
 
 - **`relay/`** runs Spelunkr's *own* scheduling engine, extracted from the site's bundle at
   startup (with a vendored fallback), so what's on matches the website. It serves a compact
   guide and streams each schedule entry (shows, commercials, bumpers, up-next cards) as
-  MPEG-1 video + MP2 audio, a format the PS3 can decode in software.
-- **`ps3/`** is a PSL1GHT homebrew app: guide grid with picture-in-picture, channel banner,
-  pixel channel logos, and a player (pl_mpeg decode, YUV→RGB on the RSX, audio on its own thread).
+  MPEG-1 video + MP2 audio, which every client decodes in software. Audio is loudness-
+  normalised (EBU R128), so all channels play at the same level.
+- **`core/`** is the client itself, shared by every platform: guide grid with picture-in-
+  picture, channel banner, pixel channel logos, controls, streaming and decoding (pl_mpeg).
+- **`ps3/`** (PSL1GHT: RSX shaders, PS3 audio and pads), **`sdl/`** (SDL2: used by both
+  **`desktop/`** and **`vita/`**) are the thin platform layers (`core/platform.h`).
 
 ## Run the relay (on a PC on the same network)
 
@@ -27,17 +31,38 @@ cd relay
 npm start            # http://<pc>:8642/ shows what's on; /watch/<channel> plays in mpv/VLC
 ```
 
-The PS3 finds it automatically (UDP broadcast on port 47555). If your network blocks that, put
-`192.168.x.y:8642` in `/dev_hdd0/game/SPLK00001/USRDIR/relay.txt` on the PS3.
+Clients find it automatically (UDP broadcast on port 47555). If your network blocks that (a
+firewall: `sudo ufw allow 8642/tcp && sudo ufw allow 47555/udp`), give clients its address
+as described below.
 
-## Build and install the PS3 app
+## The apps
+
+Every push builds all of them on GitHub Actions (see the *Actions* tab for downloads);
+pushing a `v*` tag publishes them as a release.
+
+| | Get it | Relay address, if it isn't found |
+|---|---|---|
+| **PS3** (HEN/CFW) | `ps3/spelunkr.pkg`: install with Package Manager | `/dev_hdd0/game/SPLK00001/USRDIR/relay.txt` |
+| **PS Vita** (HENkaku/Ensō) | `spelunkr.vpk`: install with VitaShell | `ux0:data/spelunkr/relay.txt` |
+| **Windows / macOS / Linux** | `spelunkr-*.zip` / `.tar.gz` | `spelunkr --relay 192.168.x.y:8642`, or `relay.txt` in the data folder (`spelunkr --help` shows where) |
+
+`relay.txt` holds one line like `192.168.1.20:8642`.
+
+Desktop extras: `--fullscreen` (F11 / Alt+Enter toggles), `--4x3` (the SD-TV layout the PS3
+uses on a CRT). The macOS build isn't signed: right-click → Open the first time. The Linux
+build needs SDL2 installed (it is on most desktops).
+
+### Build them yourself
 
 ```
-cd ps3
-./build.sh           # Docker; or `make pkg` with PSL1GHT installed
+ps3/build.sh                                           # Docker (PS3 toolchain image) -> ps3/spelunkr.pkg
+cmake -S desktop -B build/desktop && cmake --build build/desktop    # needs SDL2 dev files
+cmake -S vita -B build/vita && cmake --build build/vita             # needs VitaSDK -> spelunkr.vpk
 ```
 
-Install `ps3/spelunkr.pkg` with Package Manager (HEN/CFW). It appears in the XMB as SPELUNKR.
+(`-DSPELUNKR_VENDOR_SDL=ON` builds SDL2 from source and links it statically, as the Windows
+and macOS releases do. For the Vita without installing VitaSDK:
+`docker run --rm -v "$PWD":/src -w /src vitasdk/vitasdk sh -c "cmake -S vita -B build/vita && cmake --build build/vita"`.)
 
 ## Relay-only channels
 
@@ -48,8 +73,8 @@ episodes they run Spelunkr-style breaks: a station break with the channel's own 
 2-3 commercials, a station break with Spelunkr's slides (`channels/spelunkr-platform.json`,
 a snapshot of the site's), and an "up next" card.
 
-- **Channel 4 - X-Play**: G4's X-Play, 161 full episodes from 2008-2012 (~59 hours per
-  cycle). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
+- **Channel 4 - X-Play**: G4's X-Play, 161 full episodes from 2008-2012 (~59 hours of
+  episodes). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
   `node tools/build-xplay.js` (in `relay/`) to pick up newly uploaded episodes. Its breaks
   play video game commercials from archive.org (`channels/gameads.json`, built by
   `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`). The 4:3
@@ -61,19 +86,16 @@ a snapshot of the site's), and an "up next" card.
 
 ## Controls
 
-| Watching | |
-|---|---|
-| ↑ / ↓ | channel up / down |
-| ✕ or □ | show the channel banner |
-| △, ○ or START | open the guide |
-
-| Guide | |
-|---|---|
-| ↑ / ↓ | channel |
-| ← / → | earlier / later show |
-| L1 / R1 | page up / down |
-| ✕ | watch the selected channel |
-| △ or ○ | close the guide |
+| | PS3 / Vita | Keyboard | Game controller |
+|---|---|---|---|
+| Channel up / down (watching) | ↑ / ↓ | ↑ / ↓ | D-pad / stick |
+| Show the channel banner | ✕ or □ | Enter, I or Space | A or X |
+| Open the guide | △, ○ or START | G, Tab or Esc | Y, B or Start |
+| Guide: move | ↑ ↓ ← → | arrow keys | D-pad / stick |
+| Guide: page | L1 / R1 (Vita: L / R) | PgUp / PgDn | LB / RB |
+| Guide: watch selected | ✕ | Enter | A |
+| Guide: close | △ or ○ | Esc or G | B or Y |
+| Quit (desktop) | | Ctrl+Q, or close the window | |
 
 ## Notes
 
@@ -81,6 +103,7 @@ a snapshot of the site's), and an "up next" card.
   `data.spelunkr.tv` host is behind a bot check) and video from archive.org, the same sources
   your browser uses. Shows are transcoded on the fly; one channel uses one ffmpeg.
 - Tuning takes a few seconds while the relay seeks into the archive.org tape.
-- `ps3/tools/` has host-side tests: `decode_test.c` (pl_mpeg against relay output) and
-  `preview.c` (renders the PS3 screens to images using the app's real UI code).
-- Font: Space Mono Bold (SIL OFL, `ps3/data/OFL-SpaceMono.txt`).
+- `core/tools/decode_test.c` tests pl_mpeg against relay output on the host. The desktop
+  app's `--shot FILE SECONDS [--shot-guide]` saves a screenshot and quits (run it with
+  `SDL_VIDEODRIVER=offscreen SDL_RENDER_DRIVER=software` for headless checks).
+- Font: Space Mono Bold (SIL OFL, `core/font/OFL-SpaceMono.txt`).

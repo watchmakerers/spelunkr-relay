@@ -2,7 +2,7 @@
 #ifndef SPELUNKR_UI_H
 #define SPELUNKR_UI_H
 
-#include <ppu-types.h>
+#include "platform.h"
 #include "guide.h"
 
 #define RGB(c)       (0xff000000u | (c))

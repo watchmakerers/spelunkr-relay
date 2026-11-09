@@ -1,0 +1,96 @@
+# Builds every client on each push, and attaches them to a GitHub release when a v* tag
+# is pushed (git tag v1.0 && git push --tags).
+name: build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  relay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Check the relay loads its channels
+        working-directory: relay
+        run: |
+          for f in src/*.js tools/*.js; do node --check "$f"; done
+          node --input-type=module -e "import { loadCustomChannels } from './src/custom.js'; const c = loadCustomChannels(); if (c.length < 2) process.exit(1); console.log(c.map(x => x.meta.name + ': ' + (x.cycleMs / 3.6e6).toFixed(1) + ' h').join(', '))"
+
+  linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y libsdl2-dev
+      - run: cmake -S desktop -B build && cmake --build build -j4
+      - run: |
+          mkdir -p out/spelunkr-linux && cp build/spelunkr out/spelunkr-linux/
+          cp core/font/OFL-SpaceMono.txt out/spelunkr-linux/
+          tar -C out -czf spelunkr-linux-x86_64.tar.gz spelunkr-linux
+      - uses: actions/upload-artifact@v4
+        with: { name: spelunkr-linux, path: spelunkr-linux-x86_64.tar.gz }
+
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run: { shell: 'msys2 {0}' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja zip
+      - run: cmake -S desktop -B build -G Ninja -DSPELUNKR_VENDOR_SDL=ON && cmake --build build
+      - run: |
+          mkdir -p out/spelunkr-windows && cp build/spelunkr.exe out/spelunkr-windows/
+          cp core/font/OFL-SpaceMono.txt out/spelunkr-windows/
+          cd out && zip -r ../spelunkr-windows-x64.zip spelunkr-windows
+      - uses: actions/upload-artifact@v4
+        with: { name: spelunkr-windows, path: spelunkr-windows-x64.zip }
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S desktop -B build -DSPELUNKR_VENDOR_SDL=ON "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64" -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+      - run: cmake --build build -j4
+      - run: |
+          mkdir -p out && cp -R build/spelunkr.app out/SPELUNKR.app
+          cp core/font/OFL-SpaceMono.txt out/
+          cd out && zip -r ../spelunkr-macos.zip SPELUNKR.app OFL-SpaceMono.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: spelunkr-macos, path: spelunkr-macos.zip }
+
+  vita:
+    runs-on: ubuntu-latest
+    container: vitasdk/vitasdk:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S vita -B build && cmake --build build -j4
+      - uses: actions/upload-artifact@v4
+        with: { name: spelunkr-vita, path: build/spelunkr.vpk }
+
+  ps3:
+    runs-on: ubuntu-latest
+    container: flipacholas/ps3devextra:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd ps3 && make && make pkg
+      - uses: actions/upload-artifact@v4
+        with: { name: spelunkr-ps3, path: ps3/spelunkr.pkg }
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [relay, linux, windows, macos, vita, ps3]
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: dist, merge-multiple: true }
+      - env: { GH_TOKEN: '${{ github.token }}' }
+        run: gh release create "${{ github.ref_name }}" dist/* --repo "${{ github.repository }}" --title "${{ github.ref_name }}" --generate-notes

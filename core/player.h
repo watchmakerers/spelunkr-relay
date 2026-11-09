@@ -3,7 +3,7 @@
 #ifndef SPELUNKR_PLAYER_H
 #define SPELUNKR_PLAYER_H
 
-#include <ppu-types.h>
+#include "platform.h"
 
 typedef enum { PLAYER_IDLE, PLAYER_TUNING, PLAYER_BUFFERING, PLAYER_PLAYING, PLAYER_ERROR } player_state_t;
 

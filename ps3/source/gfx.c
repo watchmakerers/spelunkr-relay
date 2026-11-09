@@ -9,7 +9,7 @@
 
 #include "gfx.h"
 #include "log.h"
-#include "net.h"
+#include "platform.h"
 
 // PSL1GHT changed several RSX signatures between releases; build against either.
 #ifdef GCM_TF_COLOR_X8R8G8B8          // older PSL1GHT (e.g. the ps3devextra image)
@@ -242,6 +242,8 @@ void gfx_video_upload(const u8 *y, u32 ystride, const u8 *cb, const u8 *cr, u32 
 void gfx_video_clear(void) { vset_cur = -1; }
 
 int gfx_is_4x3(void) { return gfx_aspect < 1.5f; }
+
+const char *gfx_stream_aspect(void) { return gfx_is_4x3() ? "4x3" : "16x9"; }
 
 u32 *gfx_overlay_canvas(void) { return canvas; }
 

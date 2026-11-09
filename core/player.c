@@ -1,10 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/thread.h>
-#include <sys/mutex.h>
-#include "compat.h"
+#include "platform.h"
 
 #include "pl_mpeg.h"
 #include "player.h"
@@ -12,6 +9,7 @@
 #include "guide.h"
 #include "audio.h"
 #include "gfx.h"
+#include "log.h"
 
 #define RING_SIZE   (12 * 1024 * 1024)  // ~30 s at the relay's bitrate
 #define MAX_SEGS    8
@@ -28,8 +26,8 @@ typedef struct {
 
 static char host[64];
 static int port;
-static sys_mutex_t lock;
-static sys_ppu_thread_t thread;
+static plat_mutex *lock;
+static plat_thread *thread;
 static volatile int running;
 
 // Shared with the network thread (under lock).
@@ -49,8 +47,8 @@ static plm_buffer_t *pbuf;        // plm's input buffer (plm_t is opaque)
 static int buffering;
 static plm_frame_t *pending_frame;
 
-static void L(void) { sysMutexLock(lock, 0); }
-static void U(void) { sysMutexUnlock(lock); }
+static void L(void) { plat_lock(lock); }
+static void U(void) { plat_unlock(lock); }
 
 static void url_decode(char *s)
 {
@@ -70,7 +68,7 @@ static int ring_write(u32 my_gen, const u8 *data, int n)
 		L();
 		if (gen != my_gen) { U(); return -1; }
 		u64 space = RING_SIZE - (wpos - rpos);
-		if (space == 0) { U(); usleep(5000); if (!running) return -1; continue; }
+		if (space == 0) { U(); plat_sleep_us(5000); if (!running) return -1; continue; }
 		int chunk = n < (int)space ? n : (int)space;
 		for (int i = 0; i < chunk;) {
 			u64 at = (wpos + i) % RING_SIZE;
@@ -99,17 +97,19 @@ static void net_thread(void *arg)
 		s64 at = next_at;
 		int full = seg_count >= MAX_SEGS;
 		U();
-		if (!id[0] || full) { usleep(20000); continue; }
+		if (!id[0] || full) { plat_sleep_us(20000); continue; }
 
 		char path[160];
-		snprintf(path, sizeof(path), "/ps3/seg/%s?at=%lld%s", id, (long long)at, gfx_is_4x3() ? "&aspect=4x3" : "");
+		snprintf(path, sizeof(path), "/ps3/seg/%s?at=%lld&aspect=%s", id, (long long)at, gfx_stream_aspect());
 		http_t h;
-		if (http_open(&h, host, port, path) != 0 || h.status != 200) {
+		int opened = http_open(&h, host, port, path);
+		LOG("segment %s -> %s (status %d)", path, opened == 0 ? "open" : "failed", h.status);
+		if (opened != 0 || h.status != 200) {
 			if (h.sock >= 0) http_close(&h);
 			L();
 			if (gen == my_gen) { net_failures++; snprintf(net_error, sizeof(net_error), "Can't reach the relay at %s:%d", host, port); }
 			U();
-			for (int i = 0; i < 20 && running && gen == my_gen; i++) usleep(100000);
+			for (int i = 0; i < 20 && running && gen == my_gen; i++) plat_sleep_us(100000);
 			continue;
 		}
 
@@ -118,8 +118,8 @@ static void net_thread(void *arg)
 		char v[256];
 		s.start_ms = http_header(&h, "x-seg-start", v, sizeof(v)) ? strtoll(v, NULL, 10) : at;
 		s.end_ms = http_header(&h, "x-seg-end", v, sizeof(v)) ? strtoll(v, NULL, 10) : at + 60000;
-		if (http_header(&h, "x-seg-title", v, sizeof(v))) { url_decode(v); strncpy(s.title, v, sizeof(s.title) - 1); }
-		if (http_header(&h, "x-seg-type", v, sizeof(v))) strncpy(s.type, v, sizeof(s.type) - 1);
+		if (http_header(&h, "x-seg-title", v, sizeof(v))) { url_decode(v); snprintf(s.title, sizeof(s.title), "%.127s", v); }
+		if (http_header(&h, "x-seg-type", v, sizeof(v))) snprintf(s.type, sizeof(s.type), "%.15s", v);
 
 		L();
 		if (gen != my_gen) { U(); http_close(&h); continue; }
@@ -149,7 +149,6 @@ static void net_thread(void *arg)
 		}
 		U();
 	}
-	sysThreadExit(0);
 }
 
 // ---------------------------------------------------------------- decoder (main thread)
@@ -248,6 +247,7 @@ void player_update(double dt)
 
 void player_tune(const char *id)
 {
+	if (!lock) return;
 	close_decoder();
 	L();
 	gen++;
@@ -266,6 +266,7 @@ void player_tune(const char *id)
 void player_status(player_status_t *o)
 {
 	memset(o, 0, sizeof(*o));
+	if (!lock) { o->state = PLAYER_IDLE; return; } // not started yet (still finding the relay)
 	L();
 	strcpy(o->channel, chan);
 	if (seg_count) {
@@ -292,16 +293,16 @@ int player_start(const char *h, int p)
 	port = p;
 	ring = malloc(RING_SIZE);
 	if (!ring) return -1;
-	if (mutex_create(&lock) != 0) return -1;
+	if (!(lock = plat_mutex_new())) return -1;
 	running = 1;
-	return sysThreadCreate(&thread, net_thread, NULL, 1200, 0x8000, THREAD_JOINABLE, "spelunkr_net");
+	thread = plat_thread_start(net_thread, NULL, "spelunkr_net");
+	return thread ? 0 : -1;
 }
 
 void player_stop(void)
 {
 	if (!running) return;
 	running = 0;
-	u64 rv;
-	sysThreadJoin(thread, &rv);
+	plat_thread_join(thread);
 	close_decoder();
 }

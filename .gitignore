@@ -4,3 +4,4 @@ ps3/build/
 *.pkg
 *.self
 *.elf
+build/

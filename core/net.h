@@ -2,7 +2,7 @@
 #ifndef SPELUNKR_NET_H
 #define SPELUNKR_NET_H
 
-#include <ppu-types.h>
+#include "platform.h"
 
 typedef struct {
 	int sock;
@@ -10,9 +10,8 @@ typedef struct {
 	char headers[2048];   // raw header block, lower-cased names
 } http_t;
 
-int  net_start(void);
-
-// Finds the relay: USRDIR/relay.txt ("host:port") if present, else a broadcast on the LAN.
+// Finds the relay: the command-line address, else relay.txt ("host:port") in the data
+// folder, else a broadcast on the LAN.
 // Fills host (dotted IPv4) and port. Returns 0 on success.
 int  net_discover(char *host, int *port);
 
@@ -23,8 +22,5 @@ const char *http_header(http_t *h, const char *name, char *out, int outlen); // 
 
 // Reads a whole (small) response body; caller frees. NULL on failure.
 char *http_get_all(const char *host, int port, const char *path, int *len);
-
-// Monotonic microseconds.
-s64 now_us(void);
 
 #endif

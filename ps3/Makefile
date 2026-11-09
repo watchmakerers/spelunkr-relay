@@ -11,10 +11,10 @@ include $(PSL1GHT)/ppu_rules
 
 TARGET		:=	spelunkr
 BUILD		:=	build
-SOURCES		:=	source
-DATA		:=	data
+SOURCES		:=	source ../core
+DATA		:=	../core/font
 SHADERS		:=	shaders
-INCLUDES	:=	include
+INCLUDES	:=	include ../core
 
 TITLE		:=	SPELUNKR
 APPID		:=	SPLK00001

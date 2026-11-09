@@ -13,8 +13,16 @@ import os from 'node:os';
 import path from 'node:path';
 
 export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
-// Frame sizes: widescreen by default, 4:3 for SD sets (the PS3 asks with ?aspect=4x3).
-export const SIZES = { '16x9': { w: 848, h: 480 }, '4x3': { w: 640, h: 480 } };
+
+// Loudness: every stream is normalised to the same target (EBU R128, the broadcast standard),
+// so channels, shows, commercials and break music all play at a similar level whatever the
+// tape's original level was. Single-pass loudnorm works on live streams; it runs at 192 kHz
+// internally, hence the resample back. Break music sits a little under the programmes.
+const LOUDNESS = { show: -18, card: -21, truePeak: -1.5, range: 11 };
+const loudnorm = target => `loudnorm=I=${target}:TP=${LOUDNESS.truePeak}:LRA=${LOUDNESS.range},aresample=${OUT.rate}`;
+// Frame sizes: widescreen by default, 4:3 for SD sets (the PS3 asks with ?aspect=4x3), and a
+// small widescreen one for handhelds (the Vita asks with ?aspect=16x9s).
+export const SIZES = { '16x9': { w: 848, h: 480 }, '4x3': { w: 640, h: 480 }, '16x9s': { w: 640, h: 360 } };
 const ARCHIVE = 'https://archive.org/download/';
 const UA = 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)';
 
@@ -135,6 +143,7 @@ export function ffmpegArgs(p) {
   if (p.kind === 'source') {
     const af = ['aresample=async=1:first_pts=0'];
     if (Number.isFinite(p.gainDb) && p.gainDb) af.push(`volume=${p.gainDb}dB`);
+    af.push(loudnorm(LOUDNESS.show));
     return {
       args: [...base, '-ss', p.seek.toFixed(3), ...httpIn(p.url), '-t', p.duration.toFixed(3),
         '-map', '0:v:0', '-map', '0:a:0?',
@@ -168,7 +177,7 @@ export function ffmpegArgs(p) {
     });
     const fade = Math.min(1.5, p.cardSeconds / 4);
     achain = parts.join(';') + ';' + p.audio.map((_, i) => `[a${i}]`).join('') +
-      `concat=n=${p.audio.length}:v=0:a=1,volume=0.7,afade=t=out:st=${(p.cardSeconds - fade).toFixed(3)}:d=${fade.toFixed(3)}[a]`;
+      `concat=n=${p.audio.length}:v=0:a=1,${loudnorm(LOUDNESS.card)},afade=t=out:st=${(p.cardSeconds - fade).toFixed(3)}:d=${fade.toFixed(3)}[a]`;
   } else {
     inputs.push('-f', 'lavfi', '-i', `anullsrc=r=${OUT.rate}:cl=stereo`);
     achain = `[1:a]atrim=0:${p.cardSeconds.toFixed(3)}[a]`;

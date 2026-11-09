@@ -2,7 +2,7 @@
 #ifndef SPELUNKR_GUIDE_H
 #define SPELUNKR_GUIDE_H
 
-#include <ppu-types.h>
+#include "platform.h"
 
 typedef struct {
 	s64 start, end;          // ms since epoch (relay clock)

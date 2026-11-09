@@ -1,22 +1,18 @@
-// SPELUNKR for PS3: a cable-style channel guide and player for spelunkr.tv.
+// SPELUNKR: a cable-style channel guide and player for spelunkr.tv, shared by the PS3,
+// PS Vita and desktop apps (each platform supplies main(), video, audio and input).
 //
 // The relay on your PC runs Spelunkr's real schedule and streams each channel as MPEG-1; this
 // app finds it on the LAN, shows the guide, and plays channels.
 //
-// Controls
+// Controls (PlayStation names; keyboard and other pads map onto these, see platform.h)
 //   Watching:  Up/Down channel surf · X/Square show info · Triangle/Circle/Start open guide
 //   Guide:     Up/Down channel · Left/Right show · L1/R1 page · X watch · Triangle/Circle close
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
-#include <io/pad.h>
-#include <sys/process.h>
-#include <sysutil/sysutil.h>
-
-#include "app.h"
+#include "platform.h"
 #include "gfx.h"
 #include "ui.h"
 #include "net.h"
@@ -24,8 +20,6 @@
 #include "player.h"
 #include "audio.h"
 #include "log.h"
-
-SYS_PROCESS_PARAM(1001, 0x100000);
 
 // Network palette (the site's "8s" look).
 #define C_PURPLE 0x1C0A57
@@ -92,7 +86,6 @@ static layout_t L;
 
 typedef enum { MODE_CONNECT, MODE_NORELAY, MODE_WATCH, MODE_GUIDE } mode_t_;
 
-static volatile int running = 1;
 static mode_t_ mode = MODE_CONNECT;
 static char relay_host[64];
 static int relay_port;
@@ -106,25 +99,27 @@ static int top_row;                // guide: first visible row
 static s64 focus_ms;               // guide: time in focus (selects the show in the row)
 static int dirty = 1;
 
-static void sysutil_cb(u64 status, u64 param, void *user)
-{
-	(void)param; (void)user;
-	if (status == SYSUTIL_EXIT_GAME) running = 0;
-}
-
 // ------------------------------------------------------------------ helpers
+
+static FILE *data_file(const char *name, const char *mode)
+{
+	char path[512];
+	snprintf(path, sizeof(path), "%s/%s", plat_data_dir(), name);
+	return fopen(path, mode);
+}
 
 static void save_last(const char *id)
 {
-	FILE *f = fopen(APP_DIR "/last.txt", "w");
+	FILE *f = data_file("last.txt", "w");
 	if (f) { fputs(id, f); fclose(f); }
 }
 
 static int load_last(void)
 {
 	char id[64] = { 0 };
-	FILE *f = fopen(APP_DIR "/last.txt", "r");
+	FILE *f = data_file("last.txt", "r");
 	if (f) { if (!fgets(id, sizeof(id), f)) id[0] = 0; fclose(f); }
+	id[strcspn(id, " \t\r\n")] = 0;
 	int i = guide_find(&guide, id);
 	return i >= 0 ? i : 0;
 }
@@ -354,8 +349,7 @@ static void draw_guide(void)
 	if (now >= ws && now < we) ui_rect(GRID_X + (int)((now - ws) * ppm) - 1, GRID_Y, 3, GRID_HEAD + ROWS * ROW_H, RGB(C_ORANGE));
 
 	if (L.f_hint)
-		ui_text(MARGIN_X, UI_H - MARGIN_Y + 2, L.f_hint, RGB(C_SLATE),
-		        "X WATCH     LEFT/RIGHT SHOWS     L1/R1 PAGE     TRIANGLE CLOSE", 0);
+		ui_text(MARGIN_X, UI_H - MARGIN_Y + 2, L.f_hint, RGB(C_SLATE), plat_hint_guide(), 0);
 }
 
 static void render_overlay(void)
@@ -367,10 +361,7 @@ static void render_overlay(void)
 		draw_center_message("LOOKING FOR THE RELAY...", "Searching your network for the Spelunkr relay running on your PC.");
 		break;
 	case MODE_NORELAY:
-		draw_center_message("CAN'T FIND THE RELAY",
-			"Start the relay on your PC (in spelunkr-ps3/relay run: npm start) and make sure the PS3 is on the same "
-			"network. If it still isn't found, put its address in " APP_DIR "/relay.txt, e.g. 192.168.1.20:8642. "
-			"Press X to try again.");
+		draw_center_message("CAN'T FIND THE RELAY", plat_relay_help());
 		break;
 	case MODE_WATCH: {
 		ui_clear(0);
@@ -394,33 +385,13 @@ static void render_overlay(void)
 
 // ------------------------------------------------------------------ input
 
-typedef struct { padData now, prev; s64 held_since[16]; s64 last_repeat[16]; } pad_t;
+typedef struct { u32 now, prev; s64 held_since[B_COUNT]; s64 last_repeat[B_COUNT]; } pad_t;
 static pad_t pad;
 
-enum { B_UP, B_DOWN, B_LEFT, B_RIGHT, B_CROSS, B_CIRCLE, B_TRIANGLE, B_SQUARE, B_START, B_L1, B_R1, B_COUNT };
-
-static int button(const padData *d, int b)
-{
-	switch (b) {
-	case B_UP: return d->BTN_UP;
-	case B_DOWN: return d->BTN_DOWN;
-	case B_LEFT: return d->BTN_LEFT;
-	case B_RIGHT: return d->BTN_RIGHT;
-	case B_CROSS: return d->BTN_CROSS;
-	case B_CIRCLE: return d->BTN_CIRCLE;
-	case B_TRIANGLE: return d->BTN_TRIANGLE;
-	case B_SQUARE: return d->BTN_SQUARE;
-	case B_START: return d->BTN_START;
-	case B_L1: return d->BTN_L1;
-	case B_R1: return d->BTN_R1;
-	}
-	return 0;
-}
-
-// Pressed this frame, or held long enough to auto-repeat (d-pad and shoulders).
+// Pressed this frame, or held long enough to auto-repeat (d-pad).
 static int pressed(int b)
 {
-	int down = button(&pad.now, b), was = button(&pad.prev, b);
+	int down = (pad.now & BTN(b)) != 0, was = (pad.prev & BTN(b)) != 0;
 	s64 t = now_us();
 	if (down && !was) { pad.held_since[b] = t; pad.last_repeat[b] = t; return 1; }
 	if (down && b <= B_RIGHT && t - pad.held_since[b] > 400000 && t - pad.last_repeat[b] > 110000) {
@@ -433,14 +404,7 @@ static int pressed(int b)
 static void read_pad(void)
 {
 	pad.prev = pad.now;
-	padInfo info;
-	ioPadGetInfo(&info);
-	for (int i = 0; i < MAX_PADS; i++) {
-		if (!info.status[i]) continue;
-		padData d;
-		if (ioPadGetData(i, &d) == 0 && d.len > 0) { pad.now = d; return; }
-		if (d.len == 0) return; // no change since last read: keep state
-	}
+	pad.now = plat_buttons();
 }
 
 static void focus_row(int row)
@@ -456,14 +420,14 @@ static void focus_row(int row)
 static void handle_input(void)
 {
 	if (mode == MODE_NORELAY) {
-		if (pressed(B_CROSS)) { mode = MODE_CONNECT; dirty = 1; }
+		if (pressed(B_OK)) { mode = MODE_CONNECT; dirty = 1; }
 		return;
 	}
 	if (mode == MODE_WATCH) {
 		if (pressed(B_UP)) tune(watching <= 0 ? guide.nch - 1 : watching - 1);
 		if (pressed(B_DOWN)) tune(watching >= guide.nch - 1 ? 0 : watching + 1);
-		if (pressed(B_CROSS) || pressed(B_SQUARE)) { banner_until_us = now_us() + 5000000; dirty = 1; }
-		if (pressed(B_TRIANGLE) || pressed(B_CIRCLE) || pressed(B_START)) {
+		if (pressed(B_OK) || pressed(B_INFO)) { banner_until_us = now_us() + 5000000; dirty = 1; }
+		if (pressed(B_GUIDE) || pressed(B_BACK) || pressed(B_START)) {
 			mode = MODE_GUIDE;
 			focus_row(watching >= 0 ? watching : 0);
 			focus_ms = clock_ms();
@@ -474,8 +438,8 @@ static void handle_input(void)
 		channel_t *c = &guide.ch[sel_row];
 		if (pressed(B_UP)) focus_row(sel_row - 1);
 		if (pressed(B_DOWN)) focus_row(sel_row + 1);
-		if (pressed(B_L1)) focus_row(sel_row - ROWS < 0 ? 0 : sel_row - ROWS);
-		if (pressed(B_R1)) focus_row(sel_row + ROWS >= guide.nch ? guide.nch - 1 : sel_row + ROWS);
+		if (pressed(B_PAGE_UP)) focus_row(sel_row - ROWS < 0 ? 0 : sel_row - ROWS);
+		if (pressed(B_PAGE_DOWN)) focus_row(sel_row + ROWS >= guide.nch ? guide.nch - 1 : sel_row + ROWS);
 		if (pressed(B_RIGHT)) {
 			const show_t *s = show_at(c, focus_ms);
 			if (s && s + 1 < c->shows + c->nshows) { focus_ms = (s + 1)->start; dirty = 1; }
@@ -486,12 +450,12 @@ static void handle_input(void)
 			if (s && s > c->shows && (s - 1)->end > now) { focus_ms = (s - 1)->start > now ? (s - 1)->start : now; dirty = 1; }
 			else if (focus_ms != now) { focus_ms = now; dirty = 1; }
 		}
-		if (pressed(B_CROSS)) {
+		if (pressed(B_OK)) {
 			if (sel_row != watching) tune(sel_row);
 			mode = MODE_WATCH;
 			dirty = 1;
 		}
-		if ((pressed(B_TRIANGLE) || pressed(B_CIRCLE)) && watching >= 0) { mode = MODE_WATCH; dirty = 1; }
+		if ((pressed(B_GUIDE) || pressed(B_BACK)) && watching >= 0) { mode = MODE_WATCH; dirty = 1; }
 	}
 }
 
@@ -509,9 +473,8 @@ static void connect_relay(void)
 	mode = MODE_WATCH;
 }
 
-int main(int argc, char *argv[])
+int app_main(void)
 {
-	(void)argc; (void)argv;
 	log_open();
 	LOG("SPELUNKR starting");
 	if (gfx_init() != 0) { LOG("gfx_init failed"); return 1; }
@@ -519,15 +482,12 @@ int main(int argc, char *argv[])
 	if (ui_init(gfx_overlay_canvas()) != 0) { LOG("ui_init failed"); return 1; }
 	LOG("graphics ready");
 	gfx_selftest();
-	ioPadInit(7);
-	sysUtilRegisterCallback(SYSUTIL_EVENT_SLOT0, sysutil_cb, NULL);
-	LOG("net_start %d", net_start());
+	LOG("net init %d", plat_net_init());
 	LOG("audio_start %d", audio_start());
 
 	s64 last = now_us(), last_tick = 0;
 	player_state_t last_state = PLAYER_IDLE;
-	while (running) {
-		sysUtilCheckCallback();
+	while (plat_poll()) {
 		read_pad();
 
 		if (mode == MODE_CONNECT) {
@@ -560,6 +520,5 @@ int main(int argc, char *argv[])
 	player_stop();
 	audio_stop();
 	gfx_shutdown();
-	ioPadEnd();
 	return 0;
 }
