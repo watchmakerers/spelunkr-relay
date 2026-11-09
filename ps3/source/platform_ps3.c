@@ -20,6 +20,7 @@
 SYS_PROCESS_PARAM(1001, 0x100000);
 
 const char *plat_relay_override = NULL;
+int plat_auto_update = 0;
 static volatile int running = 1;
 
 s64 now_us(void) { return sysGetSystemTime(); }

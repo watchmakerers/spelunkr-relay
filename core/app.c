@@ -654,7 +654,10 @@ static void connect_relay(void)
 	tune(load_last());
 	mode = MODE_WATCH;
 	update_note[0] = 0;
-	if (update_check(relay_host, relay_port, update_version, sizeof(update_version)) == 1) mode = MODE_UPDATE;
+	if (update_check(relay_host, relay_port, update_version, sizeof(update_version)) == 1) {
+		mode = MODE_UPDATE;
+		if (plat_auto_update) run_update();
+	}
 }
 
 int app_main(void)

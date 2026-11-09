@@ -43,6 +43,7 @@ int _newlib_heap_size_user = 160 * 1024 * 1024;
 #endif
 
 const char *plat_relay_override = NULL;
+int plat_auto_update = 0;
 
 // ---------------------------------------------------------------- time and threads
 
@@ -619,11 +620,13 @@ int main(int argc, char *argv[])
 		else if (!strcmp(argv[i], "--4x3")) want_4x3 = 1;
 		else if (!strcmp(argv[i], "--shot") && i + 2 < argc) { shot_path = argv[++i]; shot_after = atof(argv[++i]); }
 		else if (!strcmp(argv[i], "--shot-guide")) shot_guide = 1;
+		else if (!strcmp(argv[i], "--update")) plat_auto_update = 1;
 		else if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h")) {
 			printf("SPELUNKR - cable TV, but weirder (connects to a Spelunkr relay on your network)\n\n"
 			       "  --relay HOST:PORT   relay address (otherwise relay.txt, then a LAN search)\n"
 			       "  --fullscreen        start fullscreen (F11 or Alt+Enter toggles)\n"
-			       "  --4x3               4:3 layout and video, like the PS3 app on an SD TV\n\n"
+			       "  --4x3               4:3 layout and video, like the PS3 app on an SD TV\n"
+			       "  --update            install an available update without asking\n\n"
 			       "Keys: Up/Down channels, Enter watch, G/Tab guide, I/Space info, PgUp/PgDn page, Esc back,\n"
 			       "      Ctrl+Q quit. Game controllers work too (A watch, B back, Y guide, X info, LB/RB page).\n"
 			       "Data folder: %s\n", plat_data_dir());

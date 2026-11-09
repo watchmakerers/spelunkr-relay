@@ -75,6 +75,9 @@ const char *plat_relay_help(void);
 const char *plat_update_asset(void);
 int  plat_install_update(const char *downloaded);
 
+// Install an available update without asking (desktop --update).
+extern int plat_auto_update;
+
 // Relay address given on the command line ("host:port"), or NULL.
 extern const char *plat_relay_override;
 
