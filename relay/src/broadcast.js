@@ -6,6 +6,7 @@
 
 import { fetchEngineSource, loadEngine } from './extract.js';
 import * as vendored from './engine.vendored.js';
+import { loadCustomChannels } from './custom.js';
 
 const DATA = 'https://spelunkr.tv/broadcast/';
 const LINEUP_REFRESH_MS = 2 * 60 * 1000;
@@ -18,6 +19,8 @@ export class Broadcast {
     this.lineup = null;
     this.channels = new Map(); // id -> { meta, versionKey, playlist }
     this.files = new Map(); // path -> parsed JSON (manifests are immutable per version)
+    this.custom = new Map(); // relay-only channels (custom.js): id -> { meta, custom }
+    for (const c of loadCustomChannels(log)) this.custom.set(c.meta.id, { meta: c.meta, custom: c });
   }
 
   async start() {
@@ -84,15 +87,17 @@ export class Broadcast {
 
   /** Channels in dial order. */
   list() {
-    return [...this.channels.values()].map(c => c.meta).sort((a, b) => (a.dial ?? 999) - (b.dial ?? 999));
+    return [...this.channels.values(), ...this.custom.values()].map(c => c.meta)
+      .sort((a, b) => (a.dial ?? 999) - (b.dial ?? 999));
   }
 
-  get(id) { return this.channels.get(id) || null; }
+  get(id) { return this.channels.get(id) || this.custom.get(id) || null; }
 
   /** The entry on air on `id` at `ms`. */
   at(id, ms = Date.now()) {
     const ch = this.get(id);
     if (!ch) return null;
+    if (ch.custom) return ch.custom.at(ms);
     return this.engine.entryAt(ch.playlist, ms);
   }
 
@@ -100,7 +105,7 @@ export class Broadcast {
   *range(id, fromMs, untilMs) {
     const ch = this.get(id);
     if (!ch) return;
-    for (const e of this.engine.walk(ch.playlist, fromMs)) {
+    for (const e of ch.custom ? ch.custom.walk(fromMs) : this.engine.walk(ch.playlist, fromMs)) {
       if (e.startMs >= untilMs) return;
       yield e;
     }
