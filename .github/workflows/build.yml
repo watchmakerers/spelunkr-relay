@@ -77,10 +77,10 @@ jobs:
 
   ps3:
     runs-on: ubuntu-latest
-    container: flipacholas/ps3devextra:latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd ps3 && make && make pkg
+      # The toolchain image is too old (Alpine) to host GitHub's actions, so run it directly.
+      - run: docker run --rm -v "$PWD":/src -w /src/ps3 flipacholas/ps3devextra:latest sh -c 'make && make pkg'
       - uses: actions/upload-artifact@v4
         with: { name: spelunkr-ps3, path: ps3/spelunkr.pkg }
 
