@@ -60,6 +60,24 @@ const M_LOGO = (() => {
   return { type: 'pixel', rows: g.map(r => r.join('')) };
 })();
 
+// A striped 80s sunset over a neon grid.
+const SUNSET_LOGO = (() => {
+  const g = Array.from({ length: 32 }, () => Array(32).fill('.'));
+  for (let y = 2; y < 30; y++) for (let x = 2; x < 30; x++) g[y][x] = (x <= 3 || x >= 28 || y <= 3 || y >= 28) ? 'k' : 'n';
+  const cx = 15.5, cy = 18, r = 10;
+  for (let y = 5; y < 19; y++) for (let x = 4; x < 28; x++) {
+    if ((x - cx) ** 2 + (y - cy) ** 2 > r * r) continue;
+    if (y >= 13 && (y - 13) % 3 === 2) continue; // the stripes cut through the lower half
+    g[y][x] = y < 10 ? 'g' : y < 14 ? 'o' : 'c';
+  }
+  for (let y = 19; y < 28; y++) for (let x = 4; x < 28; x++) {
+    const horizon = y === 19 || y === 21 || y === 24;
+    const ray = [-12, -6, 0, 6, 12].some(k => Math.round(cx + k * (y - 18) / 9) === x); // grid lines to the horizon
+    g[y][x] = horizon || ray ? 'l' : 'k';
+  }
+  return { type: 'pixel', rows: g.map(r => r.join('')) };
+})();
+
 const isFourThree = e => e.width && e.height && e.width / e.height < 1.5;
 
 export const DEFINITIONS = [
@@ -77,6 +95,13 @@ export const DEFINITIONS = [
     description: 'Jackass, Beavis and Butt-Head, Celebrity Deathmatch, Viva La Bam and Headbangers Ball, with real 90s and 2000s commercials.',
     logomark: M_LOGO, seed: 1997,
     shows: ['channels/mtv.json'], bumps: 'channels/mtv-bumps.json', ads: 'channels/tvads-9300s.json', adsPerBreak: [2, 4],
+  },
+  {
+    id: 'relay-toons', dial: 6, name: 'Toon Rewind', color: '#e0218a',
+    description: "80s and early-90s cartoons: He-Man, ThunderCats, Turtles, G.I. Joe, Transformers, DuckTales, Gargoyles and more, with Saturday-morning commercials.",
+    logomark: SUNSET_LOGO, seed: 1985,
+    shows: ['channels/toons.json'], bumps: 'channels/toons-bumps.json',
+    ads: ['channels/tapeads-80s-kids.json', 'channels/tvads-80s-kids.json'], adsPerBreak: [3, 4],
   },
 ];
 
@@ -146,7 +171,7 @@ export class CustomChannel {
     const channelBump = deck(bumps ? read(bumps) : [], rand);
     const platformBump = deck(platform.bumps, rand);
     const song = deck(platform.audio, rand);
-    const ad = deck(ads ? read(ads) : [], rand);
+    const ad = deck([].concat(ads || []).flatMap(f => (fs.existsSync(path.join(HERE, f)) ? read(f) : [])), rand);
     const tune = () => { const a = song(); return a && { filename: a.filename, startOffset: Math.floor(rand() * 20) }; };
 
     this.items = [];
@@ -159,7 +184,7 @@ export class CustomChannel {
       for (let k = 0; k < n; k++) {
         const a = ad();
         if (!a) break;
-        push({ type: 'ad', title: a.title, slice: { tape: a.id, file: a.file, inMs: 0, lengthMs: Math.round(a.durationS * 1000) } }, a.durationS * 1000);
+        push({ type: 'ad', title: a.title, slice: { tape: a.id, file: a.file, inMs: Math.round((a.inS || 0) * 1000), lengthMs: Math.round(a.durationS * 1000) } }, a.durationS * 1000);
       }
       const close = platformBump();
       if (close) push({ type: 'bump-break', half: 'close', platformBump: close, platformAudio: tune() }, breakHalfMs('close', close.slides));
