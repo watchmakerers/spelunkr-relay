@@ -52,7 +52,12 @@ a snapshot of the site's), and an "up next" card.
   cycle). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
   `node tools/build-xplay.js` (in `relay/`) to pick up newly uploaded episodes. Its breaks
   play video game commercials from archive.org (`channels/gameads.json`, built by
-  `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`).
+  `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`). The 4:3
+  episodes (2008-09) air four times per cycle, evenly spaced; the widescreen ones once.
+- **Channel 5 - Classic MTV**: Jackass, Beavis and Butt-Head, Celebrity Deathmatch, Viva La
+  Bam and Headbangers Ball (~135 hours; `channels/mtv.json`, `node tools/build-mtv.js`), with
+  real 1993-2005 US TV commercials in the breaks (`channels/tvads-9300s.json`,
+  `node tools/build-tvads.js`). Multi-part Headbangers Ball broadcasts stay in order.
 
 ## Controls
 

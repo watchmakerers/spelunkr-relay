@@ -24,6 +24,7 @@ async function episode(id) {
   if (m) title = `${MONTHS[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}`;
   return {
     id, file: mp4.name, durationS: Math.round(Number(mp4.length) * 10) / 10,
+    width: Number(mp4.width) || null, height: Number(mp4.height) || null,
     title: `X-Play: ${title}`, year: m ? m[1] : '', description: desc,
   };
 }

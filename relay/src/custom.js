@@ -42,14 +42,77 @@ const X_LOGO = (() => {
   return { type: 'pixel', rows };
 })();
 
+// A chunky 3-D "M" with a little gold "tv" tucked under its right leg.
+const M_LOGO = (() => {
+  const g = Array.from({ length: 32 }, () => Array(32).fill('.'));
+  const put = (x, y, ch) => { if (x >= 0 && x < 32 && y >= 0 && y < 32) g[y][x] = ch; };
+  const M = (x, y) => {
+    if (y < 5 || y > 22 || x < 4 || x > 25) return false;
+    if (x <= 8 || x >= 21) return true;                     // the two legs
+    const d = y - 5;                                        // the V, 3px thick
+    return (x - 9 >= d - 2 && x - 9 <= d + 1 && x <= 15) || (20 - x >= d - 2 && 20 - x <= d + 1 && x >= 14);
+  };
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) if (M(x - 2, y - 2) && !M(x, y)) put(x, y, 'd'); // extrusion
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) if (M(x, y)) put(x, y, 'c');
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 32; x++) if (M(x, y) && !M(x - 1, y)) put(x, y, 'l'); // highlight
+  const tv = ['ggg.g.g', '.g..g.g', '.g..g.g', '.g...g.'];
+  tv.forEach((r, j) => [...r].forEach((ch, i) => ch === 'g' && put(20 + i, 25 + j, 'g')));
+  return { type: 'pixel', rows: g.map(r => r.join('')) };
+})();
+
+const isFourThree = e => e.width && e.height && e.width / e.height < 1.5;
+
 export const DEFINITIONS = [
   {
     id: 'relay-xplay', dial: 4, name: 'X-Play', color: '#d2232a',
     description: "G4's X-Play, around the clock: reviews, previews and sketches, 2008-2012. Gaming ads in the breaks.",
-    logomark: X_LOGO, seed: 4,
+    logomark: X_LOGO, seed: 44,
     shows: ['channels/xplay.json'], bumps: 'channels/xplay-bumps.json', ads: 'channels/gameads.json', adsPerBreak: [2, 3],
+    // 4:3 episodes (2008-09) fill a CRT; they air four times a cycle, spread out, the
+    // widescreen 2011-12 ones once.
+    repeat: e => (isFourThree(e) ? 4 : 1),
+  },
+  {
+    id: 'relay-mtv', dial: 5, name: 'Classic MTV', color: '#f2c200',
+    description: 'Jackass, Beavis and Butt-Head, Celebrity Deathmatch, Viva La Bam and Headbangers Ball, with real 90s and 2000s commercials.',
+    logomark: M_LOGO, seed: 1997,
+    shows: ['channels/mtv.json'], bumps: 'channels/mtv-bumps.json', ads: 'channels/tvads-9300s.json', adsPerBreak: [2, 4],
   },
 ];
+
+/**
+ * Episode order for one cycle. Multi-part broadcasts (same `group`) stay together and in
+ * part order. Units with repeat k > 1 air k times: the rest are split into k stretches
+ * and each stretch gets one copy of every repeated unit, so repeats stay far apart.
+ */
+function order(episodes, rand, repeat) {
+  const units = [], byGroup = new Map();
+  for (const e of episodes) {
+    if (!e.group) { units.push([e]); continue; }
+    if (!byGroup.has(e.group)) { const u = []; byGroup.set(e.group, u); units.push(u); }
+    byGroup.get(e.group).push(e);
+  }
+  for (const u of byGroup.values()) u.sort((a, b) => (a.part ?? 0) - (b.part ?? 0));
+  const times = u => Math.max(1, Math.floor(repeat ? repeat(u[0]) : 1));
+  const k = Math.max(1, ...units.map(times));
+  const once = shuffle(units.filter(u => times(u) === 1), rand);
+  const again = shuffle(units.filter(u => times(u) > 1), rand); // same order in every stretch
+  const out = [];
+  for (let r = 0; r < k; r++) {
+    const stretch = once.slice(Math.floor((r * once.length) / k), Math.floor(((r + 1) * once.length) / k));
+    const extra = again.filter(u => times(u) > r);
+    // drop the repeated units in at even spacing, at the same spots each stretch, so each
+    // one comes back about a stretch later instead of possibly right after itself
+    const merged = [];
+    let j = 0;
+    for (let i = 0; i < stretch.length + extra.length; i++) {
+      const due = j < extra.length && i >= Math.round(((j + 0.5) * (stretch.length + extra.length)) / extra.length - 0.5);
+      merged.push(due ? extra[j++] : stretch[i - j]);
+    }
+    out.push(...merged);
+  }
+  return out.flat();
+}
 
 function rng(seed) {
   let s = seed >>> 0 || 1;
@@ -75,11 +138,11 @@ function deck(list, rand) {
 
 export class CustomChannel {
   constructor(def) {
-    const { shows, bumps, ads, adsPerBreak = [2, 3], seed, ...meta } = def;
+    const { shows, bumps, ads, adsPerBreak = [2, 3], seed, repeat, ...meta } = def;
     this.meta = meta;
     const rand = rng(seed);
     const platform = read('channels/spelunkr-platform.json');
-    const episodes = shuffle(shows.flatMap(read), rand);
+    const episodes = order(shows.flatMap(read), rand, repeat);
     const channelBump = deck(bumps ? read(bumps) : [], rand);
     const platformBump = deck(platform.bumps, rand);
     const song = deck(platform.audio, rand);
