@@ -37,19 +37,16 @@ jobs:
 
   windows:
     runs-on: windows-latest
-    defaults:
-      run: { shell: 'msys2 {0}' }
     steps:
       - uses: actions/checkout@v4
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          install: mingw-w64-x86_64-gcc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja zip
-      - run: cmake -S desktop -B build -G Ninja -DSPELUNKR_VENDOR_SDL=ON && cmake --build build
-      - run: |
-          mkdir -p out/spelunkr-windows && cp build/spelunkr.exe out/spelunkr-windows/
-          cp core/font/OFL-SpaceMono.txt out/spelunkr-windows/
-          cd out && zip -r ../spelunkr-windows-x64.zip spelunkr-windows
+      # MSVC (preinstalled); SDL2 is built from source and linked statically.
+      - run: cmake -S desktop -B build -A x64 -DSPELUNKR_VENDOR_SDL=ON
+      - run: cmake --build build --config Release
+      - shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force out/spelunkr-windows | Out-Null
+          Copy-Item build/Release/spelunkr.exe, core/font/OFL-SpaceMono.txt out/spelunkr-windows/
+          Compress-Archive -Path out/spelunkr-windows -DestinationPath spelunkr-windows-x64.zip
       - uses: actions/upload-artifact@v4
         with: { name: spelunkr-windows, path: spelunkr-windows-x64.zip }
 

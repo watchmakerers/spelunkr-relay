@@ -5,6 +5,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(spelunkr C)
 set(CMAKE_C_STANDARD 11)
+# MSVC: link the C runtime statically too, so spelunkr.exe runs on its own.
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
@@ -41,6 +43,8 @@ elseif(NOT APPLE)
 endif()
 if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
   target_compile_options(spelunkr PRIVATE -Wall -Wno-unused-function)
+elseif(MSVC)
+  target_compile_definitions(spelunkr PRIVATE _CRT_SECURE_NO_WARNINGS _WINSOCK_DEPRECATED_NO_WARNINGS)
 endif()
 set_target_properties(spelunkr PROPERTIES
   MACOSX_BUNDLE_BUNDLE_NAME "SPELUNKR"
