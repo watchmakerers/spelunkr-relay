@@ -29,7 +29,8 @@ target_link_libraries(spelunkr
   stdc++ m)
 set_target_properties(spelunkr PROPERTIES LINKER_LANGUAGE CXX)
 
-vita_create_self(eboot.bin spelunkr)
+# UNSAFE: the updater writes the new eboot.bin into ux0:app/SPLK00001.
+vita_create_self(eboot.bin spelunkr UNSAFE)
 vita_create_vpk(spelunkr.vpk ${VITA_TITLEID} eboot.bin
   VERSION ${VITA_VERSION}
   NAME ${VITA_APP_NAME}

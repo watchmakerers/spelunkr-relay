@@ -12,7 +12,7 @@ const [outName, ...items] = process.argv.slice(2);
 if (!outName || !items.length) { console.error('usage: build-tapeads.js out.json item...'); process.exit(1); }
 const OUT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../src/channels/', outName);
 const UA = { 'user-agent': 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)' };
-const MIN_S = 9, MAX_S = 65, PARALLEL = 4;
+const MIN_S = 9, MAX_S = 65, PARALLEL = 8;
 
 async function getJson(url, tries = 4) {
   for (let i = 1; ; i++) {
@@ -58,9 +58,16 @@ async function tape(item) {
   return ads;
 }
 
-const out = [];
-for (let i = 0; i < items.length; i += PARALLEL) {
-  for (const ads of await Promise.all(items.slice(i, i + PARALLEL).map(it => tape(it).catch(e => (console.warn(it, e.message), []))))) out.push(...ads);
-}
-fs.writeFileSync(OUT, JSON.stringify(out, null, 1) + '\n');
+// Results are saved after every tape, in item order, so stopping early keeps what's done.
+const done = new Map();
+const save = () => fs.writeFileSync(OUT, JSON.stringify(items.flatMap(it => done.get(it) || []), null, 1) + '\n');
+let next = 0;
+await Promise.all(Array.from({ length: PARALLEL }, async () => {
+  while (next < items.length) {
+    const it = items[next++];
+    done.set(it, await tape(it).catch(e => (console.warn(it, e.message), [])));
+    save();
+  }
+}));
+const out = items.flatMap(it => done.get(it) || []);
 console.log(`${out.length} spots -> ${path.relative(process.cwd(), OUT)}`);

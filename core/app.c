@@ -20,6 +20,9 @@
 #include "player.h"
 #include "audio.h"
 #include "log.h"
+#include "settings.h"
+#include "update.h"
+#include "version.h"
 
 // Network palette (the site's "8s" look).
 #define C_PURPLE 0x1C0A57
@@ -84,7 +87,7 @@ static layout_t L;
 #define PIP_W      (L.pip_w)
 #define PIP_H      (L.pip_h)
 
-typedef enum { MODE_CONNECT, MODE_NORELAY, MODE_WATCH, MODE_GUIDE } mode_t_;
+typedef enum { MODE_CONNECT, MODE_NORELAY, MODE_WATCH, MODE_GUIDE, MODE_UPDATE } mode_t_;
 
 static mode_t_ mode = MODE_CONNECT;
 static char relay_host[64];
@@ -98,6 +101,47 @@ static int sel_row;                // guide: selected channel
 static int top_row;                // guide: first visible row
 static s64 focus_ms;               // guide: time in focus (selects the show in the row)
 static int dirty = 1;
+static int quit;
+static s64 osd_until_us;           // volume / CRT message
+static char osd_text[64];
+static int osd_volume;             // the message is the volume bar
+static char update_version[32];
+static char update_note[200];      // update screen: status after trying
+static int update_installed;       // ...and whether it worked (then OK quits)
+
+// ------------------------------------------------------------------ volume, CRT
+
+static void apply_volume(void)
+{
+	float v = settings.volume / 100.0f;
+	audio_set_volume(v * v);       // closer to how loud it sounds
+}
+
+static void osd(const char *text, int is_volume)
+{
+	snprintf(osd_text, sizeof(osd_text), "%s", text);
+	osd_volume = is_volume;
+	osd_until_us = now_us() + 2000000;
+	dirty = 1;
+}
+
+static void change_volume(int delta)
+{
+	int v = settings.volume + delta;
+	settings.volume = v < 0 ? 0 : v > 100 ? 100 : v;
+	apply_volume();
+	settings_save();
+	osd("VOLUME", 1);
+}
+
+static void toggle_crt(void)
+{
+	if (!gfx_has_crt()) return;
+	settings.crt = !settings.crt;
+	gfx_set_crt(settings.crt);
+	settings_save();
+	osd(settings.crt ? "CRT FILTER ON" : "CRT FILTER OFF", 0);
+}
 
 // ------------------------------------------------------------------ helpers
 
@@ -352,6 +396,53 @@ static void draw_guide(void)
 		ui_text(MARGIN_X, UI_H - MARGIN_Y + 2, L.f_hint, RGB(C_SLATE), plat_hint_guide(), 0);
 }
 
+// ------------------------------------------------------------------ mouse bar, OSD
+
+enum { ACT_GUIDE, ACT_VOL_DOWN, ACT_VOL_UP, ACT_CRT, ACT_COUNT };
+typedef struct { int x, y, w, h; } rect_t;
+static rect_t bar[ACT_COUNT];
+static int pointer_on, pointer_x, pointer_y;
+
+static int inside(const rect_t *r, int x, int y) { return x >= r->x && x < r->x + r->w && y >= r->y && y < r->y + r->h; }
+
+// The buttons a mouse user gets while watching: top right, like a remote on screen.
+static void draw_mouse_bar(void)
+{
+	static const char *labels[ACT_COUNT] = { "TV GUIDE", "VOL -", "VOL +", "CRT" };
+	int f = L.f_ban_meta + 2, h = f + 18, x = UI_W - MARGIN_X, y = MARGIN_Y;
+	for (int i = ACT_COUNT - 1; i >= 0; i--) {
+		if (i == ACT_CRT && !gfx_has_crt()) { bar[i] = (rect_t){ 0, 0, 0, 0 }; continue; }
+		int w = ui_text_width(f, labels[i]) + 28;
+		x -= w;
+		bar[i] = (rect_t){ x, y, w, h };
+		int hot = inside(&bar[i], pointer_x, pointer_y), on = i == ACT_CRT && settings.crt;
+		ui_rect(x, y, w, h, hot ? RGB(C_GOLD) : ARGB(225, on ? C_NAVY : C_INK));
+		ui_frame(x, y, w, h, 2, RGB(C_GOLD));
+		ui_text(x + 14, y + 8, f, RGB(hot ? C_INK : C_PAPER), labels[i], 0);
+		x -= 10;
+	}
+}
+
+static void draw_osd(void)
+{
+	if (now_us() >= osd_until_us) return;
+	int f = L.f_ban_name, w = UI_W / 3, h = f + 36, x = (UI_W - w) / 2, y = UI_H / 6;
+	ui_rect(x, y, w, h, ARGB(235, C_INK));
+	ui_frame(x, y, w, h, 2, RGB(C_GOLD));
+	if (osd_volume) {
+		char n[16];
+		snprintf(n, sizeof(n), "%d", settings.volume);
+		ui_text(x + 16, y + 18, f, RGB(C_GOLD), "VOL", 0);
+		int bx = x + 16 + ui_text_width(f, "VOL") + 16, bw = w - (bx - x) - 16 - ui_text_width(f, "100") - 12;
+		ui_rect(bx, y + h / 2 - 5, bw, 10, RGB(C_NAVY));
+		ui_rect(bx, y + h / 2 - 5, bw * settings.volume / 100, 10, RGB(C_GOLD));
+		ui_text(x + w - 16 - ui_text_width(f, n), y + 18, f, RGB(C_PAPER), n, 0);
+	} else {
+		int tw = ui_text_width(f, osd_text);
+		ui_text(x + (w - tw) / 2, y + 18, f, RGB(C_PAPER), osd_text, 0);
+	}
+}
+
 static void render_overlay(void)
 {
 	player_status_t ps;
@@ -372,14 +463,27 @@ static void render_overlay(void)
 		} else if (ps.state == PLAYER_TUNING) {
 			draw_tuning_card(c, "TUNING TO");
 		}
-		if (now_us() < banner_until_us || ps.state == PLAYER_BUFFERING) draw_banner(c, &ps);
+		if (now_us() < banner_until_us || ps.state == PLAYER_BUFFERING) {
+			draw_banner(c, &ps);
+			if (!pointer_on) ui_text(MARGIN_X, MARGIN_Y, L.f_ban_meta, RGB(C_SLATE), plat_hint_watch(), UI_W - 2 * MARGIN_X);
+		}
+		if (pointer_on) draw_mouse_bar();
 		if (ps.state == PLAYER_BUFFERING) ui_text(UI_W - MARGIN_X - ui_text_width(L.f_ban_name, "BUFFERING..."), MARGIN_Y, L.f_ban_name, RGB(C_GOLD), "BUFFERING...", 0);
 		break;
 	}
 	case MODE_GUIDE:
 		draw_guide();
 		break;
+	case MODE_UPDATE: {
+		char body[400];
+		if (update_note[0]) snprintf(body, sizeof(body), "%s", update_note);
+		else snprintf(body, sizeof(body), "Version %s is ready (you have %s). Press X / Enter to update now, or O / Esc to "
+		              "skip it this time.", update_version, SPELUNKR_VERSION);
+		draw_center_message("UPDATE AVAILABLE", body);
+		break;
 	}
+	}
+	draw_osd();
 	gfx_overlay_commit();
 }
 
@@ -417,21 +521,99 @@ static void focus_row(int row)
 	dirty = 1;
 }
 
+static void open_guide(void)
+{
+	mode = MODE_GUIDE;
+	focus_row(watching >= 0 ? watching : 0);
+	focus_ms = clock_ms();
+}
+
+static void run_update(void)
+{
+	// Paint "downloading" first: the download blocks for a few seconds.
+	snprintf(update_note, sizeof(update_note), "Downloading version %s from the relay...", update_version);
+	render_overlay();
+	gfx_frame(0, 0, UI_W, UI_H, 0);
+	char path[512];
+	int r = update_download(relay_host, relay_port, path, sizeof(path));
+	if (r == 0) r = plat_install_update(path);
+	if (r == 1) snprintf(update_note, sizeof(update_note), "Updated to %s. Press X / Enter to close SPELUNKR, then start it again.", update_version);
+	else snprintf(update_note, sizeof(update_note), "The update didn't work (the relay may not have finished downloading it). "
+	              "Press X / Enter to keep watching; it will be offered again next time.");
+	update_installed = r == 1;
+	dirty = 1;
+}
+
+// Mouse: the on-screen buttons while watching; rows, shows and the preview in the guide.
+static void handle_pointer(void)
+{
+	int x, y, click, wheel;
+	int on = plat_pointer(&x, &y, &click, &wheel);
+	if (on != pointer_on || (on && (x != pointer_x || y != pointer_y))) dirty = 1;
+	pointer_on = on;
+	pointer_x = x;
+	pointer_y = y;
+	if (mode == MODE_WATCH) {
+		if (wheel) change_volume(wheel * 5);
+		if (!click || !on) return;
+		if (inside(&bar[ACT_GUIDE], x, y)) open_guide();
+		else if (inside(&bar[ACT_VOL_DOWN], x, y)) change_volume(-5);
+		else if (inside(&bar[ACT_VOL_UP], x, y)) change_volume(5);
+		else if (inside(&bar[ACT_CRT], x, y)) toggle_crt();
+		else { banner_until_us = now_us() + 5000000; dirty = 1; }
+	} else if (mode == MODE_GUIDE && guide.nch) {
+		if (wheel) focus_row(sel_row - wheel);
+		if (!click) return;
+		if (x >= PIP_X && x < PIP_X + PIP_W && y >= PIP_Y && y < PIP_Y + PIP_H && watching >= 0) { mode = MODE_WATCH; dirty = 1; return; }
+		int r = (y - GRID_Y - GRID_HEAD) / ROW_H;
+		if (y < GRID_Y + GRID_HEAD || r < 0 || r >= ROWS || top_row + r >= guide.nch || x < MARGIN_X || x >= UI_W - MARGIN_X) return;
+		int row = top_row + r;
+		channel_t *c = &guide.ch[row];
+		s64 now = clock_ms(), ws = window_start();
+		s64 t = x < GRID_X ? now : ws + (s64)((x - GRID_X) * (WINDOW_MIN * 60 * 1000.0f) / GRID_W);
+		if (t < now) t = now;
+		const show_t *before = show_at(c, focus_ms), *hit = show_at(c, t);
+		if (row == sel_row && hit && hit == before) { // second click on the same show: watch the channel
+			if (sel_row != watching) tune(sel_row);
+			mode = MODE_WATCH;
+		} else {
+			focus_row(row);
+			focus_ms = hit && hit->start > now ? hit->start : now;
+		}
+		dirty = 1;
+	} else if ((mode == MODE_UPDATE || mode == MODE_NORELAY) && click) {
+		pad.now |= BTN(B_OK); // a click means OK on the message screens
+	}
+}
+
 static void handle_input(void)
 {
+	handle_pointer();
 	if (mode == MODE_NORELAY) {
 		if (pressed(B_OK)) { mode = MODE_CONNECT; dirty = 1; }
 		return;
+	}
+	if (mode == MODE_UPDATE) {
+		if (update_note[0]) {           // after an attempt: OK closes this screen (or the app)
+			if (pressed(B_OK) || pressed(B_BACK)) {
+				if (update_installed) quit = 1;
+				mode = MODE_WATCH;
+				dirty = 1;
+			}
+		} else if (pressed(B_OK)) run_update();
+		else if (pressed(B_BACK)) { mode = MODE_WATCH; dirty = 1; }
+		return;
+	}
+	if (mode == MODE_WATCH || mode == MODE_GUIDE) {
+		if (pressed(B_VOL_UP)) change_volume(5);
+		if (pressed(B_VOL_DOWN)) change_volume(-5);
+		if (pressed(B_CRT)) toggle_crt();
 	}
 	if (mode == MODE_WATCH) {
 		if (pressed(B_UP)) tune(watching <= 0 ? guide.nch - 1 : watching - 1);
 		if (pressed(B_DOWN)) tune(watching >= guide.nch - 1 ? 0 : watching + 1);
 		if (pressed(B_OK) || pressed(B_INFO)) { banner_until_us = now_us() + 5000000; dirty = 1; }
-		if (pressed(B_GUIDE) || pressed(B_BACK) || pressed(B_START)) {
-			mode = MODE_GUIDE;
-			focus_row(watching >= 0 ? watching : 0);
-			focus_ms = clock_ms();
-		}
+		if (pressed(B_GUIDE) || pressed(B_BACK) || pressed(B_START)) open_guide();
 		return;
 	}
 	if (mode == MODE_GUIDE) {
@@ -471,12 +653,15 @@ static void connect_relay(void)
 	if (!player_up) { player_start(relay_host, relay_port); player_up = 1; }
 	tune(load_last());
 	mode = MODE_WATCH;
+	update_note[0] = 0;
+	if (update_check(relay_host, relay_port, update_version, sizeof(update_version)) == 1) mode = MODE_UPDATE;
 }
 
 int app_main(void)
 {
 	log_open();
-	LOG("SPELUNKR starting");
+	LOG("SPELUNKR %s starting", SPELUNKR_VERSION);
+	settings_load();
 	if (gfx_init() != 0) { LOG("gfx_init failed"); return 1; }
 	L = gfx_is_4x3() ? LAYOUT_4X3 : LAYOUT_HD;
 	if (ui_init(gfx_overlay_canvas()) != 0) { LOG("ui_init failed"); return 1; }
@@ -484,10 +669,12 @@ int app_main(void)
 	gfx_selftest();
 	LOG("net init %d", plat_net_init());
 	LOG("audio_start %d", audio_start());
+	apply_volume();
+	gfx_set_crt(settings.crt);
 
 	s64 last = now_us(), last_tick = 0;
 	player_state_t last_state = PLAYER_IDLE;
-	while (plat_poll()) {
+	while (!quit && plat_poll()) {
 		read_pad();
 
 		if (mode == MODE_CONNECT) {

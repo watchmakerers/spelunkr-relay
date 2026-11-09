@@ -245,6 +245,10 @@ int gfx_is_4x3(void) { return gfx_aspect < 1.5f; }
 
 const char *gfx_stream_aspect(void) { return gfx_is_4x3() ? "4x3" : "16x9"; }
 
+// No CRT filter on the PS3: it is usually plugged into a real one.
+void gfx_set_crt(int on) { (void)on; }
+int  gfx_has_crt(void) { return 0; }
+
 u32 *gfx_overlay_canvas(void) { return canvas; }
 
 void gfx_overlay_commit(void)

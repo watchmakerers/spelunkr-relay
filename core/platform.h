@@ -47,6 +47,9 @@ enum {
 	B_START,     // PS: Start       keyboard: -         pad: Start
 	B_PAGE_UP,   // PS: L1/L        keyboard: PgUp      pad: LB
 	B_PAGE_DOWN, // PS: R1/R        keyboard: PgDn      pad: RB
+	B_VOL_DOWN,  // PS3: L2         keyboard: - / wheel pad: LT     (Vita: its volume buttons)
+	B_VOL_UP,    // PS3: R2         keyboard: + / wheel pad: RT
+	B_CRT,       // Vita: Select    keyboard: C         pad: Back   - CRT filter on/off
 	B_COUNT
 };
 #define BTN(b) (1u << (b))
@@ -55,9 +58,22 @@ u32  plat_buttons(void);
 // Pumps system events. Returns 0 when the app should quit.
 int  plat_poll(void);
 
+// Mouse, where there is one: position in UI coordinates, a click this frame, and wheel
+// steps since the last call. Returns 1 while the pointer is in use (moved recently).
+int  plat_pointer(int *x, int *y, int *clicked, int *wheel);
+
 // Text for the screens: the guide's control hint, and how to point the app at the relay.
 const char *plat_hint_guide(void);
+const char *plat_hint_watch(void);   // shown with the channel banner (guide / volume buttons)
 const char *plat_relay_help(void);
+
+// --- self-update (see core/update.c)
+// The release file this build updates from (NULL: this platform can't update itself), and
+// installing a downloaded copy of it: 0 = installed and restarting (does not return on
+// success where the platform can relaunch), 1 = installed, ask the user to restart,
+// <0 = failed.
+const char *plat_update_asset(void);
+int  plat_install_update(const char *downloaded);
 
 // Relay address given on the command line ("host:port"), or NULL.
 extern const char *plat_relay_override;

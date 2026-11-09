@@ -32,8 +32,9 @@ jobs:
           mkdir -p out/spelunkr-linux && cp build/spelunkr out/spelunkr-linux/
           cp core/font/OFL-SpaceMono.txt out/spelunkr-linux/
           tar -C out -czf spelunkr-linux-x86_64.tar.gz spelunkr-linux
+          cp build/spelunkr spelunkr-linux-x86_64-bin   # for the in-app updater
       - uses: actions/upload-artifact@v4
-        with: { name: spelunkr-linux, path: spelunkr-linux-x86_64.tar.gz }
+        with: { name: spelunkr-linux, path: "spelunkr-linux-x86_64*" }
 
   windows:
     runs-on: windows-latest
@@ -47,8 +48,9 @@ jobs:
           New-Item -ItemType Directory -Force out/spelunkr-windows | Out-Null
           Copy-Item build/Release/spelunkr.exe, core/font/OFL-SpaceMono.txt out/spelunkr-windows/
           Compress-Archive -Path out/spelunkr-windows -DestinationPath spelunkr-windows-x64.zip
+          Copy-Item build/Release/spelunkr.exe spelunkr-windows-x64.exe
       - uses: actions/upload-artifact@v4
-        with: { name: spelunkr-windows, path: spelunkr-windows-x64.zip }
+        with: { name: spelunkr-windows, path: "spelunkr-windows-x64.*" }
 
   macos:
     runs-on: macos-latest
@@ -60,17 +62,18 @@ jobs:
           mkdir -p out && cp -R build/spelunkr.app out/SPELUNKR.app
           cp core/font/OFL-SpaceMono.txt out/
           cd out && zip -r ../spelunkr-macos.zip SPELUNKR.app OFL-SpaceMono.txt
+          cp ../build/spelunkr.app/Contents/MacOS/spelunkr ../spelunkr-macos-bin
       - uses: actions/upload-artifact@v4
-        with: { name: spelunkr-macos, path: spelunkr-macos.zip }
+        with: { name: spelunkr-macos, path: "spelunkr-macos*" }
 
   vita:
     runs-on: ubuntu-latest
     container: vitasdk/vitasdk:latest
     steps:
       - uses: actions/checkout@v4
-      - run: cmake -S vita -B build && cmake --build build -j4
+      - run: cmake -S vita -B build && cmake --build build -j4 && cp build/eboot.bin spelunkr-vita-eboot.bin
       - uses: actions/upload-artifact@v4
-        with: { name: spelunkr-vita, path: build/spelunkr.vpk }
+        with: { name: spelunkr-vita, path: "build/spelunkr.vpk\nspelunkr-vita-eboot.bin" }
 
   ps3:
     runs-on: ubuntu-latest
@@ -78,8 +81,9 @@ jobs:
       - uses: actions/checkout@v4
       # The toolchain image is too old (Alpine) to host GitHub's actions, so run it directly.
       - run: docker run --rm -v "$PWD":/src -w /src/ps3 flipacholas/ps3devextra:latest sh -c 'make && make pkg'
+      - run: cp ps3/build/pkg/USRDIR/EBOOT.BIN spelunkr-ps3-EBOOT.BIN
       - uses: actions/upload-artifact@v4
-        with: { name: spelunkr-ps3, path: ps3/spelunkr.pkg }
+        with: { name: spelunkr-ps3, path: "ps3/spelunkr.pkg\nspelunkr-ps3-EBOOT.BIN" }
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')

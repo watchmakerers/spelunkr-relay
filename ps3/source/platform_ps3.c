@@ -1,5 +1,6 @@
 // PS3 platform layer: process setup, pad input, XMB exit, threads, the clock and files.
 // Video and audio are in gfx.c and audio.c.
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <io/pad.h>
@@ -90,13 +91,34 @@ u32 plat_buttons(void)
 		       (d.BTN_LEFT ? BTN(B_LEFT) : 0) | (d.BTN_RIGHT ? BTN(B_RIGHT) : 0) |
 		       (d.BTN_CROSS ? BTN(B_OK) : 0) | (d.BTN_CIRCLE ? BTN(B_BACK) : 0) |
 		       (d.BTN_TRIANGLE ? BTN(B_GUIDE) : 0) | (d.BTN_SQUARE ? BTN(B_INFO) : 0) |
-		       (d.BTN_START ? BTN(B_START) : 0) | (d.BTN_L1 ? BTN(B_PAGE_UP) : 0) | (d.BTN_R1 ? BTN(B_PAGE_DOWN) : 0);
+		       (d.BTN_START ? BTN(B_START) : 0) | (d.BTN_L1 ? BTN(B_PAGE_UP) : 0) | (d.BTN_R1 ? BTN(B_PAGE_DOWN) : 0) |
+		       (d.BTN_L2 ? BTN(B_VOL_DOWN) : 0) | (d.BTN_R2 ? BTN(B_VOL_UP) : 0);
 		return held;
 	}
 	return held;
 }
 
 const char *plat_hint_guide(void) { return "X WATCH     LEFT/RIGHT SHOWS     L1/R1 PAGE     TRIANGLE CLOSE"; }
+const char *plat_hint_watch(void) { return "TRIANGLE: TV GUIDE    UP/DOWN: CHANNEL    L2/R2: VOLUME"; }
+
+int plat_pointer(int *x, int *y, int *clicked, int *wheel) { *x = *y = *clicked = *wheel = 0; return 0; }
+
+// Self-update: the new EBOOT.BIN replaces ours in USRDIR (it's already loaded, so that's
+// safe); it runs from the next start.
+const char *plat_update_asset(void) { return "spelunkr-ps3-EBOOT.BIN"; }
+int plat_install_update(const char *downloaded)
+{
+	FILE *a = fopen(downloaded, "rb"), *b = a ? fopen(APP_DIR "/EBOOT.BIN", "wb") : NULL;
+	if (!a || !b) { if (a) fclose(a); return -1; }
+	static char buf[64 * 1024];
+	size_t n;
+	int ok = 1;
+	while ((n = fread(buf, 1, sizeof(buf), a)) > 0) if (fwrite(buf, 1, n, b) != n) { ok = 0; break; }
+	fclose(a);
+	if (fclose(b) != 0) ok = 0;
+	remove(downloaded);
+	return ok ? 1 : -1;
+}
 const char *plat_relay_help(void)
 {
 	return "Start the relay on your PC (in the relay folder run: npm start) and make sure the PS3 is on the same "

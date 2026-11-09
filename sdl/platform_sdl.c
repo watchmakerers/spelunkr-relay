@@ -13,6 +13,7 @@
 
 #ifdef _WIN32
 #  include <winsock2.h>
+#  include <windows.h>
 #elif defined(__vita__)
 #  include <psp2/ctrl.h>
 #  include <psp2/io/stat.h>
@@ -20,8 +21,15 @@
 #  include <psp2/net/netctl.h>
 #  include <psp2/power.h>
 #  include <psp2/sysmodule.h>
+#  include <psp2/appmgr.h>
+#  include <psp2/io/fcntl.h>
 #else
 #  include <signal.h>
+#  include <unistd.h>
+#  include <sys/stat.h>
+#  ifdef __APPLE__
+#    include <mach-o/dyld.h>
+#  endif
 #endif
 
 #include "platform.h"
@@ -225,6 +233,55 @@ u32 *gfx_overlay_canvas(void) { return canvas; }
 void gfx_overlay_commit(void) { SDL_UpdateTexture(overlay, NULL, canvas, ui_w * 4); }
 void gfx_selftest(void) {}
 
+// ---- CRT filter: scanlines and darker corners, drawn over everything at the window's real
+// resolution (so the lines stay crisp whatever the window size).
+static int crt_on;
+static SDL_Texture *scan, *vignette;
+static int scan_h;
+
+void gfx_set_crt(int on) { crt_on = on; }
+int  gfx_has_crt(void) { return 1; }
+
+static void draw_crt(void)
+{
+	int ow, oh;
+	if (SDL_GetRendererOutputSize(ren, &ow, &oh) != 0 || oh <= 0) return;
+	if (!scan || scan_h != oh) {
+		if (scan) SDL_DestroyTexture(scan);
+		scan = SDL_CreateTexture(ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, 1, oh);
+		if (!scan) return;
+		u32 *px = malloc(oh * 4);
+		int period = oh / 360 < 2 ? 2 : oh / 360; // about a 480-line set's worth of lines
+		for (int y = 0; y < oh; y++) px[y] = (y % period >= (period + 1) / 2) ? 0x70000000u : 0x00000000u;
+		SDL_UpdateTexture(scan, NULL, px, 4);
+		free(px);
+		SDL_SetTextureBlendMode(scan, SDL_BLENDMODE_BLEND);
+		SDL_SetTextureScaleMode(scan, SDL_ScaleModeNearest);
+		scan_h = oh;
+	}
+	if (!vignette) {
+		enum { N = 128 };
+		vignette = SDL_CreateTexture(ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, N, N);
+		if (vignette) {
+			static u32 px[N * N];
+			for (int y = 0; y < N; y++) for (int x = 0; x < N; x++) {
+				float dx = (x + 0.5f) / N * 2 - 1, dy = (y + 0.5f) / N * 2 - 1, d = dx * dx * 0.8f + dy * dy;
+				float a = d < 0.45f ? 0 : (d - 0.45f) * 180;
+				px[y * N + x] = (u32)(a > 200 ? 200 : a) << 24;
+			}
+			SDL_UpdateTexture(vignette, NULL, px, N * 4);
+			SDL_SetTextureBlendMode(vignette, SDL_BLENDMODE_BLEND);
+		}
+	}
+	int lw, lh;
+	SDL_RenderGetLogicalSize(ren, &lw, &lh);
+	SDL_RenderSetLogicalSize(ren, 0, 0);      // draw in real pixels
+	SDL_RenderSetViewport(ren, NULL);
+	SDL_RenderCopy(ren, scan, NULL, NULL);
+	if (vignette) SDL_RenderCopy(ren, vignette, NULL, NULL);
+	SDL_RenderSetLogicalSize(ren, lw, lh);
+}
+
 static const char *shot_path;
 static double shot_after;
 static int shot_taken;
@@ -248,6 +305,7 @@ void gfx_frame(float vx, float vy, float vw, float vh, int show_video)
 		SDL_RenderCopyF(ren, video, NULL, &r);
 	}
 	SDL_RenderCopy(ren, overlay, NULL, NULL);
+	if (crt_on) draw_crt();
 	if (shot_path && !shot_taken && now_us() / 1e6 >= shot_after) {
 		// Development aid (--shot): save this frame and quit.
 		int ow = ui_w, oh = ui_h; // read at the window's real size (never smaller than what's read)
@@ -330,6 +388,27 @@ void audio_set_volume(float v) { avol = v; }
 // ---------------------------------------------------------------- input and events
 
 static int quit;
+static int mouse_x, mouse_y, mouse_click, mouse_wheel;
+static s64 mouse_seen_us = -10000000;
+
+int plat_pointer(int *x, int *y, int *clicked, int *wheel)
+{
+	*x = mouse_x;
+	*y = mouse_y;
+	*clicked = mouse_click;
+	*wheel = mouse_wheel;
+	mouse_click = mouse_wheel = 0;
+	return now_us() - mouse_seen_us < 3000000;
+}
+
+static void mouse_at(int wx, int wy)
+{
+	float lx = wx, ly = wy;
+	SDL_RenderWindowToLogical(ren, wx, wy, &lx, &ly);
+	mouse_x = (int)lx;
+	mouse_y = (int)ly;
+	mouse_seen_us = now_us();
+}
 
 int plat_poll(void)
 {
@@ -338,6 +417,11 @@ int plat_poll(void)
 		switch (e.type) {
 		case SDL_QUIT: quit = 1; break;
 		case SDL_CONTROLLERDEVICEADDED: SDL_GameControllerOpen(e.cdevice.which); break;
+		case SDL_MOUSEMOTION: mouse_at(e.motion.x, e.motion.y); break;
+		case SDL_MOUSEBUTTONDOWN:
+			if (e.button.button == SDL_BUTTON_LEFT) { mouse_at(e.button.x, e.button.y); mouse_click = 1; }
+			break;
+		case SDL_MOUSEWHEEL: mouse_wheel += e.wheel.y > 0 ? 1 : e.wheel.y < 0 ? -1 : 0; mouse_seen_us = now_us(); break;
 		case SDL_KEYDOWN:
 			if (e.key.keysym.sym == SDLK_F11 || (e.key.keysym.sym == SDLK_RETURN && (e.key.keysym.mod & KMOD_ALT))) {
 				Uint32 fs = SDL_GetWindowFlags(win) & SDL_WINDOW_FULLSCREEN_DESKTOP;
@@ -363,7 +447,7 @@ u32 plat_buttons(void)
 		     (x & SCE_CTRL_CROSS ? BTN(B_OK) : 0) | (x & SCE_CTRL_CIRCLE ? BTN(B_BACK) : 0) |
 		     (x & SCE_CTRL_TRIANGLE ? BTN(B_GUIDE) : 0) | (x & SCE_CTRL_SQUARE ? BTN(B_INFO) : 0) |
 		     (x & SCE_CTRL_START ? BTN(B_START) : 0) | (x & SCE_CTRL_LTRIGGER ? BTN(B_PAGE_UP) : 0) |
-		     (x & SCE_CTRL_RTRIGGER ? BTN(B_PAGE_DOWN) : 0);
+		     (x & SCE_CTRL_RTRIGGER ? BTN(B_PAGE_DOWN) : 0) | (x & SCE_CTRL_SELECT ? BTN(B_CRT) : 0);
 		// The left stick works as a d-pad too.
 		if (pad.ly < 40) b |= BTN(B_UP);
 		if (pad.ly > 215) b |= BTN(B_DOWN);
@@ -385,6 +469,9 @@ u32 plat_buttons(void)
 	if (k[SDL_SCANCODE_I] || k[SDL_SCANCODE_SPACE]) b |= BTN(B_INFO);
 	if (k[SDL_SCANCODE_PAGEUP]) b |= BTN(B_PAGE_UP);
 	if (k[SDL_SCANCODE_PAGEDOWN]) b |= BTN(B_PAGE_DOWN);
+	if (k[SDL_SCANCODE_EQUALS] || k[SDL_SCANCODE_KP_PLUS]) b |= BTN(B_VOL_UP);
+	if (k[SDL_SCANCODE_MINUS] || k[SDL_SCANCODE_KP_MINUS]) b |= BTN(B_VOL_DOWN);
+	if (k[SDL_SCANCODE_C]) b |= BTN(B_CRT);
 	for (int i = 0; i < SDL_NumJoysticks(); i++) {
 		SDL_GameController *c = SDL_GameControllerFromInstanceID(SDL_JoystickGetDeviceInstanceID(i));
 		if (!c) continue;
@@ -400,6 +487,9 @@ u32 plat_buttons(void)
 		if (P(START)) b |= BTN(B_START);
 		if (P(LEFTSHOULDER)) b |= BTN(B_PAGE_UP);
 		if (P(RIGHTSHOULDER)) b |= BTN(B_PAGE_DOWN);
+		if (P(BACK)) b |= BTN(B_CRT);
+		if (SDL_GameControllerGetAxis(c, SDL_CONTROLLER_AXIS_TRIGGERLEFT) > 16000) b |= BTN(B_VOL_DOWN);
+		if (SDL_GameControllerGetAxis(c, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 16000) b |= BTN(B_VOL_UP);
 #undef P
 		Sint16 ly = SDL_GameControllerGetAxis(c, SDL_CONTROLLER_AXIS_LEFTY), lx = SDL_GameControllerGetAxis(c, SDL_CONTROLLER_AXIS_LEFTX);
 		if (ly < -20000) b |= BTN(B_UP);
@@ -413,6 +503,7 @@ u32 plat_buttons(void)
 
 #ifdef __vita__
 const char *plat_hint_guide(void) { return "X WATCH     LEFT/RIGHT SHOWS     L/R PAGE     TRIANGLE CLOSE"; }
+const char *plat_hint_watch(void) { return "TRIANGLE: TV GUIDE     UP/DOWN: CHANNEL     SELECT: CRT FILTER"; }
 const char *plat_relay_help(void)
 {
 	return "Start the relay on your PC (in the relay folder run: npm start) and make sure the Vita is on the same "
@@ -421,6 +512,7 @@ const char *plat_relay_help(void)
 }
 #else
 const char *plat_hint_guide(void) { return "ENTER WATCH     LEFT/RIGHT SHOWS     PGUP/PGDN PAGE     ESC CLOSE"; }
+const char *plat_hint_watch(void) { return "G: TV GUIDE     UP/DOWN: CHANNEL     -/+: VOLUME     C: CRT FILTER     (OR USE THE MOUSE)"; }
 const char *plat_relay_help(void)
 {
 	static char msg[1024];
@@ -432,10 +524,88 @@ const char *plat_relay_help(void)
 }
 #endif
 
+// ---------------------------------------------------------------- self-update
+
+static char **saved_argv;
+
+const char *plat_update_asset(void)
+{
+#if defined(__vita__)
+	return "spelunkr-vita-eboot.bin";
+#elif defined(_WIN32)
+	return "spelunkr-windows-x64.exe";
+#elif defined(__APPLE__)
+	return "spelunkr-macos-bin";
+#elif defined(__linux__) && defined(__x86_64__)
+	return "spelunkr-linux-x86_64-bin";
+#else
+	return NULL;
+#endif
+}
+
+static int copy_file(const char *from, const char *to)
+{
+	FILE *a = fopen(from, "rb"), *b = a ? fopen(to, "wb") : NULL;
+	if (!a || !b) { if (a) fclose(a); return -1; }
+	static char buf[64 * 1024];
+	size_t n;
+	int ok = 1;
+	while ((n = fread(buf, 1, sizeof(buf), a)) > 0) if (fwrite(buf, 1, n, b) != n) { ok = 0; break; }
+	fclose(a);
+	if (fclose(b) != 0) ok = 0;
+	return ok ? 0 : -1;
+}
+
+int plat_install_update(const char *downloaded)
+{
+#if defined(__vita__)
+	// Needs the app installed as "unsafe" homebrew (vita/CMakeLists.txt does that).
+	if (copy_file(downloaded, "ux0:app/SPLK00001/eboot.bin") != 0) return -1;
+	sceIoRemove(downloaded);
+	sceAppMgrLoadExec("app0:eboot.bin", NULL, NULL);
+	return 1;
+#elif defined(_WIN32)
+	char exe[MAX_PATH], old[MAX_PATH + 8];
+	if (!GetModuleFileNameA(NULL, exe, sizeof(exe))) return -1;
+	snprintf(old, sizeof(old), "%s.old", exe);
+	DeleteFileA(old);
+	if (!MoveFileA(exe, old)) return -1;          // a running .exe can be renamed, not overwritten
+	if (!CopyFileA(downloaded, exe, FALSE)) { MoveFileA(old, exe); return -1; }
+	DeleteFileA(downloaded);
+	STARTUPINFOA si = { sizeof(si) };
+	PROCESS_INFORMATION pi;
+	if (CreateProcessA(exe, GetCommandLineA(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) { audio_stop(); exit(0); }
+	return 1;
+#else
+	char exe[1024] = { 0 };
+#  ifdef __APPLE__
+	uint32_t n = sizeof(exe);
+	if (_NSGetExecutablePath(exe, &n) != 0) return -1;
+#  else
+	if (readlink("/proc/self/exe", exe, sizeof(exe) - 1) <= 0) return -1;
+#  endif
+	char tmp[1100];
+	snprintf(tmp, sizeof(tmp), "%s.new", exe);
+	if (copy_file(downloaded, tmp) != 0) return -1;  // same folder as the program, so rename works
+	chmod(tmp, 0755);
+	if (rename(tmp, exe) != 0) { remove(tmp); return -1; }
+	remove(downloaded);
+	if (saved_argv) { audio_stop(); execv(exe, saved_argv); }
+	return 1;
+#endif
+}
+
 // ---------------------------------------------------------------- main
 
 int main(int argc, char *argv[])
 {
+	saved_argv = argv;
+#ifdef _WIN32
+	{   // the previous version, renamed aside by the updater
+		char exe[MAX_PATH], old[MAX_PATH + 8];
+		if (GetModuleFileNameA(NULL, exe, sizeof(exe))) { snprintf(old, sizeof(old), "%s.old", exe); DeleteFileA(old); }
+	}
+#endif
 #ifdef __vita__
 	(void)argc; (void)argv;
 	scePowerSetArmClockFrequency(444);

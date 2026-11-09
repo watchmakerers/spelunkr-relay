@@ -1,5 +1,6 @@
 // Spelunkr PS3 relay: HTTP server + LAN discovery.
 //
+//   GET /update/latest, /update/file/<name>   client self-update (see updates.js)
 //   GET /ps3/hello            "SPELUNKR <port>": lets clients scanning the LAN recognise a relay
 //   GET /ps3/guide?hours=4    channel guide, tab-separated text (format below)
 //   GET /ps3/seg/:channel?at=ms[&aspect=4x3]
@@ -25,12 +26,14 @@ import os from 'node:os';
 import { Broadcast } from './broadcast.js';
 import { pixelLogo } from './logos.js';
 import { plan, troublePlan, run, font } from './render.js';
+import { Updates } from './updates.js';
 
 const PORT = Number(process.env.PORT || 8642);
 const DISCOVERY_PORT = 47555;
 const log = { info: (...a) => console.log(new Date().toISOString(), ...a), warn: (...a) => console.warn(new Date().toISOString(), ...a) };
 
 const bc = new Broadcast({ log });
+const updates = new Updates({ log });
 const clean = s => String(s ?? '').replace(/[\t\r\n]+/g, ' ').trim();
 
 function shows(id, fromMs, untilMs) {
@@ -92,6 +95,8 @@ const server = http.createServer(async (req, res) => {
   res.on('close', () => abort.abort());
 
   try {
+    if (updates.handle(url, res)) return;
+
     if (url.pathname === '/ps3/hello') {
       // Lets clients confirm an address really is a relay (used when scanning the LAN).
       res.writeHead(200, { 'content-type': 'text/plain', 'cache-control': 'no-store' });
@@ -181,6 +186,7 @@ function startDiscovery() {
 
 font(); // fail early if title cards can't be drawn
 await bc.start();
+updates.start();
 server.listen(PORT, () => {
   log.info(`[relay] ${bc.channels.size} channels · http://${lanAddresses()[0] || 'localhost'}:${PORT}/`);
 });

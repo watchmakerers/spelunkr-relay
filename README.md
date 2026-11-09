@@ -98,7 +98,22 @@ a snapshot of the site's), and an "up next" card.
 | Guide: page | L1 / R1 (Vita: L / R) | PgUp / PgDn | LB / RB |
 | Guide: watch selected | ✕ | Enter | A |
 | Guide: close | △ or ○ | Esc or G | B or Y |
+| Volume down / up | PS3: L2 / R2 (Vita: its volume buttons) | `-` / `+`, or the mouse wheel | LT / RT |
+| CRT filter (scanlines) on/off | Vita: SELECT | C | Back |
 | Quit (desktop) | | Ctrl+Q, or close the window | |
+
+On the desktop, moving the mouse shows on-screen **TV GUIDE / VOL - / VOL + / CRT** buttons;
+in the guide, click a show to select it, click it again to watch, and click the preview to
+close. Volume and the CRT filter are remembered (`settings.txt` in the data folder). The
+PS3 has no CRT filter: it's usually plugged into a real one.
+
+## Updates
+
+The relay checks this repo's latest GitHub release every 30 minutes (using `GITHUB_TOKEN`
+or the GitHub CLI's login on its PC, since the repo is private) and keeps the client files.
+When an app connects and a newer version is there, it offers to update: desktop apps and the
+Vita replace themselves and restart; the PS3 writes the new `EBOOT.BIN` and asks you to start
+it again from the XMB. To publish one: bump `core/version.h`, then `git tag v1.x && git push --tags`.
 
 ## Notes
 

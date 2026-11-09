@@ -34,6 +34,8 @@ void gfx_overlay_commit(void);
 // One frame: clear, video in the given rect (UI coordinates; letterboxed to the frame's
 // aspect), overlay on top, flip (waits for vsync).
 void gfx_selftest(void);
+void gfx_set_crt(int on);   // scanlines + vignette over everything (no-op where unsupported)
+int  gfx_has_crt(void);
 void gfx_frame(float vx, float vy, float vw, float vh, int show_video);
 
 #endif
