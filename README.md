@@ -88,8 +88,10 @@ a snapshot of the site's), and an "up next" card.
 - **Channel 6 - Toon Rewind**: 80s and early-90s cartoons, 1150 episodes from 19 shows
   (~424 hours; `channels/toons.json`, `node tools/build-toons.js`; shows uploaded as 4:3
   inside a widescreen frame are cropped to fill the screen), with Saturday-morning
-  commercials cut from off-air tapes (`channels/tapeads-80s-kids.json`,
-  `node tools/build-tapeads.js`). Multi-part stories air back to back and in order, and no
+  commercials: about 1,500 spots cut from off-air tapes (`channels/tapeads-80s-kids.json`,
+  `node tools/build-tapeads.js`), played from the uploaders' original files rather than
+  archive.org's low-bitrate copies. `.mpg` originals are read by byte range (ffmpeg's own
+  seeking over HTTP takes 10-20 s on those) and trimmed on their timestamps. Multi-part stories air back to back and in order, and no
   show airs twice in a row. BraveStarr's titles were read off its on-screen title cards
   (`tools/bravestarr-titles.json`), since its only full upload names files by disc.
 - **Channel 7 - Weather Rewind** (`relay/src/weather.js`): your local forecast the way

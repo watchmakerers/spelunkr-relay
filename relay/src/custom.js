@@ -196,7 +196,8 @@ export class CustomChannel {
       for (let k = 0; k < n; k++) {
         const a = ad();
         if (!a) break;
-        push({ type: 'ad', title: a.title, slice: { tape: a.id, file: a.file, inMs: Math.round((a.inS || 0) * 1000), lengthMs: Math.round(a.durationS * 1000) } }, a.durationS * 1000);
+        push({ type: 'ad', title: a.title, slice: { tape: a.id, file: a.file, inMs: Math.round((a.inS || 0) * 1000), lengthMs: Math.round(a.durationS * 1000),
+          ...(a.t0 != null ? { window: { t0: a.t0, size: a.size, len: a.lenS } } : {}), ...(a.crop ? { crop: a.crop } : {}) } }, a.durationS * 1000);
       }
       const close = platformBump();
       if (close) push({ type: 'bump-break', half: 'close', platformBump: close, platformAudio: tune() }, breakHalfMs('close', close.slides));

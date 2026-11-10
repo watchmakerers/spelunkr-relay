@@ -42,12 +42,6 @@
   "title": "Adventure Island II (Nintendo NES, 1991)"
  },
  {
-  "id": "All-Star_Baseball_2001_2000_Acclaim",
-  "file": "All-Star_Baseball_2001_2000_Acclaim.mov",
-  "durationS": 30.2,
-  "title": "All-Star Baseball 2001 (Nintendo 64, 2000)"
- },
- {
   "id": "Amazing_Island_2004_Sega",
   "file": "Amazing_Island_2004_Sega.mp4",
   "durationS": 15.1,
@@ -186,21 +180,9 @@
   "title": "Atari 1200XL, The (Atari 8-bits, 198x)"
  },
  {
-  "id": "Atari_Home_Computers_198x_Atari",
-  "file": "Atari_Home_Computers_198x_Atari.mov",
-  "durationS": 62.1,
-  "title": "Atari Home Computers (Atari 8-bits, 198x)"
- },
- {
   "id": "Banjo-Tooie_2000_Nintendo",
   "file": "Banjo-Tooie_2000_Nintendo.mp4",
   "durationS": 101.4,
-  "title": "Banjo-Tooie (Nintendo 64, 2000)"
- },
- {
-  "id": "Banjo-Tooie_2000_Nintendo_a",
-  "file": "Banjo-Tooie_2000_Nintendo_a.mov",
-  "durationS": 63.4,
   "title": "Banjo-Tooie (Nintendo 64, 2000)"
  },
  {
@@ -228,12 +210,6 @@
   "title": "Battle Clash (Nintendo SNES, 1992)"
  },
  {
-  "id": "Battle_Tanx_Global_Assault_1999_3DO",
-  "file": "Battle_Tanx_Global_Assault_1999_3DO.mov",
-  "durationS": 32.5,
-  "title": "Battle Tanx - Global Assault (Nintendo 64, 1999)"
- },
- {
   "id": "BattleTanx_1998_3DO",
   "file": "BattleTanx_1998_3DO.mp4",
   "durationS": 30.3,
@@ -244,12 +220,6 @@
   "file": "Beach_Spikers_2002_Sega.mp4",
   "durationS": 15,
   "title": "Beach Spikers (Nintendo Gamecube, 2002)"
- },
- {
-  "id": "Beetle_Adventure_Racing_1999_EA_Sports",
-  "file": "Beetle_Adventure_Racing_1999_EA_Sports.mov",
-  "durationS": 32.4,
-  "title": "Beetle Adventure Racing (Nintendo 64, 1999)"
  },
  {
   "id": "Billy_Hatcher_and_the_Giant_Egg_2003_Sega_Jp",
@@ -570,12 +540,6 @@
   "title": "Game Boy Advance (Nintendo Game Boy Advance, 200x)"
  },
  {
-  "id": "Game_Boy_Advance_200x_Nintendo_a5",
-  "file": "Game_Boy_Advance_200x_Nintendo_a5.mov",
-  "durationS": 47.3,
-  "title": "Game Boy Advance (Nintendo Game Boy Advance, 200x)"
- },
- {
   "id": "Game_Boy_Advance_200x_Nintendo_a6",
   "file": "Game_Boy_Advance_200x_Nintendo_a6.mp4",
   "durationS": 32.3,
@@ -636,12 +600,6 @@
   "title": "GBA (Nintendo Game Boy Advance, 200x)"
  },
  {
-  "id": "GBA_200x_Nintendo_a3",
-  "file": "GBA_200x_Nintendo_a3.mov",
-  "durationS": 62.2,
-  "title": "GBA (Nintendo Game Boy Advance, 200x)"
- },
- {
   "id": "GBA_Platinum_200x_Nintendo",
   "file": "GBA_Platinum_200x_Nintendo.mp4",
   "durationS": 15.2,
@@ -651,12 +609,6 @@
   "id": "GBA_Platinum_200x_Nintendo_a",
   "file": "GBA_Platinum_200x_Nintendo_a.mp4",
   "durationS": 15.2,
-  "title": "GBA Platinum (Nintendo Game Boy Advance, 200x)"
- },
- {
-  "id": "GBA_Platinum_200x_Nintendo_a2",
-  "file": "GBA_Platinum_200x_Nintendo_a2.mov",
-  "durationS": 31.3,
   "title": "GBA Platinum (Nintendo Game Boy Advance, 200x)"
  },
  {
@@ -1000,12 +952,6 @@
   "file": "Legend_of_Zelda_The_Links_Awakening_1993_Nintendo_a.mp4",
   "durationS": 30.1,
   "title": "Legend of Zelda, The - Link's Awakening (Nintendo Game Boy, 1993)"
- },
- {
-  "id": "Legend_of_Zelda_The_Majoras_Mask_2000_Nintendo_a3",
-  "file": "Legend_of_Zelda_The_Majoras_Mask_2000_Nintendo_a3.mov",
-  "durationS": 15.1,
-  "title": "Legend of Zelda, The - Majora's Mask (Nintendo 64, 2000)"
  },
  {
   "id": "Legend_of_Zelda_The_Ocarina_of_Time_1998_Nintendo",
@@ -1602,12 +1548,6 @@
   "title": "NBA Courtside 2002 (Nintendo Gamecube, 200x)"
  },
  {
-  "id": "NBA_Jam_2000_1999_Acclaim",
-  "file": "NBA_Jam_2000_1999_Acclaim.mov",
-  "durationS": 31.6,
-  "title": "NBA Jam 2000 (Nintendo 64, 1999)"
- },
- {
   "id": "NBA_Jam_99_1998_Acclaim",
   "file": "NBA_Jam_99_1998_Acclaim.mp4",
   "durationS": 30.1,
@@ -1632,12 +1572,6 @@
   "title": "NES Superset (Nintendo NES, 198x)"
  },
  {
-  "id": "NFL_Quarterback_Club_2000_1999_Acclaim",
-  "file": "NFL_Quarterback_Club_2000_1999_Acclaim.mov",
-  "durationS": 37.5,
-  "title": "NFL Quarterback Club 2000 (Nintendo 64, 1999)"
- },
- {
   "id": "NFL_Quarterback_Club_99_1998_Acclaim_a",
   "file": "NFL_Quarterback_Club_99_1998_Acclaim_a.mp4",
   "durationS": 15.1,
@@ -1659,12 +1593,6 @@
   "id": "Nintendo_64_1996_Nintendo_a",
   "file": "Nintendo_64_1996_Nintendo_a.mp4",
   "durationS": 30.1,
-  "title": "Nintendo 64 (Nintendo 64, 1996)"
- },
- {
-  "id": "Nintendo_64_1996_Nintendo_a2",
-  "file": "Nintendo_64_1996_Nintendo_a2.mov",
-  "durationS": 32.6,
   "title": "Nintendo 64 (Nintendo 64, 1996)"
  },
  {
@@ -1782,12 +1710,6 @@
   "title": "Nintendo Game Boy (Nintendo Game Boy, 198x)"
  },
  {
-  "id": "Nintendo_Game_Boy_Link_Cable_199x_Nintendo",
-  "file": "Nintendo_Game_Boy_Link_Cable_199x_Nintendo.mov",
-  "durationS": 32.4,
-  "title": "Nintendo Game Boy Link Cable (Nintendo Game Boy, 199x)"
- },
- {
   "id": "Nintendo_Game_Boy_Player_200x_Nintendo",
   "file": "Nintendo_Game_Boy_Player_200x_Nintendo.mp4",
   "durationS": 15,
@@ -1828,12 +1750,6 @@
   "file": "One-Line_Puzzle_2004_Nintendo_Jp.mp4",
   "durationS": 15,
   "title": "One-Line Puzzle (Nintendo DS, 2004)"
- },
- {
-  "id": "Panasonic_REAL_3DO_1994_Panasonic",
-  "file": "Panasonic_REAL_3DO_1994_Panasonic.avi",
-  "durationS": 29.9,
-  "title": "Panasonic REAL 3DO (3DO, 1994)"
  },
  {
   "id": "Panasonic_REAL_3DO_1994_Panasonic_a",
@@ -1944,12 +1860,6 @@
   "title": "Pokemon Colosseum (Nintendo Gamecube, 2004)"
  },
  {
-  "id": "Pokemon_Colosseum_2004_Nintendo_a",
-  "file": "Pokemon_Colosseum_2004_Nintendo_a.mov",
-  "durationS": 31,
-  "title": "Pokemon Colosseum (Nintendo Gamecube, 2004)"
- },
- {
   "id": "Pokemon_Colosseum_2004_Nintendo_a2",
   "file": "Pokemon_Colosseum_2004_Nintendo_a2.mp4",
   "durationS": 31.1,
@@ -1986,22 +1896,10 @@
   "title": "Pokemon Ruby & Saphire (Nintendo Game Boy Advance, 2004)"
  },
  {
-  "id": "Pokemon_Snap_1999_Nintendo",
-  "file": "Pokemon_Snap_1999_Nintendo.mov",
-  "durationS": 32.6,
-  "title": "Pokemon Snap (Nintendo 64, 1999)"
- },
- {
   "id": "Power_Glove_1989_Mattel_Electronics.mpeg",
   "file": "Power_Glove_1989_Mattel_Electronics.mp4",
   "durationS": 30.6,
   "title": "Power Glove (Nintendo NES, 1989)"
- },
- {
-  "id": "Rayman_2_The_Great_Escape_1999_Uft",
-  "file": "Rayman_2_The_Great_Escape_1999_Ubisoft.mov",
-  "durationS": 32.3,
-  "title": "Rayman 2 - The Great Escape (Nintendo 64, 1999)"
  },
  {
   "id": "Resident_Evil_2002_Capcom",
@@ -2484,12 +2382,6 @@
   "title": "Super Monkey Ball (Nintendo Gamecube, 2001)"
  },
  {
-  "id": "Super_Smash_Bros_1999_Nintendo",
-  "file": "Super_Smash_Bros_1999_Nintendo.mov",
-  "durationS": 17.4,
-  "title": "Super Smash Bros (Nintendo 64, 1999)"
- },
- {
   "id": "Super_Smash_Bros_1999_Nintendo_a",
   "file": "Super_Smash_Bros_1999_Nintendo_a.mp4",
   "durationS": 30.4,
@@ -2566,12 +2458,6 @@
   "file": "Turok_3_Shadow_of_Oblivion_2000_Acclaim.mp4",
   "durationS": 30,
   "title": "Turok 3 - Shadow of Oblivion (Nintendo 64, 2000)"
- },
- {
-  "id": "Turok_Rage_Wars_1999_Acclaim",
-  "file": "Turok_Rage_Wars_1999_Acclaim.mov",
-  "durationS": 30.2,
-  "title": "Turok - Rage Wars (Nintendo 64, 1999)"
  },
  {
   "id": "Viewtiful_Joe_2003_Capcom",

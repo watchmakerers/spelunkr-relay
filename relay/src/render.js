@@ -15,7 +15,7 @@ import path from 'node:path';
 import { weatherPlan, weatherArgs } from './weather.js';
 
 /** A source that sends nothing for this long is given up on (the slot gets a card). */
-export const STALL_MS = 12000;
+export const STALL_MS = 20000;
 export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
 
 // Loudness: every stream is normalised to the same target (EBU R128, the broadcast standard),
@@ -86,7 +86,7 @@ export function plan(entry, ctx) {
   if (it.type === 'weather') return weatherPlan(entry, ctx, size);
   if (it.type === 'ad' && it.slice) {
     const s = it.slice;
-    return { kind: 'source', size, url: archiveUrl(s.tape, s.file), seek: (s.inMs || 0) / 1000 + offset, duration, gainDb: s.gainDb };
+    return { kind: 'source', size, url: archiveUrl(s.tape, s.file), seek: (s.inMs || 0) / 1000 + offset, duration, gainDb: s.gainDb, window: s.window, crop: s.crop };
   }
 
   const name = (ctx.channel?.name || '').toUpperCase();
@@ -150,10 +150,23 @@ export function ffmpegArgs(p) {
     const af = ['aresample=async=1:first_pts=0'];
     if (Number.isFinite(p.gainDb) && p.gainDb) af.push(`volume=${p.gainDb}dB`);
     af.push(loudnorm(LOUDNESS.show));
+    let input = ['-ss', p.seek.toFixed(3), ...httpIn(p.url), '-t', p.duration.toFixed(3)], vtrim = '';
+    if (p.window) {
+      // MPEG program streams: ffmpeg seeks them over HTTP by bisecting, a dozen slow
+      // requests (10-20 s before the first frame). Instead read just the bytes around the
+      // slice in one request (bitrate is near constant; generous margins) and trim on the
+      // file's own timestamps.
+      const { t0, size, len } = p.window, rate = size / len, pad = 5 + 0.05 * p.seek;
+      const from = t0 + p.seek, to = from + p.duration;
+      input = ['-copyts', '-seekable', '0', '-offset', String(Math.max(0, Math.floor((p.seek - pad) * rate))),
+        '-end_offset', String(Math.min(size, Math.ceil((p.seek + p.duration + pad) * rate))), ...httpIn(p.url)];
+      vtrim = `trim=start=${from.toFixed(3)}:end=${to.toFixed(3)},setpts=PTS-STARTPTS,`;
+      af.unshift(`atrim=start=${from.toFixed(3)}:end=${to.toFixed(3)},asetpts=PTS-STARTPTS`);
+    }
     return {
-      args: [...base, '-ss', p.seek.toFixed(3), ...httpIn(p.url), '-t', p.duration.toFixed(3),
+      args: [...base, ...input,
         '-map', '0:v:0', '-map', '0:a:0?',
-        '-vf', `${p.crop ? `crop=${p.crop},` : ''}scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:-1:-1:black,setsar=1,fps=${fps}`,
+        '-vf', `${vtrim}yadif=deint=interlaced,${p.crop ? `crop=${p.crop},` : ''}scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:-1:-1:black,setsar=1,fps=${fps}`,
         '-af', af.join(','), ...encodeArgs()],
       cleanup() {},
     };

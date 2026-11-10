@@ -28,6 +28,7 @@ async function ad(doc) {
   const videos = (d.files || []).filter(f => Number(f.length) > 0 && /\.(mp4|mpe?g|avi|mov|mkv|webm|ogv)$/i.test(f.name));
   const pick = videos.find(f => /\.mp4$/i.test(f.name)) || videos.find(f => f.source === 'original');
   if (!pick) return null;
+  if (Number(pick.height) && Number(pick.height) < 360) return null; // too small to watch on a TV
   const len = Number(pick.length);
   if (!(len >= MIN_S && len <= MAX_S)) return null;
   const m = CATALOGUE.exec(doc.title);
