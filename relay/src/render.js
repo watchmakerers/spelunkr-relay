@@ -14,6 +14,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { weatherPlan, weatherArgs } from './weather.js';
 
+/** A source that sends nothing for this long is given up on (the slot gets a card). */
+export const STALL_MS = 12000;
 export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
 
 // Loudness: every stream is normalised to the same target (EBU R128, the broadcast standard),
@@ -202,19 +204,31 @@ export function run(p, out, { signal, log = console } = {}) {
     let cmd;
     try { cmd = ffmpegArgs(p); } catch (e) { resolve({ ok: false, bytes: 0, error: e.message }); return; }
     const ff = spawn('ffmpeg', cmd.args, { stdio: ['ignore', 'pipe', 'pipe'] });
-    let bytes = 0, err = '';
+    let bytes = 0, err = '', last = Date.now(), waiting = false, stalled = false;
     const kill = () => ff.kill('SIGKILL');
     signal?.addEventListener('abort', kill, { once: true });
+    // A source that stops sending (an overloaded archive.org server can drop to a few KB/s)
+    // would otherwise hang the client until it gives up and asks again, over and over.
+    // Time spent waiting on the client (backpressure) doesn't count.
+    const watchdog = setInterval(() => {
+      if (!waiting && Date.now() - last > STALL_MS) { stalled = true; kill(); }
+    }, 1000);
     ff.stdout.on('data', chunk => {
       bytes += chunk.length;
-      if (!out.write(chunk)) { ff.stdout.pause(); out.once('drain', () => ff.stdout.resume()); }
+      last = Date.now();
+      if (!out.write(chunk)) {
+        ff.stdout.pause(); waiting = true;
+        out.once('drain', () => { waiting = false; last = Date.now(); ff.stdout.resume(); });
+      }
     });
     ff.stderr.on('data', d => { err = (err + d).slice(-2000); });
     ff.on('close', code => {
+      clearInterval(watchdog);
       signal?.removeEventListener('abort', kill);
       cmd.cleanup();
-      if (code !== 0 && !signal?.aborted) log.warn(`[ffmpeg] exit ${code}: ${err.trim().split('\n').slice(-3).join(' | ')}`);
-      resolve({ ok: code === 0, bytes, error: err.trim() });
+      if (stalled) err = `source stalled: nothing for ${STALL_MS / 1000}s`;
+      if ((code !== 0 || stalled) && !signal?.aborted) log.warn(`[ffmpeg] ${stalled ? err : `exit ${code}: ${err.trim().split('\n').slice(-3).join(' | ')}`}`);
+      resolve({ ok: code === 0 && !stalled, bytes, error: err.trim() });
     });
   });
 }
