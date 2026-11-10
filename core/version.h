@@ -3,6 +3,6 @@
 #ifndef SPELUNKR_VERSION_H
 #define SPELUNKR_VERSION_H
 #ifndef SPELUNKR_VERSION              // (a build can override it: -DSPELUNKR_VERSION=\"1.1\")
-#define SPELUNKR_VERSION "1.2"
+#define SPELUNKR_VERSION "1.3"
 #endif
 #endif
