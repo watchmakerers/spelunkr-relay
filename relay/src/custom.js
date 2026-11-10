@@ -78,17 +78,12 @@ const SUNSET_LOGO = (() => {
   return { type: 'pixel', rows: g.map(r => r.join('')) };
 })();
 
-const isFourThree = e => e.width && e.height && e.width / e.height < 1.5;
-
 export const DEFINITIONS = [
   {
     id: 'relay-xplay', dial: 4, name: 'X-Play', color: '#d2232a',
-    description: "G4's X-Play, around the clock: reviews, previews and sketches, 2008-2012. Gaming ads in the breaks.",
+    description: "G4's X-Play, around the clock: reviews, previews and sketches from the 4:3 years, 2008-2009. Gaming ads in the breaks.",
     logomark: X_LOGO, seed: 44,
     shows: ['channels/xplay.json'], bumps: 'channels/xplay-bumps.json', ads: 'channels/gameads.json', adsPerBreak: [2, 3],
-    // 4:3 episodes (2008-09) fill a CRT; they air four times a cycle, spread out, the
-    // widescreen 2011-12 ones once.
-    repeat: e => (isFourThree(e) ? 4 : 1),
   },
   {
     id: 'relay-mtv', dial: 5, name: 'Classic MTV', color: '#f2c200',
@@ -194,7 +189,7 @@ export class CustomChannel {
     this.items = [];
     const push = (it, durMs) => this.items.push({ ...it, durMs: Math.round(durMs) });
     for (const e of episodes) {
-      push({ type: 'video', id: e.id, file: e.file, title: e.title, year: e.year, description: e.description }, e.durationS * 1000);
+      push({ type: 'video', id: e.id, file: e.file, title: e.title, year: e.year, description: e.description, ...(e.crop ? { crop: e.crop } : {}) }, e.durationS * 1000);
       const open = channelBump();
       if (open) push({ type: 'bump-break', half: 'open', channelBump: open, channelAudio: tune() }, breakHalfMs('open', open.slides));
       const n = adsPerBreak[0] + Math.floor(rand() * (adsPerBreak[1] - adsPerBreak[0] + 1));

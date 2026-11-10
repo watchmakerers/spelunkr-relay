@@ -32,7 +32,8 @@ async function episode(id) {
 const out = [];
 for (let i = 0; i < ids.length; i += 8) {
   const batch = await Promise.all(ids.slice(i, i + 8).map(id => episode(id).catch(e => (console.warn(id, e.message), null))));
-  out.push(...batch.filter(Boolean));
+  // 4:3 episodes only (2008-09): the widescreen HD ones (2011-12) are left out.
+  out.push(...batch.filter(e => e && !(e.width && e.height && e.width / e.height >= 1.5)));
   process.stdout.write(`\r${Math.min(i + 8, ids.length)}/${ids.length}`);
 }
 fs.mkdirSync(path.dirname(OUT), { recursive: true });

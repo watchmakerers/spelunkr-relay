@@ -76,18 +76,18 @@ episodes they run Spelunkr-style breaks: a station break with the channel's own 
 2-3 commercials, a station break with Spelunkr's slides (`channels/spelunkr-platform.json`,
 a snapshot of the site's), and an "up next" card.
 
-- **Channel 4 - X-Play**: G4's X-Play, 161 full episodes from 2008-2012 (~59 hours of
-  episodes). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
+- **Channel 4 - X-Play**: G4's X-Play, 31 full 4:3 episodes from 2008-09 (~13 hours; the
+  widescreen HD episodes are left out). The episode list lives in `relay/src/channels/xplay.json`; rebuild it with
   `node tools/build-xplay.js` (in `relay/`) to pick up newly uploaded episodes. Its breaks
   play video game commercials from archive.org (`channels/gameads.json`, built by
-  `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`). The 4:3
-  episodes (2008-09) air four times per cycle, evenly spaced; the widescreen ones once.
+  `node tools/build-gameads.js`) and its own slides (`channels/xplay-bumps.json`).
 - **Channel 5 - Classic MTV**: Jackass, Beavis and Butt-Head, Celebrity Deathmatch, Viva La
   Bam and Headbangers Ball (~135 hours; `channels/mtv.json`, `node tools/build-mtv.js`), with
   real 1993-2005 US TV commercials in the breaks (`channels/tvads-9300s.json`,
   `node tools/build-tvads.js`). Multi-part Headbangers Ball broadcasts stay in order.
 - **Channel 6 - Toon Rewind**: 80s and early-90s cartoons, 1150 episodes from 19 shows
-  (~424 hours; `channels/toons.json`, `node tools/build-toons.js`), with Saturday-morning
+  (~424 hours; `channels/toons.json`, `node tools/build-toons.js`; shows uploaded as 4:3
+  inside a widescreen frame are cropped to fill the screen), with Saturday-morning
   commercials cut from off-air tapes (`channels/tapeads-80s-kids.json`,
   `node tools/build-tapeads.js`). Multi-part stories air back to back and in order, and no
   show airs twice in a row. BraveStarr's titles were read off its on-screen title cards

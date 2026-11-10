@@ -11,17 +11,20 @@ const OUT = path.join(HERE, '../src/channels/toons.json');
 const UA = { 'user-agent': 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)' };
 
 // show, its archive.org items, the year it premiered, and the episode length window (min).
+// `content`: a 4:3 show uploaded inside a widescreen frame with black side bars; the share of
+// the frame width the picture fills (found with ffmpeg cropdetect), so the relay crops the
+// bars off and the picture fills a 4:3 screen.
 const SHOWS = [
   { show: 'He-Man', year: '1983', items: ['he-man-and-the-masters-of-the-universe-s01', 'he-man-and-the-masters-of-the-universe-s02'], strip: /he-man and the masters of the universe/i },
   { show: 'ThunderCats', year: '1985', items: ['thundercats_20250306'] },
   { show: 'Teenage Mutant Ninja Turtles', year: '1987', items: ['tmnt-season-3-2', 'tmnt-s05', 'tmnt-season-9-10'] },
   { show: 'G.I. Joe', year: '1985', items: ['g.i.-joe-a-real-american-hero-sunbow-dvd-rips'] },
   // Hasbro's own uploads, seasons 1-2 (season 3 only exists online as whole-disc rips)
-  { show: 'The Transformers', year: '1984', items: ['transformers-g1-hasbropulse'], strip: /\s*_\s*Transformers - (?:Generation 1|G1)\s*_\s*Season \d+\s*_\s*E\d+\s*_\s*Hasbro Pulse/i },
+  { show: 'The Transformers', content: 0.735, year: '1984', items: ['transformers-g1-hasbropulse'], strip: /\s*_\s*Transformers - (?:Generation 1|G1)\s*_\s*Season \d+\s*_\s*E\d+\s*_\s*Hasbro Pulse/i },
   { show: 'Super Mario Bros. Super Show', year: '1989', items: ['the-super-mario-bros.-super-show-select-episodes', 'thesupermariobrossupershow'], strip: /the super mario bros\.? super show!?/i },
   // Requiem is the unproduced finale's script reading, not an episode
-  { show: 'Dungeons & Dragons', year: '1983', items: ['dungeons-and-dragons_202605'], strip: /dungeons and dragons/i, exclude: /requiem/i },
-  { show: 'Voltron', year: '1984', items: ['voltron-the-defender-of-the-universe-vehicle-force-1984'], strip: /voltron vehicle force/i },
+  { show: 'Dungeons & Dragons', content: 0.68, year: '1983', items: ['dungeons-and-dragons_202605'], strip: /dungeons and dragons/i, exclude: /requiem/i },
+  { show: 'Voltron', content: 0.735, year: '1984', items: ['voltron-the-defender-of-the-universe-vehicle-force-1984'], strip: /voltron vehicle force/i },
   { show: "Hulk Hogan's Rock 'n' Wrestling", year: '1985', items: ['hulk-hogans-rock-n-wrestling'] },
   // the loose "(1989)N.mp4" files repeat the season folder's episodes without titles
   { show: 'The Legend of Zelda', year: '1989', items: ['the-legend-of-zelda-1989-full-series'], min: 9, strip: /the legend of zelda \(1989\)/i, exclude: /\(1989\)\d+\.mp4$/ },
@@ -35,7 +38,7 @@ const SHOWS = [
   // on-screen title card (null: a duplicate rip, or a bonus cartoon from another show).
   { show: 'BraveStarr', year: '1987', items: ['bravestarr-bci-dvd'], titles: 'bravestarr-titles.json' },
   { show: 'Thundarr the Barbarian', year: '1980', items: ['Thundarr_the_Barbarian'] },
-  { show: 'Challenge of the GoBots', year: '1984', items: ['challenge-of-the-gobots'] },
+  { show: 'Challenge of the GoBots', content: 0.765, year: '1984', items: ['challenge-of-the-gobots'] },
 ];
 
 async function getJson(url, tries = 4) {
@@ -91,6 +94,7 @@ for (const spec of SHOWS) {
         show: spec.show, id: item, file: f.name, durationS: Math.round(len * 10) / 10, year: spec.year,
         title: name ? `${spec.show}: ${name}` : `${spec.show} #${n}`,
         width: Number(f.width) || null, height: Number(f.height) || null,
+        ...(spec.content && f.width / f.height > 1.6 ? { crop: `iw*${spec.content}:ih` } : {}),
       });
     }
   }

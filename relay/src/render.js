@@ -79,7 +79,7 @@ export function plan(entry, ctx) {
 
   if (it.type === 'video') {
     const file = it.file || it.mp4;
-    return { kind: 'source', size, url: archiveUrl(it.id, file), seek: (it.inS || 0) + offset, duration };
+    return { kind: 'source', size, url: archiveUrl(it.id, file), seek: (it.inS || 0) + offset, duration, crop: it.crop };
   }
   if (it.type === 'weather') return weatherPlan(entry, ctx, size);
   if (it.type === 'ad' && it.slice) {
@@ -151,7 +151,7 @@ export function ffmpegArgs(p) {
     return {
       args: [...base, '-ss', p.seek.toFixed(3), ...httpIn(p.url), '-t', p.duration.toFixed(3),
         '-map', '0:v:0', '-map', '0:a:0?',
-        '-vf', `scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:-1:-1:black,setsar=1,fps=${fps}`,
+        '-vf', `${p.crop ? `crop=${p.crop},` : ''}scale=${w}:${h}:force_original_aspect_ratio=decrease,pad=${w}:${h}:-1:-1:black,setsar=1,fps=${fps}`,
         '-af', af.join(','), ...encodeArgs()],
       cleanup() {},
     };

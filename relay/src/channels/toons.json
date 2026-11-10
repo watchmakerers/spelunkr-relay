@@ -4193,7 +4193,8 @@
   "year": "1984",
   "title": "The Transformers: Atlantis, Arise!",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4203,7 +4204,8 @@
   "year": "1984",
   "title": "The Transformers: Attack of the Autobots",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4213,7 +4215,8 @@
   "year": "1984",
   "title": "The Transformers: Auto Berserk",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4223,7 +4226,8 @@
   "year": "1984",
   "title": "The Transformers: Auto-Bop",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4233,7 +4237,8 @@
   "year": "1984",
   "title": "The Transformers: Autobot Spike",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4243,7 +4248,8 @@
   "year": "1984",
   "title": "The Transformers: B.O.T",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4253,7 +4259,8 @@
   "year": "1984",
   "title": "The Transformers: Blaster Blues",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4263,7 +4270,8 @@
   "year": "1984",
   "title": "The Transformers: Changing Gears",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4273,7 +4281,8 @@
   "year": "1984",
   "title": "The Transformers: Child's Play",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4283,7 +4292,8 @@
   "year": "1984",
   "title": "The Transformers: City of Steel",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4293,7 +4303,8 @@
   "year": "1984",
   "title": "The Transformers: Cosmic Rust",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4303,7 +4314,8 @@
   "year": "1984",
   "title": "The Transformers: Countdown to Extinction",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4313,7 +4325,8 @@
   "year": "1984",
   "title": "The Transformers: Day of the Machines",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4323,7 +4336,8 @@
   "year": "1984",
   "title": "The Transformers: Decepticon Raider in King Arthur's Court",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4335,7 +4349,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|desertion of the dinobots",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4347,7 +4362,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|desertion of the dinobots",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4359,7 +4375,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|dinobot island",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4371,7 +4388,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|dinobot island",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4381,7 +4399,8 @@
   "year": "1984",
   "title": "The Transformers: Divide and Conquer",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4391,7 +4410,8 @@
   "year": "1984",
   "title": "The Transformers: Enter the Nightbird",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4401,7 +4421,8 @@
   "year": "1984",
   "title": "The Transformers: Fire in the Sky",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4411,7 +4432,8 @@
   "year": "1984",
   "title": "The Transformers: Fire on the Mountain",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4421,7 +4443,8 @@
   "year": "1984",
   "title": "The Transformers: Heavy Metal War",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4431,7 +4454,8 @@
   "year": "1984",
   "title": "The Transformers: Hoist Goes Hollywood",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4441,7 +4465,8 @@
   "year": "1984",
   "title": "The Transformers: Kremzeek!",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4451,7 +4476,8 @@
   "year": "1984",
   "title": "The Transformers: Make Tracks",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4461,7 +4487,8 @@
   "year": "1984",
   "title": "The Transformers: Masquerade",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4473,7 +4500,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|megatron's master plan",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4485,7 +4513,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|megatron's master plan",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4495,7 +4524,8 @@
   "year": "1984",
   "title": "The Transformers: Microbots",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4507,7 +4537,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|more than meets the eye",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4519,7 +4550,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|more than meets the eye",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4531,7 +4563,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|more than meets the eye",
-  "part": 3
+  "part": 3,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4541,7 +4574,8 @@
   "year": "1984",
   "title": "The Transformers: Prime Target",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4551,7 +4585,8 @@
   "year": "1984",
   "title": "The Transformers: Quest for Survival",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4561,7 +4596,8 @@
   "year": "1984",
   "title": "The Transformers: Roll for It",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4571,7 +4607,8 @@
   "year": "1984",
   "title": "The Transformers: S.O.S. Dinobots",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4581,7 +4618,8 @@
   "year": "1984",
   "title": "The Transformers: Sea Change",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4591,7 +4629,8 @@
   "year": "1984",
   "title": "The Transformers: A Plague of Insecticons",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4603,7 +4642,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|the ultimate doom",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4615,7 +4655,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|the ultimate doom",
-  "part": 3
+  "part": 3,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4627,7 +4668,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|the ultimate doom",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4637,7 +4679,8 @@
   "year": "1984",
   "title": "The Transformers: Transport to Oblivion",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4647,7 +4690,8 @@
   "year": "1984",
   "title": "The Transformers: War of the Dinobots",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4657,7 +4701,8 @@
   "year": "1984",
   "title": "The Transformers: A Prime Problem",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4667,7 +4712,8 @@
   "year": "1984",
   "title": "The Transformers: Aerial Assault",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4677,7 +4723,8 @@
   "year": "1984",
   "title": "The Transformers: Starscream's Brigade",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4687,7 +4734,8 @@
   "year": "1984",
   "title": "The Transformers: The Autobot Run",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4697,7 +4745,8 @@
   "year": "1984",
   "title": "The Transformers: The Core",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4707,7 +4756,8 @@
   "year": "1984",
   "title": "The Transformers: The Gambler",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4717,7 +4767,8 @@
   "year": "1984",
   "title": "The Transformers: The Girl Who Loved Powerglide",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4727,7 +4778,8 @@
   "year": "1984",
   "title": "The Transformers: The God Gambit",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4737,7 +4789,8 @@
   "year": "1984",
   "title": "The Transformers: The Golden Lagoon",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4747,7 +4800,8 @@
   "year": "1984",
   "title": "The Transformers: The Immobilizer",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4757,7 +4811,8 @@
   "year": "1984",
   "title": "The Transformers: The Insecticon Syndrome",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4769,7 +4824,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|the key to vector sigma",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4781,7 +4837,8 @@
   "width": 854,
   "height": 480,
   "group": "The Transformers|the key to vector sigma",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4791,7 +4848,8 @@
   "year": "1984",
   "title": "The Transformers: The Master Builders",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4801,7 +4859,8 @@
   "year": "1984",
   "title": "The Transformers: The Revenge of Bruticus",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4811,7 +4870,8 @@
   "year": "1984",
   "title": "The Transformers: The Search for Alpha Trion",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4821,7 +4881,8 @@
   "year": "1984",
   "title": "The Transformers: The Secret of Omega Supreme",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4831,7 +4892,8 @@
   "year": "1984",
   "title": "The Transformers: Traitor",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4841,7 +4903,8 @@
   "year": "1984",
   "title": "The Transformers: Trans-Europe Express",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4851,7 +4914,8 @@
   "year": "1984",
   "title": "The Transformers: Triple Takeover",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "The Transformers",
@@ -4861,7 +4925,8 @@
   "year": "1984",
   "title": "The Transformers: War Dawn",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Super Mario Bros. Super Show",
@@ -5121,7 +5186,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Night of No Tomorrow",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5131,7 +5197,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Eve of the Beholder",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5141,7 +5208,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Hall of Bones",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5151,7 +5219,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Valley of the Unicorns",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5161,7 +5230,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: In Search of the Dungeon Master",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5171,7 +5241,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Beauty and the Bogbeast",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5181,7 +5252,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Prison Without Walls",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5191,7 +5263,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Servant of Evil",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5201,7 +5274,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Quest of the Skeleton Warrior",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5211,7 +5285,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Garden of Zinn",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5221,7 +5296,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Box",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5231,7 +5307,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Lost Children",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5241,7 +5318,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: P-R-E-S-T-O Spells Disaster",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5251,7 +5329,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Girl Who Dreamed Tomorrow",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5261,7 +5340,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Treasure Of Tardos",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5271,7 +5351,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: City at the Edge of Midnight",
   "width": 1024,
-  "height": 576
+  "height": 576,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5281,7 +5362,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Traitor",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5291,7 +5373,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Day of the Dungeon Master",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5301,7 +5384,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Last Illusion",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5311,7 +5395,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Dragon's Graveyard",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5321,7 +5406,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Child of the Stargazer",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5331,7 +5417,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Dungeon at the Heart of Dawn",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5341,7 +5428,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Odyssey of the 12th Talisman",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5351,7 +5439,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Citadel Of Shadow",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5361,7 +5450,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Time Lost",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5371,7 +5461,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: Cave of the Fairie Dragons",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Dungeons & Dragons",
@@ -5381,7 +5472,8 @@
   "year": "1983",
   "title": "Dungeons & Dragons: The Winds Of Darkness",
   "width": 1920,
-  "height": 1080
+  "height": 1080,
+  "crop": "iw*0.68:ih"
  },
  {
   "show": "Voltron",
@@ -5391,7 +5483,8 @@
   "year": "1984",
   "title": "Voltron: In Search Of New Worlds",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5401,7 +5494,8 @@
   "year": "1984",
   "title": "Voltron: First Day On A New World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5411,7 +5505,8 @@
   "year": "1984",
   "title": "Voltron: Building A New World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5421,7 +5516,8 @@
   "year": "1984",
   "title": "Voltron: Goodbye New World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5431,7 +5527,8 @@
   "year": "1984",
   "title": "Voltron: Try This World For Size",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5441,7 +5538,8 @@
   "year": "1984",
   "title": "Voltron: A Storm Of Meteors",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5451,7 +5549,8 @@
   "year": "1984",
   "title": "Voltron: Help Not Wanted",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5461,7 +5560,8 @@
   "year": "1984",
   "title": "Voltron: Ghost Fleet From Another Planet",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5471,7 +5571,8 @@
   "year": "1984",
   "title": "Voltron: A Very Short Vacation",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5481,7 +5582,8 @@
   "year": "1984",
   "title": "Voltron: Planet Of Bats",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5491,7 +5593,8 @@
   "year": "1984",
   "title": "Voltron: A Temporary Truce",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5501,7 +5604,8 @@
   "year": "1984",
   "title": "Voltron: Wolos Lost World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5511,7 +5615,8 @@
   "year": "1984",
   "title": "Voltron: Planet Stop For Repairs",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5521,7 +5626,8 @@
   "year": "1984",
   "title": "Voltron: A Curious Comet",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5531,7 +5637,8 @@
   "year": "1984",
   "title": "Voltron: In The Enemy Camp",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5541,7 +5648,8 @@
   "year": "1984",
   "title": "Voltron: Who's On First",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5551,7 +5659,8 @@
   "year": "1984",
   "title": "Voltron: No Who's On Second",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5561,7 +5670,8 @@
   "year": "1984",
   "title": "Voltron: What's On First",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5571,7 +5681,8 @@
   "year": "1984",
   "title": "Voltron: Great Stone Space Faces",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5581,7 +5692,8 @@
   "year": "1984",
   "title": "Voltron: Defend The New World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5591,7 +5703,8 @@
   "year": "1984",
   "title": "Voltron: Meanwhile Back At Galaxy Garrison",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5601,7 +5714,8 @@
   "year": "1984",
   "title": "Voltron: Nerok Scores Big",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5611,7 +5725,8 @@
   "year": "1984",
   "title": "Voltron: Hazar On The Carpet",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5621,7 +5736,8 @@
   "year": "1984",
   "title": "Voltron: Hazar Is Demoted",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5631,7 +5747,8 @@
   "year": "1984",
   "title": "Voltron: Just Like Earth",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5641,7 +5758,8 @@
   "year": "1984",
   "title": "Voltron: The Planet Trap",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5651,7 +5769,8 @@
   "year": "1984",
   "title": "Voltron: Save The Space Station",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5661,7 +5780,8 @@
   "year": "1984",
   "title": "Voltron: Planet Of The Amazons",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5671,7 +5791,8 @@
   "year": "1984",
   "title": "Voltron: Revolt Of The Slaves",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5681,7 +5802,8 @@
   "year": "1984",
   "title": "Voltron: Raid On Galaxy Garrison",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5691,7 +5813,8 @@
   "year": "1984",
   "title": "Voltron: Smashing The Meteor Barrier",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5701,7 +5824,8 @@
   "year": "1984",
   "title": "Voltron: A Man Made Sun",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5711,7 +5835,8 @@
   "year": "1984",
   "title": "Voltron: Captain Newly Returns",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5721,7 +5846,8 @@
   "year": "1984",
   "title": "Voltron: Hazar Bucks The Empire",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5731,7 +5857,8 @@
   "year": "1984",
   "title": "Voltron: Letters From Home",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5741,7 +5868,8 @@
   "year": "1984",
   "title": "Voltron: Peace.a Fish Story",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5751,7 +5879,8 @@
   "year": "1984",
   "title": "Voltron: The Red Moon People",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5761,7 +5890,8 @@
   "year": "1984",
   "title": "Voltron: This Worlds For The Birds",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5771,7 +5901,8 @@
   "year": "1984",
   "title": "Voltron: Thats The Old Ball Game",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5781,7 +5912,8 @@
   "year": "1984",
   "title": "Voltron: Red Moon Rises Again",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5791,7 +5923,8 @@
   "year": "1984",
   "title": "Voltron: Another Solar System",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5801,7 +5934,8 @@
   "year": "1984",
   "title": "Voltron: Whose World Is It",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5811,7 +5945,8 @@
   "year": "1984",
   "title": "Voltron: It's Anybodys World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5821,7 +5956,8 @@
   "year": "1984",
   "title": "Voltron: Frozen Assets",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5831,7 +5967,8 @@
   "year": "1984",
   "title": "Voltron: Coconuts",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5841,7 +5978,8 @@
   "year": "1984",
   "title": "Voltron: It Could Be A Long War",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5851,7 +5989,8 @@
   "year": "1984",
   "title": "Voltron: Colour Me Invisible",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5861,7 +6000,8 @@
   "year": "1984",
   "title": "Voltron: Time Running Out",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5871,7 +6011,8 @@
   "year": "1984",
   "title": "Voltron: Zero Hour Approaches",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5881,7 +6022,8 @@
   "year": "1984",
   "title": "Voltron: The Drules World Cracks Up",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5891,7 +6033,8 @@
   "year": "1984",
   "title": "Voltron: The Drules Surrender",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Voltron",
@@ -5901,7 +6044,8 @@
   "year": "1984",
   "title": "Voltron: The End Of Hazar's World",
   "width": 1280,
-  "height": 720
+  "height": 720,
+  "crop": "iw*0.735:ih"
  },
  {
   "show": "Hulk Hogan's Rock 'n' Wrestling",
@@ -11075,7 +11219,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Battle For Gobotron",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11085,7 +11230,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Target Earth",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11095,7 +11241,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Conquest Of Earth",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11105,7 +11252,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Earth Bound",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11115,7 +11263,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Final Conflict",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11125,7 +11274,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: It's The Thought That Counts",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11135,7 +11285,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Renegade Alliance",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11145,7 +11296,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Time Wars",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11155,7 +11307,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Terror In Atlantis",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11165,7 +11318,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Trident's Triple Threat",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11175,7 +11329,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Lost On Gobotron",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11185,7 +11340,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Cy-Kill's Shrinking Ray",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11195,7 +11351,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Quest For Roguestar",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11205,7 +11362,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Ultra Zod",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11215,7 +11373,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Sentinel",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11225,7 +11384,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Cy-Kill's Cataclysmic Trap",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11235,7 +11395,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Speed Is Of The Essence",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11245,7 +11406,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Genius And Son",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11255,7 +11417,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Dawn World",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11265,7 +11428,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Pacific Overtures",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11275,7 +11439,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Forced Alliance",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11287,7 +11452,8 @@
   "width": 854,
   "height": 480,
   "group": "Challenge of the GoBots|invasion from the 21st level",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11299,7 +11465,8 @@
   "width": 854,
   "height": 480,
   "group": "Challenge of the GoBots|invasion from the 21st level",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11309,7 +11476,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Doppelganger",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11319,7 +11487,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Scooter Enhanced",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11329,7 +11498,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Tarnished Image",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11339,7 +11509,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Cold Spell",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11349,7 +11520,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Crime Wave",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11359,7 +11531,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Auto-Madic",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11371,7 +11544,8 @@
   "width": 854,
   "height": 480,
   "group": "Challenge of the GoBots|renegades' rampage",
-  "part": 1
+  "part": 1,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11383,7 +11557,8 @@
   "width": 854,
   "height": 480,
   "group": "Challenge of the GoBots|renegades' rampage",
-  "part": 2
+  "part": 2,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11393,7 +11568,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Search For The Ancient Gobonauts",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11403,7 +11579,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Gameworld",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11413,7 +11590,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Wolf In The Fold",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11423,7 +11601,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Depth Charge",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11433,7 +11612,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Transfer Point",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11443,7 +11623,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Steamer's Defection",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11453,7 +11634,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Gobot Who Cried Renegade",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11463,7 +11645,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Seer",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11473,7 +11656,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Whiz Kid",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11483,7 +11667,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Ring Of Fire",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11493,7 +11678,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Cy-Kill's Escape",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11503,7 +11689,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Quest For The Creator",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11513,7 +11700,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Fall Of Gobotron",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11523,7 +11711,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Flight To Earth",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11533,7 +11722,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Return To Gobotron",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11543,7 +11733,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Destroy All Guardians",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11553,7 +11744,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Escape From Elba",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11563,7 +11755,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Fitor To The Finish",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11573,7 +11766,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Clutch Of Doom",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11583,7 +11777,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Third Column",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11593,7 +11788,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: A New Suit For Leader-1",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11603,7 +11799,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Renegade Carnival",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11613,7 +11810,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Gift",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11623,7 +11821,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Nova Beam",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11633,7 +11832,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Last Magic Man",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11643,7 +11843,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Braxis Gone Bonkers",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11653,7 +11854,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Inside Job",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11663,7 +11865,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Element Of Danger",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11673,7 +11876,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Mission Gobotron",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11683,7 +11887,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Et Tu Cy-Kill",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11693,7 +11898,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Gobots That Time Forgot",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11703,7 +11909,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: The Secret Of Halley's Comet",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11713,7 +11920,8 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Guardian Academy",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  },
  {
   "show": "Challenge of the GoBots",
@@ -11723,6 +11931,7 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Quest For New Earth",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "crop": "iw*0.765:ih"
  }
 ]
