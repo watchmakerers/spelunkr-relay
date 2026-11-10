@@ -27,6 +27,7 @@ import { Broadcast } from './broadcast.js';
 import { pixelLogo } from './logos.js';
 import { plan, troublePlan, run, font } from './render.js';
 import { Updates } from './updates.js';
+import { startWeather } from './weather.js';
 
 const PORT = Number(process.env.PORT || 8642);
 const DISCOVERY_PORT = 47555;
@@ -40,7 +41,8 @@ function shows(id, fromMs, untilMs) {
   // Start well before `fromMs` so the show currently on air (possibly hours long) is included.
   const out = [];
   for (const e of bc.range(id, fromMs - 12 * 3600e3, untilMs)) {
-    if (e.item.type !== 'video') continue;
+    // a show is a video, or a titled weather segment (the first of each half hour)
+    if (e.item.type !== 'video' && !(e.item.type === 'weather' && e.item.title)) continue;
     if (out.length) out[out.length - 1].endMs = e.startMs;
     out.push({ startMs: e.startMs, endMs: e.endMs, title: e.item.title || e.item.id, year: e.item.year || '' });
   }
@@ -186,6 +188,7 @@ function startDiscovery() {
 
 font(); // fail early if title cards can't be drawn
 await bc.start();
+await startWeather(log);
 updates.start();
 server.listen(PORT, () => {
   log.info(`[relay] ${bc.channels.size} channels · http://${lanAddresses()[0] || 'localhost'}:${PORT}/`);

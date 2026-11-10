@@ -7,6 +7,7 @@
 import { fetchEngineSource, loadEngine } from './extract.js';
 import * as vendored from './engine.vendored.js';
 import { loadCustomChannels } from './custom.js';
+import { WeatherChannel } from './weather.js';
 
 const DATA = 'https://spelunkr.tv/broadcast/';
 const LINEUP_REFRESH_MS = 2 * 60 * 1000;
@@ -21,6 +22,7 @@ export class Broadcast {
     this.files = new Map(); // path -> parsed JSON (manifests are immutable per version)
     this.custom = new Map(); // relay-only channels (custom.js): id -> { meta, custom }
     for (const c of loadCustomChannels(log)) this.custom.set(c.meta.id, { meta: c.meta, custom: c });
+    try { const w = new WeatherChannel(); this.custom.set(w.meta.id, { meta: w.meta, custom: w }); } catch (e) { log.warn(`[weather] ${e.message}`); }
   }
 
   async start() {

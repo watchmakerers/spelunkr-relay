@@ -86,6 +86,22 @@ a snapshot of the site's), and an "up next" card.
   Bam and Headbangers Ball (~135 hours; `channels/mtv.json`, `node tools/build-mtv.js`), with
   real 1993-2005 US TV commercials in the breaks (`channels/tvads-9300s.json`,
   `node tools/build-tvads.js`). Multi-part Headbangers Ball broadcasts stay in order.
+- **Channel 6 - Toon Rewind**: 80s and early-90s cartoons, 1150 episodes from 19 shows
+  (~424 hours; `channels/toons.json`, `node tools/build-toons.js`), with Saturday-morning
+  commercials cut from off-air tapes (`channels/tapeads-80s-kids.json`,
+  `node tools/build-tapeads.js`). Multi-part stories air back to back and in order, and no
+  show airs twice in a row. BraveStarr's titles were read off its on-screen title cards
+  (`tools/bravestarr-titles.json`), since its only full upload names files by disc.
+- **Channel 7 - Weather Rewind** (`relay/src/weather.js`): your local forecast the way
+  cable weather did it in the early 90s, drawn by the relay itself: Current Conditions,
+  Local Forecast, Extended Forecast and Almanac screens with a ticking clock and a crawl of
+  current conditions, over the period "Local Forecast" smooth jazz
+  (`channels/weather-music.json`, `node tools/build-weather-music.js`), with 1993-99
+  commercials between segments. Forecasts are live from [Open-Meteo](https://open-meteo.com)
+  (free, no key). Set the place with `WEATHER_LOCATION="Portland, OR"` (or `"lat,lon"`, or
+  the first line of `relay/weather.txt`); without it the relay guesses from its public IP
+  (ipapi.co). `WEATHER_UNITS=metric` switches to °C and km/h. The screens are SVG
+  rasterised by ffmpeg, so the relay's ffmpeg needs librsvg (most full builds have it).
 
 ## Controls
 

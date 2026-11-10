@@ -6,11 +6,13 @@
 //   video     a show, read straight from archive.org at the right offset
 //   ad        a vintage commercial/trailer sliced out of an archive.org "tape"
 //   bump-break / up-next   text cards (the site draws these in the browser) over their music
+//   weather   the Weather Rewind channel's forecast screens over smooth jazz (weather.js)
 
 import { spawn, execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { weatherPlan, weatherArgs } from './weather.js';
 
 export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000 };
 
@@ -18,8 +20,8 @@ export const OUT = { fps: '30000/1001', vbit: '2800k', abit: '192k', rate: 48000
 // so channels, shows, commercials and break music all play at a similar level whatever the
 // tape's original level was. Single-pass loudnorm works on live streams; it runs at 192 kHz
 // internally, hence the resample back. Break music sits a little under the programmes.
-const LOUDNESS = { show: -18, card: -21, truePeak: -1.5, range: 11 };
-const loudnorm = target => `loudnorm=I=${target}:TP=${LOUDNESS.truePeak}:LRA=${LOUDNESS.range},aresample=${OUT.rate}`;
+export const LOUDNESS = { show: -18, card: -21, truePeak: -1.5, range: 11 };
+export const loudnorm = target => `loudnorm=I=${target}:TP=${LOUDNESS.truePeak}:LRA=${LOUDNESS.range},aresample=${OUT.rate}`;
 // Frame sizes: widescreen by default, 4:3 for SD sets (the PS3 asks with ?aspect=4x3), and a
 // small widescreen one for handhelds (the Vita asks with ?aspect=16x9s).
 export const SIZES = { '16x9': { w: 848, h: 480 }, '4x3': { w: 640, h: 480 }, '16x9s': { w: 640, h: 360 } };
@@ -79,6 +81,7 @@ export function plan(entry, ctx) {
     const file = it.file || it.mp4;
     return { kind: 'source', size, url: archiveUrl(it.id, file), seek: (it.inS || 0) + offset, duration };
   }
+  if (it.type === 'weather') return weatherPlan(entry, ctx, size);
   if (it.type === 'ad' && it.slice) {
     const s = it.slice;
     return { kind: 'source', size, url: archiveUrl(s.tape, s.file), seek: (s.inMs || 0) / 1000 + offset, duration, gainDb: s.gainDb };
@@ -126,13 +129,13 @@ export function troublePlan(duration, channel, aspect) {
   };
 }
 
-const encodeArgs = () => [
+export const encodeArgs = () => [
   '-c:v', 'mpeg1video', '-b:v', OUT.vbit, '-maxrate', '4000k', '-bufsize', '1835k', '-g', '15', '-bf', '0',
   '-c:a', 'mp2', '-b:a', OUT.abit, '-ar', String(OUT.rate), '-ac', '2',
   '-max_muxing_queue_size', '2048', '-f', 'mpeg', 'pipe:1',
 ];
 
-const httpIn = url => ['-user_agent', UA, '-reconnect', '1', '-reconnect_on_network_error', '1', '-reconnect_delay_max', '4', '-i', url];
+export const httpIn = url => ['-user_agent', UA, '-reconnect', '1', '-reconnect_on_network_error', '1', '-reconnect_delay_max', '4', '-i', url];
 
 /** Builds ffmpeg arguments for a plan. Returns { args, cleanup }. */
 export function ffmpegArgs(p) {
@@ -140,6 +143,7 @@ export function ffmpegArgs(p) {
   const { w, h } = p.size || SIZES['16x9'];
   const { fps } = OUT;
   const k = w / 848; // card text scales with frame width
+  if (p.kind === 'weather') return weatherArgs(p);
   if (p.kind === 'source') {
     const af = ['aresample=async=1:first_pts=0'];
     if (Number.isFinite(p.gainDb) && p.gainDb) af.push(`volume=${p.gainDb}dB`);
