@@ -402,12 +402,21 @@ int plat_pointer(int *x, int *y, int *clicked, int *wheel)
 	return now_us() - mouse_seen_us < 3000000;
 }
 
-static void mouse_at(int wx, int wy)
+// Where the pointer is on the UI canvas. SDL already rewrites mouse *event* coordinates into
+// logical ones when a logical size is set (and sdl2-compat on SDL3 does too), so converting
+// those again put the pointer off by the window's scale. Instead read the pointer in window
+// coordinates and undo the letterboxing ourselves: the canvas is scaled to fit the window
+// and centred, the same way SDL_RenderSetLogicalSize draws it.
+static void mouse_at(void)
 {
-	float lx = wx, ly = wy;
-	SDL_RenderWindowToLogical(ren, wx, wy, &lx, &ly);
-	mouse_x = (int)lx;
-	mouse_y = (int)ly;
+	int wx, wy, ww, wh;
+	SDL_GetMouseState(&wx, &wy);
+	SDL_GetWindowSize(win, &ww, &wh);
+	if (ww <= 0 || wh <= 0) return;
+	float sx = (float)ww / ui_w, sy = (float)wh / ui_h, k = sx < sy ? sx : sy;
+	float ox = (ww - ui_w * k) / 2, oy = (wh - ui_h * k) / 2;
+	mouse_x = (int)((wx - ox) / k);
+	mouse_y = (int)((wy - oy) / k);
 	mouse_seen_us = now_us();
 }
 
@@ -418,9 +427,9 @@ int plat_poll(void)
 		switch (e.type) {
 		case SDL_QUIT: quit = 1; break;
 		case SDL_CONTROLLERDEVICEADDED: SDL_GameControllerOpen(e.cdevice.which); break;
-		case SDL_MOUSEMOTION: mouse_at(e.motion.x, e.motion.y); break;
+		case SDL_MOUSEMOTION: mouse_at(); break;
 		case SDL_MOUSEBUTTONDOWN:
-			if (e.button.button == SDL_BUTTON_LEFT) { mouse_at(e.button.x, e.button.y); mouse_click = 1; }
+			if (e.button.button == SDL_BUTTON_LEFT) { mouse_at(); mouse_click = 1; }
 			break;
 		case SDL_MOUSEWHEEL: mouse_wheel += e.wheel.y > 0 ? 1 : e.wheel.y < 0 ? -1 : 0; mouse_seen_us = now_us(); break;
 		case SDL_KEYDOWN:
