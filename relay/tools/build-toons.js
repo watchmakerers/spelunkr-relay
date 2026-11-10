@@ -6,28 +6,34 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const OUT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../src/channels/toons.json');
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const OUT = path.join(HERE, '../src/channels/toons.json');
 const UA = { 'user-agent': 'spelunkr-ps3-relay/0.1 (+https://spelunkr.tv)' };
 
 // show, its archive.org items, the year it premiered, and the episode length window (min).
 const SHOWS = [
   { show: 'He-Man', year: '1983', items: ['he-man-and-the-masters-of-the-universe-s01', 'he-man-and-the-masters-of-the-universe-s02'], strip: /he-man and the masters of the universe/i },
   { show: 'ThunderCats', year: '1985', items: ['thundercats_20250306'] },
-  { show: 'Teenage Mutant Ninja Turtles', year: '1987', items: ['tmnt-season-3-2', 'tmnt-season-9-10'] },
+  { show: 'Teenage Mutant Ninja Turtles', year: '1987', items: ['tmnt-season-3-2', 'tmnt-s05', 'tmnt-season-9-10'] },
   { show: 'G.I. Joe', year: '1985', items: ['g.i.-joe-a-real-american-hero-sunbow-dvd-rips'] },
-  { show: 'The Transformers', year: '1984', items: ['The_Transformers_DVDISO'], min: 15, untitled: true },
+  // Hasbro's own uploads, seasons 1-2 (season 3 only exists online as whole-disc rips)
+  { show: 'The Transformers', year: '1984', items: ['transformers-g1-hasbropulse'], strip: /\s*_\s*Transformers - (?:Generation 1|G1)\s*_\s*Season \d+\s*_\s*E\d+\s*_\s*Hasbro Pulse/i },
   { show: 'Super Mario Bros. Super Show', year: '1989', items: ['the-super-mario-bros.-super-show-select-episodes', 'thesupermariobrossupershow'], strip: /the super mario bros\.? super show!?/i },
-  { show: 'Dungeons & Dragons', year: '1983', items: ['dungeons-dragons-tv-series'], untitled: true },
+  // Requiem is the unproduced finale's script reading, not an episode
+  { show: 'Dungeons & Dragons', year: '1983', items: ['dungeons-and-dragons_202605'], strip: /dungeons and dragons/i, exclude: /requiem/i },
   { show: 'Voltron', year: '1984', items: ['voltron-the-defender-of-the-universe-vehicle-force-1984'], strip: /voltron vehicle force/i },
   { show: "Hulk Hogan's Rock 'n' Wrestling", year: '1985', items: ['hulk-hogans-rock-n-wrestling'] },
-  { show: 'The Legend of Zelda', year: '1989', items: ['the-legend-of-zelda-1989-full-series'], min: 9, strip: /the legend of zelda \(1989\)/i },
+  // the loose "(1989)N.mp4" files repeat the season folder's episodes without titles
+  { show: 'The Legend of Zelda', year: '1989', items: ['the-legend-of-zelda-1989-full-series'], min: 9, strip: /the legend of zelda \(1989\)/i, exclude: /\(1989\)\d+\.mp4$/ },
   { show: 'Star Wars Droids', year: '1985', items: ['10starwarsdroids1x09.5thegreatheep'], strip: /star wars\s+droids/i },
   { show: 'Star Wars Ewoks', year: '1985', items: ['113starwarsewoks1x13asha', '28starwarsewoks2x08theseasonscepter'], min: 9, strip: /star wars\s+ewoks/i },
   { show: 'DuckTales', year: '1987', items: ['ducktales-1987_202601'] },
   { show: 'TaleSpin', year: '1990', items: ['tale-spin-1990-complete-series'] },
   { show: 'Darkwing Duck', year: '1991', items: ['darkwing-duck-1991_202601'] },
   { show: 'Gargoyles', year: '1994', items: ['gargoyles-1080p-ai-upscale'] },
-  { show: 'BraveStarr', year: '1987', items: ['bravestarr-bci-dvd'], untitled: true },
+  // The BCI rip names every file after its disc, so titles were read off each episode's
+  // on-screen title card (null: a duplicate rip, or a bonus cartoon from another show).
+  { show: 'BraveStarr', year: '1987', items: ['bravestarr-bci-dvd'], titles: 'bravestarr-titles.json' },
   { show: 'Thundarr the Barbarian', year: '1980', items: ['Thundarr_the_Barbarian'] },
   { show: 'Challenge of the GoBots', year: '1984', items: ['challenge-of-the-gobots'] },
 ];
@@ -49,29 +55,34 @@ async function getJson(url, tries = 4) {
 function episodeName(file, spec) {
   let s = path.basename(file).replace(/(\.ia)?\.(mp4|m4v)$/i, '');
   if (spec.strip) s = s.replace(spec.strip, ' ');
-  s = s.replace(new RegExp(spec.show.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'ig'), ' ')
+  // the show's name is dropped only where it labels the file ("Show - S01E02 - Title"),
+  // not inside a title ("Quest for He-Man")
+  s = s.replace(new RegExp(`(^|\\s-\\s)${spec.show.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=\\s+-\\s)`, 'ig'), ' ')
     .replace(/\((?:\d{3,4}p[^)]*|dvdrip[^)]*|pilot[^)]*)\)/ig, m => (/pilot/i.test(m) ? m : ' '))
     .replace(/\bS\d+\s*E\d+\b|\b\d+x\d+(\.\d+)?[a-z]?\b|\bEp\.?\s*\d+\b|\bEP\s*\d+\b/ig, ' ')
     .replace(/\b(dvdrip|xvid|x264|480p|720p|1080p|upscale)\b/ig, ' ')
     .replace(/^[\s\d._-]+(?:[ab]\b)?|[\s._-]+$/g, '')
-    .replace(/[_]+/g, ' ')
+    .replace(/[_]+/g, ' ').replace(/`/g, "'")
     .replace(/\s+-\s+/g, ' - ').replace(/^-\s*|\s*-$/g, '')
     .replace(/\s{2,}/g, ' ').trim();
-  return s.replace(/^[-\s]+/, '').replace(/^['"]|['"]$/g, '').trim();
+  s = s.replace(/^[-\s]+/, '').replace(/^['"]|['"]$/g, '').replace(/\s+Temp$/, '').trim();
+  return s.replace(/^\((.*)\)$/, '$1').trim();
 }
 
 const episodes = [];
 for (const spec of SHOWS) {
   const seen = new Set();
   let n = 0;
+  const titles = spec.titles && JSON.parse(fs.readFileSync(path.join(HERE, spec.titles), 'utf8'));
   for (const item of spec.items) {
     const d = await getJson(`https://archive.org/metadata/${item}`);
-    const files = (d.files || []).filter(f => /\.(mp4|m4v)$/i.test(f.name) && !/\.ia\.mp4$/i.test(f.name));
+    const files = (d.files || []).filter(f => /\.(mp4|m4v)$/i.test(f.name) && !/\.ia\.mp4$/i.test(f.name) && !spec.exclude?.test(f.name));
     const lo = (spec.min ?? 15) * 60, hi = (spec.max ?? 35) * 60;
     for (const f of files.sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }))) {
       const len = Number(f.length);
       if (!(len >= lo && len <= hi)) continue;
-      const name = spec.untitled ? '' : episodeName(f.name, spec);
+      if (titles && !titles[f.name]) continue;
+      const name = titles ? titles[f.name] : episodeName(f.name, spec);
       const key = name.toLowerCase().replace(/[^a-z0-9]/g, '');
       if (key && seen.has(key)) continue; // the same episode in a second upload
       if (key) seen.add(key);
@@ -85,6 +96,28 @@ for (const spec of SHOWS) {
   }
   console.log(`${spec.show}: ${n} episodes`);
 }
+
+// Multi-part stories ("Part 2", "Pt. 2", "(2)") get a shared `group` and their `part`, so
+// the relay airs them back to back and in order. A story counts only if two or more of its
+// parts are here.
+const partOf = title => {
+  const m = title.match(/^(.*?)[,:\s-]*\b(?:Part|Pt\.?)\s*(\d+)\b/i) || title.match(/^(.*?)\s*\((\d)\)$/);
+  return m && { base: m[1].split(' - ')[0].replace(/[,:\s-]+$/, '').toLowerCase(), part: Number(m[2]) };
+};
+const stories = new Map();
+for (const e of episodes) {
+  const p = partOf(e.title.slice(e.show.length + 2));
+  if (!p || !p.base) continue;
+  const key = `${e.show}|${p.base}`;
+  if (!stories.has(key)) stories.set(key, []);
+  stories.get(key).push([e, p.part]);
+}
+let grouped = 0;
+for (const [key, parts] of stories) {
+  if (new Set(parts.map(([, n]) => n)).size < 2) continue;
+  for (const [e, n] of parts) { e.group = key; e.part = n; grouped++; }
+}
+console.log(`${grouped} episodes in multi-part stories`);
 
 fs.writeFileSync(OUT, JSON.stringify(episodes, null, 1) + '\n');
 console.log(`${episodes.length} episodes, ${(episodes.reduce((t, e) => t + e.durationS, 0) / 3600).toFixed(0)} hours -> ${path.relative(process.cwd(), OUT)}`);

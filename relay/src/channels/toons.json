@@ -225,7 +225,7 @@
   "file": "S01E23 - He-Man and the Masters of the Universe - Quest for He-Man.mp4",
   "durationS": 1352.3,
   "year": "1983",
-  "title": "He-Man: Quest for",
+  "title": "He-Man: Quest for He-Man",
   "width": 1440,
   "height": 1080
  },
@@ -607,7 +607,9 @@
   "year": "1983",
   "title": "He-Man: Hose of Shokoti - Part 01",
   "width": 1440,
-  "height": 1080
+  "height": 1080,
+  "group": "He-Man|hose of shokoti",
+  "part": 1
  },
  {
   "show": "He-Man",
@@ -617,7 +619,9 @@
   "year": "1983",
   "title": "He-Man: Hose of Shokoti - Part 02",
   "width": 1440,
-  "height": 1080
+  "height": 1080,
+  "group": "He-Man|hose of shokoti",
+  "part": 2
  },
  {
   "show": "He-Man",
@@ -1697,7 +1701,9 @@
   "year": "1985",
   "title": "ThunderCats: Feliner (1)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|feliner",
+  "part": 1
  },
  {
   "show": "ThunderCats",
@@ -1707,7 +1713,9 @@
   "year": "1985",
   "title": "ThunderCats: Feliner (2)",
   "width": 624,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|feliner",
+  "part": 2
  },
  {
   "show": "ThunderCats",
@@ -1947,7 +1955,9 @@
   "year": "1985",
   "title": "ThunderCats: Ho! (1)",
   "width": 630,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|ho!",
+  "part": 1
  },
  {
   "show": "ThunderCats",
@@ -1957,7 +1967,9 @@
   "year": "1985",
   "title": "ThunderCats: Ho! (2)",
   "width": 630,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|ho!",
+  "part": 2
  },
  {
   "show": "ThunderCats",
@@ -1967,7 +1979,9 @@
   "year": "1985",
   "title": "ThunderCats: Ho! (3)",
   "width": 626,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|ho!",
+  "part": 3
  },
  {
   "show": "ThunderCats",
@@ -1977,7 +1991,9 @@
   "year": "1985",
   "title": "ThunderCats: Ho! (4)",
   "width": 630,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|ho!",
+  "part": 4
  },
  {
   "show": "ThunderCats",
@@ -1987,7 +2003,9 @@
   "year": "1985",
   "title": "ThunderCats: Ho! (5)",
   "width": 632,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|ho!",
+  "part": 5
  },
  {
   "show": "ThunderCats",
@@ -1997,7 +2015,9 @@
   "year": "1985",
   "title": "ThunderCats: Mumm-Ra Lives! (1)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|mumm-ra lives!",
+  "part": 1
  },
  {
   "show": "ThunderCats",
@@ -2007,7 +2027,9 @@
   "year": "1985",
   "title": "ThunderCats: Mumm-Ra Lives! (2)",
   "width": 624,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|mumm-ra lives!",
+  "part": 2
  },
  {
   "show": "ThunderCats",
@@ -2017,7 +2039,9 @@
   "year": "1985",
   "title": "ThunderCats: Mumm-Ra Lives! (3)",
   "width": 624,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|mumm-ra lives!",
+  "part": 3
  },
  {
   "show": "ThunderCats",
@@ -2027,7 +2051,9 @@
   "year": "1985",
   "title": "ThunderCats: Mumm-Ra Lives! (4)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|mumm-ra lives!",
+  "part": 4
  },
  {
   "show": "ThunderCats",
@@ -2037,7 +2063,9 @@
   "year": "1985",
   "title": "ThunderCats: Mumm-Ra Lives! (5)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|mumm-ra lives!",
+  "part": 5
  },
  {
   "show": "ThunderCats",
@@ -2197,7 +2225,9 @@
   "year": "1985",
   "title": "ThunderCats: ThunderCubs (1)",
   "width": 626,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|thundercubs",
+  "part": 1
  },
  {
   "show": "ThunderCats",
@@ -2207,7 +2237,9 @@
   "year": "1985",
   "title": "ThunderCats: ThunderCubs (2)",
   "width": 620,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|thundercubs",
+  "part": 2
  },
  {
   "show": "ThunderCats",
@@ -2217,7 +2249,9 @@
   "year": "1985",
   "title": "ThunderCats: ThunderCubs (3)",
   "width": 618,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|thundercubs",
+  "part": 3
  },
  {
   "show": "ThunderCats",
@@ -2227,7 +2261,9 @@
   "year": "1985",
   "title": "ThunderCats: ThunderCubs (4)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|thundercubs",
+  "part": 4
  },
  {
   "show": "ThunderCats",
@@ -2237,7 +2273,9 @@
   "year": "1985",
   "title": "ThunderCats: ThunderCubs (5)",
   "width": 624,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|thundercubs",
+  "part": 5
  },
  {
   "show": "ThunderCats",
@@ -2397,7 +2435,9 @@
   "year": "1985",
   "title": "ThunderCats: Return to Thundera! (1)",
   "width": 620,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|return to thundera!",
+  "part": 1
  },
  {
   "show": "ThunderCats",
@@ -2407,7 +2447,9 @@
   "year": "1985",
   "title": "ThunderCats: Return to Thundera! (2)",
   "width": 624,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|return to thundera!",
+  "part": 2
  },
  {
   "show": "ThunderCats",
@@ -2417,7 +2459,9 @@
   "year": "1985",
   "title": "ThunderCats: Return to Thundera! (3)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|return to thundera!",
+  "part": 3
  },
  {
   "show": "ThunderCats",
@@ -2427,7 +2471,9 @@
   "year": "1985",
   "title": "ThunderCats: Return to Thundera! (4)",
   "width": 620,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|return to thundera!",
+  "part": 4
  },
  {
   "show": "ThunderCats",
@@ -2437,7 +2483,9 @@
   "year": "1985",
   "title": "ThunderCats: Return to Thundera! (5)",
   "width": 622,
-  "height": 480
+  "height": 480,
+  "group": "ThunderCats|return to thundera!",
+  "part": 5
  },
  {
   "show": "ThunderCats",
@@ -2645,7 +2693,7 @@
   "file": "Teenage Mutant Ninja Turtles - 03x31 - Michelangelo`s Birthday.mp4",
   "durationS": 1338.7,
   "year": "1987",
-  "title": "Teenage Mutant Ninja Turtles: Michelangelo`s Birthday",
+  "title": "Teenage Mutant Ninja Turtles: Michelangelo's Birthday",
   "width": 1440,
   "height": 1080
  },
@@ -2735,7 +2783,7 @@
   "file": "Teenage Mutant Ninja Turtles - 03x40 - The Gang`s All Here.mp4",
   "durationS": 1338,
   "year": "1987",
-  "title": "Teenage Mutant Ninja Turtles: The Gang`s All Here",
+  "title": "Teenage Mutant Ninja Turtles: The Gang's All Here",
   "width": 1440,
   "height": 1080
  },
@@ -2806,6 +2854,186 @@
   "durationS": 1339.8,
   "year": "1987",
   "title": "Teenage Mutant Ninja Turtles: The Big Blow Out",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x01 - Donatello`s Badd Time.mp4",
+  "durationS": 1419.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Donatello's Badd Time",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x02 - Donatello`s Duplicate.mp4",
+  "durationS": 1415.3,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Donatello's Duplicate",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x03 - My Brother, The Bad Guy.mp4",
+  "durationS": 1417.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: My Brother, The Bad Guy",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x04 - Enter Mutagen Man.mp4",
+  "durationS": 1418.8,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Enter Mutagen Man",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x05 - Napoleon Bonafrog Colossus Of The Swamps.mp4",
+  "durationS": 1418.5,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Napoleon Bonafrog Colossus Of The Swamps",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x06 - Michaelangelo Meets Mondo Gecko.mp4",
+  "durationS": 1417.4,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Michaelangelo Meets Mondo Gecko",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x07 - Michaelangelo Meets Bugman Again.mp4",
+  "durationS": 1417.5,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Michaelangelo Meets Bugman Again",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x08 - Leonardo Cuts Loose.mp4",
+  "durationS": 1416.5,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Leonardo Cuts Loose",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x10 - Muckman Messes Up.mp4",
+  "durationS": 1419.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Muckman Messes Up",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x11 - The Ice Creature Cometh.mp4",
+  "durationS": 1416.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: The Ice Creature Cometh",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x12 - Zach and the Alien Invaders.mp4",
+  "durationS": 1416.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Zach and the Alien Invaders",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x13 - Raphael Versus The Volcano.mp4",
+  "durationS": 1417.9,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Raphael Versus The Volcano",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x14 - Raphael, Turtle Of A Thousand Faces.mp4",
+  "durationS": 1416.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Raphael, Turtle Of A Thousand Faces",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x15 - Pirate Radio.mp4",
+  "durationS": 1417.4,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Pirate Radio",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x16 - Landlord of the Flies.mp4",
+  "durationS": 1418.6,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Landlord of the Flies",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x17 - Leonardo, The Renaissance Turtle.mp4",
+  "durationS": 1417.1,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Leonardo, The Renaissance Turtle",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x18 - Welcome Back, Polarisoids.mp4",
+  "durationS": 1416.5,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Welcome Back, Polarisoids",
+  "width": 1440,
+  "height": 1080
+ },
+ {
+  "show": "Teenage Mutant Ninja Turtles",
+  "id": "tmnt-s05",
+  "file": "05x19 - Michaelangelo, The Sacred Turtle.mp4",
+  "durationS": 1417.8,
+  "year": "1987",
+  "title": "Teenage Mutant Ninja Turtles: Michaelangelo, The Sacred Turtle",
   "width": 1440,
   "height": 1080
  },
@@ -2977,7 +3205,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Cobra Strikes' The M.A.S.S. Device Pt. 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the cobra strikes' the m.a.s.s. device",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -2987,7 +3217,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Cobra Strikes' The M.A.S.S. Device Pt. 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the cobra strikes' the m.a.s.s. device",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -2997,7 +3229,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Cobra Strikes' The M.A.S.S. Device Pt. 3",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the cobra strikes' the m.a.s.s. device",
+  "part": 3
  },
  {
   "show": "G.I. Joe",
@@ -3007,7 +3241,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Cobra Strikes' The M.A.S.S. Device Pt. 4",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the cobra strikes' the m.a.s.s. device",
+  "part": 4
  },
  {
   "show": "G.I. Joe",
@@ -3017,7 +3253,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Cobra Strikes' The M.A.S.S. Device Pt. 5",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the cobra strikes' the m.a.s.s. device",
+  "part": 5
  },
  {
   "show": "G.I. Joe",
@@ -3027,7 +3265,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Revenge of Cobra, Part 1 In the Cobra's Pit",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the revenge of cobra",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -3037,7 +3277,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Revenge of Cobra, Part 2 The Vines of Evil",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the revenge of cobra",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -3047,7 +3289,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Revenge of Cobra, Part 3 The Palace of Doom",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the revenge of cobra",
+  "part": 3
  },
  {
   "show": "G.I. Joe",
@@ -3057,7 +3301,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Revenge of Cobra, Part 4 Battle on the Roof of the World",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the revenge of cobra",
+  "part": 4
  },
  {
   "show": "G.I. Joe",
@@ -3067,7 +3313,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Revenge of Cobra, Part 5 Amusement Park of Terror",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the revenge of cobra",
+  "part": 5
  },
  {
   "show": "G.I. Joe",
@@ -3075,9 +3323,11 @@
   "file": "11 The Pyramid of Darkness, Part 1 The Further Adventures of G.I. Joe.mp4",
   "durationS": 1338.1,
   "year": "1985",
-  "title": "G.I. Joe: The Pyramid of Darkness, Part 1 The Further Adventures of",
+  "title": "G.I. Joe: The Pyramid of Darkness, Part 1 The Further Adventures of G.I. Joe",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the pyramid of darkness",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -3087,7 +3337,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Pyramid of Darkness, Part 2 Rendezvous in the City of the Dead",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the pyramid of darkness",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -3097,7 +3349,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Pyramid of Darkness, Part 3 Three Cubes to Darkness",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the pyramid of darkness",
+  "part": 3
  },
  {
   "show": "G.I. Joe",
@@ -3107,7 +3361,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Pyramid of Darkness, Part 4 Chaos in the Sea of Lost Souls",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the pyramid of darkness",
+  "part": 4
  },
  {
   "show": "G.I. Joe",
@@ -3117,7 +3373,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Pyramid of Darkness, Part 5 Knotting Cobra's Coils",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the pyramid of darkness",
+  "part": 5
  },
  {
   "show": "G.I. Joe",
@@ -3527,7 +3785,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Traitor, Part 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the traitor",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -3537,7 +3797,9 @@
   "year": "1985",
   "title": "G.I. Joe: The Traitor, Part 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|the traitor",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -3597,7 +3859,9 @@
   "year": "1985",
   "title": "G.I. Joe: There's No Place Like Springfield, Part 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|there's no place like springfield",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -3607,7 +3871,9 @@
   "year": "1985",
   "title": "G.I. Joe: There's No Place Like Springfield, Part 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|there's no place like springfield",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -3627,7 +3893,9 @@
   "year": "1985",
   "title": "G.I. Joe: Arise, Serpentor, Arise!, Part 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|arise, serpentor, arise!",
+  "part": 1
  },
  {
   "show": "G.I. Joe",
@@ -3637,7 +3905,9 @@
   "year": "1985",
   "title": "G.I. Joe: Arise, Serpentor, Arise!, Part 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|arise, serpentor, arise!",
+  "part": 2
  },
  {
   "show": "G.I. Joe",
@@ -3647,7 +3917,9 @@
   "year": "1985",
   "title": "G.I. Joe: Arise, Serpentor, Arise!, Part 3",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|arise, serpentor, arise!",
+  "part": 3
  },
  {
   "show": "G.I. Joe",
@@ -3657,7 +3929,9 @@
   "year": "1985",
   "title": "G.I. Joe: Arise, Serpentor, Arise!, Part 4",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|arise, serpentor, arise!",
+  "part": 4
  },
  {
   "show": "G.I. Joe",
@@ -3667,7 +3941,9 @@
   "year": "1985",
   "title": "G.I. Joe: Arise, Serpentor, Arise!, Part 5",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "G.I. Joe|arise, serpentor, arise!",
+  "part": 5
  },
  {
   "show": "G.I. Joe",
@@ -3835,7 +4111,7 @@
   "file": "87 G.I. Joe and the Golden Fleece.mp4",
   "durationS": 1337.1,
   "year": "1985",
-  "title": "G.I. Joe: and the Golden Fleece",
+  "title": "G.I. Joe: G.I. Joe and the Golden Fleece",
   "width": 640,
   "height": 480
  },
@@ -3911,1212 +4187,680 @@
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D1.mp4",
-  "durationS": 1501.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Atlantis, Arise! _ Transformers - Generation 1 _ Season 2 _ E09 _ Hasbro Pulse.mp4",
+  "durationS": 1371.9,
   "year": "1984",
-  "title": "The Transformers #1",
-  "width": 640,
+  "title": "The Transformers: Atlantis, Arise!",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D2.mp4",
-  "durationS": 1499.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Attack of the Autobots _ Transformers - Generation 1 _ Season 2 _ E10 _ Hasbro Pulse.mp4",
+  "durationS": 1370.5,
   "year": "1984",
-  "title": "The Transformers #2",
-  "width": 640,
+  "title": "The Transformers: Attack of the Autobots",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D3.mp4",
-  "durationS": 1318.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Auto Berserk _ Transformers - Generation 1 _ Season 2 _ E17 _ Hasbro Pulse.mp4",
+  "durationS": 1368.5,
   "year": "1984",
-  "title": "The Transformers #3",
-  "width": 852,
+  "title": "The Transformers: Auto Berserk",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D11.mp4",
-  "durationS": 1416.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Auto-Bop _ Transformers - Generation 1 _ Season 2 _ E33 _ Hasbro Pulse.mp4",
+  "durationS": 1365.3,
   "year": "1984",
-  "title": "The Transformers #4",
-  "width": 640,
+  "title": "The Transformers: Auto-Bop",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D14.mp4",
-  "durationS": 1500.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Autobot Spike _ Transformers - Generation 1 _ Season 2 _ E01 _ Hasbro Pulse.mp4",
+  "durationS": 1369.8,
   "year": "1984",
-  "title": "The Transformers #5",
-  "width": 640,
+  "title": "The Transformers: Autobot Spike",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D24.mp4",
-  "durationS": 1414.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "B.O.T. _ Transformers - Generation 1 _ Season 2 _ E49 _ Hasbro Pulse.mp4",
+  "durationS": 1369.8,
   "year": "1984",
-  "title": "The Transformers #6",
-  "width": 640,
+  "title": "The Transformers: B.O.T",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D27.mp4",
-  "durationS": 1415.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Blaster Blues _ Transformers - Generation 1 _ Season 2 _ E21 _ Hasbro Pulse.mp4",
+  "durationS": 1366.7,
   "year": "1984",
-  "title": "The Transformers #7",
-  "width": 640,
+  "title": "The Transformers: Blaster Blues",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D110.mp4",
-  "durationS": 1414.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Changing Gears _ Transformers - Generation 1 _ Season 2 _ E07 _ Hasbro Pulse.mp4",
+  "durationS": 1370.3,
   "year": "1984",
-  "title": "The Transformers #8",
-  "width": 640,
+  "title": "The Transformers: Changing Gears",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D113.mp4",
-  "durationS": 1415.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Child's Play _ Transformers - Generation 1 _ Season 2 _ E30 _ Hasbro Pulse.mp4",
+  "durationS": 1368,
   "year": "1984",
-  "title": "The Transformers #9",
-  "width": 640,
+  "title": "The Transformers: Child's Play",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D116.mp4",
-  "durationS": 1499.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "City of Steel _ Transformers - Generation 1 _ Season 2 _ E18 _ Hasbro Pulse.mp4",
+  "durationS": 1367.6,
   "year": "1984",
-  "title": "The Transformers #10",
-  "width": 640,
+  "title": "The Transformers: City of Steel",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D119.mp4",
-  "durationS": 1415.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Cosmic Rust _ Transformers - Generation 1 _ Season 2 _ E44 _ Hasbro Pulse.mp4",
+  "durationS": 1371.5,
   "year": "1984",
-  "title": "The Transformers #11",
-  "width": 640,
+  "title": "The Transformers: Cosmic Rust",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D122.mp4",
-  "durationS": 1415.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Countdown to Extinction _ Transformers - Generation 1 _ Season 1 _ E12 _ Hasbro Pulse.mp4",
+  "durationS": 1372.8,
   "year": "1984",
-  "title": "The Transformers #12",
-  "width": 640,
+  "title": "The Transformers: Countdown to Extinction",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D123.mp4",
-  "durationS": 1496.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Day of the Machines _ Transformers - Generation 1 _ Season 2 _ E14 _ Hasbro Pulse.mp4",
+  "durationS": 1370.6,
   "year": "1984",
-  "title": "The Transformers #13",
-  "width": 640,
+  "title": "The Transformers: Day of the Machines",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D124.mp4",
-  "durationS": 1496.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Decepticon Raider in King Arthur's Court _ Transformers - G1 _ Season 2 _ E22 _ Hasbro Pulse.mp4",
+  "durationS": 1367.3,
   "year": "1984",
-  "title": "The Transformers #14",
-  "width": 640,
+  "title": "The Transformers: Decepticon Raider in King Arthur's Court",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D210.mp4",
-  "durationS": 1499.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Desertion of the Dinobots, Part 1 _ Transformers - Generation 1 _ Season 2 _ E19 _ Hasbro Pulse.mp4",
+  "durationS": 1368.1,
   "year": "1984",
-  "title": "The Transformers #15",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D213.mp4",
-  "durationS": 1415.1,
-  "year": "1984",
-  "title": "The Transformers #16",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D216.mp4",
-  "durationS": 1414.9,
-  "year": "1984",
-  "title": "The Transformers #17",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D219.mp4",
-  "durationS": 1415.5,
-  "year": "1984",
-  "title": "The Transformers #18",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D222.mp4",
-  "durationS": 1415.4,
-  "year": "1984",
-  "title": "The Transformers #19",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D223.mp4",
-  "durationS": 1496.4,
-  "year": "1984",
-  "title": "The Transformers #20",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S1_D224.mp4",
-  "durationS": 1496.4,
-  "year": "1984",
-  "title": "The Transformers #21",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D1.mp4",
-  "durationS": 1497.3,
-  "year": "1984",
-  "title": "The Transformers #22",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D2.mp4",
-  "durationS": 1498.2,
-  "year": "1984",
-  "title": "The Transformers #23",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D3.mp4",
-  "durationS": 1413.4,
-  "year": "1984",
-  "title": "The Transformers #24",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D4.mp4",
-  "durationS": 1497.6,
-  "year": "1984",
-  "title": "The Transformers #25",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D5.mp4",
-  "durationS": 1414.5,
-  "year": "1984",
-  "title": "The Transformers #26",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D6.mp4",
-  "durationS": 1496.8,
-  "year": "1984",
-  "title": "The Transformers #27",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D7.mp4",
-  "durationS": 1415.7,
-  "year": "1984",
-  "title": "The Transformers #28",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D11.mp4",
-  "durationS": 1495.9,
-  "year": "1984",
-  "title": "The Transformers #29",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D17.mp4",
-  "durationS": 1411.8,
-  "year": "1984",
-  "title": "The Transformers #30",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D21.mp4",
-  "durationS": 1496.2,
-  "year": "1984",
-  "title": "The Transformers #31",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D23.mp4",
-  "durationS": 1413.4,
-  "year": "1984",
-  "title": "The Transformers #32",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D25.mp4",
-  "durationS": 1496.7,
-  "year": "1984",
-  "title": "The Transformers #33",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D29.mp4",
-  "durationS": 1412,
-  "year": "1984",
-  "title": "The Transformers #34",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D34.mp4",
-  "durationS": 1412.5,
-  "year": "1984",
-  "title": "The Transformers #35",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D37.mp4",
-  "durationS": 1496.2,
-  "year": "1984",
-  "title": "The Transformers #36",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D41.mp4",
-  "durationS": 1495.6,
-  "year": "1984",
-  "title": "The Transformers #37",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D43.mp4",
-  "durationS": 1410.3,
-  "year": "1984",
-  "title": "The Transformers #38",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D45.mp4",
-  "durationS": 1490.6,
-  "year": "1984",
-  "title": "The Transformers #39",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D47.mp4",
-  "durationS": 1413.1,
-  "year": "1984",
-  "title": "The Transformers #40",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D53.mp4",
-  "durationS": 1412.1,
-  "year": "1984",
-  "title": "The Transformers #41",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D55.mp4",
-  "durationS": 1489.4,
-  "year": "1984",
-  "title": "The Transformers #42",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D57.mp4",
-  "durationS": 1410.2,
-  "year": "1984",
-  "title": "The Transformers #43",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D59.mp4",
-  "durationS": 1409.4,
-  "year": "1984",
-  "title": "The Transformers #44",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D61.mp4",
-  "durationS": 1494.4,
-  "year": "1984",
-  "title": "The Transformers #45",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D64.mp4",
-  "durationS": 1493.3,
-  "year": "1984",
-  "title": "The Transformers #46",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D67.mp4",
-  "durationS": 1410.3,
-  "year": "1984",
-  "title": "The Transformers #47",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D71.mp4",
-  "durationS": 1393.4,
-  "year": "1984",
-  "title": "The Transformers #48",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D75.mp4",
-  "durationS": 1409,
-  "year": "1984",
-  "title": "The Transformers #49",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D77.mp4",
-  "durationS": 1492.1,
-  "year": "1984",
-  "title": "The Transformers #50",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D79.mp4",
-  "durationS": 1409,
-  "year": "1984",
-  "title": "The Transformers #51",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D81.mp4",
-  "durationS": 1897.1,
-  "year": "1984",
-  "title": "The Transformers #52",
-  "width": 852,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D110.mp4",
-  "durationS": 1496.8,
-  "year": "1984",
-  "title": "The Transformers #53",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D113.mp4",
-  "durationS": 1412.8,
-  "year": "1984",
-  "title": "The Transformers #54",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D116.mp4",
-  "durationS": 1412.8,
-  "year": "1984",
-  "title": "The Transformers #55",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D119.mp4",
-  "durationS": 1482.7,
-  "year": "1984",
-  "title": "The Transformers #56",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D120.mp4",
-  "durationS": 1482.7,
-  "year": "1984",
-  "title": "The Transformers #57",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D121.mp4",
-  "durationS": 1482.7,
-  "year": "1984",
-  "title": "The Transformers #58",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D211.mp4",
-  "durationS": 1496.1,
-  "year": "1984",
-  "title": "The Transformers #59",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D213.mp4",
-  "durationS": 1414.5,
-  "year": "1984",
-  "title": "The Transformers #60",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D214.mp4",
-  "durationS": 1414.5,
-  "year": "1984",
-  "title": "The Transformers #61",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D310.mp4",
-  "durationS": 1496.8,
-  "year": "1984",
-  "title": "The Transformers #62",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D314.mp4",
-  "durationS": 1413.2,
-  "year": "1984",
-  "title": "The Transformers #63",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D317.mp4",
-  "durationS": 1496.1,
-  "year": "1984",
-  "title": "The Transformers #64",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D320.mp4",
-  "durationS": 1481.4,
-  "year": "1984",
-  "title": "The Transformers #65",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D321.mp4",
-  "durationS": 1481.4,
-  "year": "1984",
-  "title": "The Transformers #66",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D322.mp4",
-  "durationS": 1481.4,
-  "year": "1984",
-  "title": "The Transformers #67",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D411.mp4",
-  "durationS": 1497.5,
-  "year": "1984",
-  "title": "The Transformers #68",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D413.mp4",
-  "durationS": 1483.4,
-  "year": "1984",
-  "title": "The Transformers #69",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D414.mp4",
-  "durationS": 1483.4,
-  "year": "1984",
-  "title": "The Transformers #70",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D511.mp4",
-  "durationS": 1492.2,
-  "year": "1984",
-  "title": "The Transformers #71",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Desertion of the Dinobots, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|desertion of the dinobots",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D513.mp4",
-  "durationS": 1481.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Desertion of the Dinobots, Part 2 _ Transformers - Generation 1 _ Season 2 _ E20 _ Hasbro Pulse.mp4",
+  "durationS": 1368,
   "year": "1984",
-  "title": "The Transformers #72",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Desertion of the Dinobots, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|desertion of the dinobots",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D514.mp4",
-  "durationS": 1481.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Dinobot Island, Part 1 _ Transformers - Generation 1 _ Season 2 _ E03 _ Hasbro Pulse.mp4",
+  "durationS": 1369.9,
   "year": "1984",
-  "title": "The Transformers #73",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Dinobot Island, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|dinobot island",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D610.mp4",
-  "durationS": 1495.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Dinobot Island, Part 2_ Transformers - Generation 1 _ Season 2 _ E04 _ Hasbro Pulse.mp4",
+  "durationS": 1370.9,
   "year": "1984",
-  "title": "The Transformers #74",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Dinobot Island, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|dinobot island",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D617.mp4",
-  "durationS": 1494.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Divide and Conquer _ Transformers - Generation 1 _ Season 1 _ E06 _ Hasbro Pulse.mp4",
+  "durationS": 1373.3,
   "year": "1984",
-  "title": "The Transformers #75",
-  "width": 640,
+  "title": "The Transformers: Divide and Conquer",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D620.mp4",
-  "durationS": 1412.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Enter the Nightbird _ Transformers - Generation 1 _ Season 2 _ E06 _ Hasbro Pulse.mp4",
+  "durationS": 1368.7,
   "year": "1984",
-  "title": "The Transformers #76",
-  "width": 640,
+  "title": "The Transformers: Enter the Nightbird",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D621.mp4",
-  "durationS": 1412.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Fire in the Sky _ Transformers - Generation 1 _ Season 1 _ E13 _ Hasbro Pulse.mp4",
+  "durationS": 1373.1,
   "year": "1984",
-  "title": "The Transformers #77",
-  "width": 640,
+  "title": "The Transformers: Fire in the Sky",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D622.mp4",
-  "durationS": 1412.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Fire on the Mountain _ Transformers - Generation 1 _ Season 1 _ E15 _ Hasbro Pulse.mp4",
+  "durationS": 1373.3,
   "year": "1984",
-  "title": "The Transformers #78",
-  "width": 640,
+  "title": "The Transformers: Fire on the Mountain",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D711.mp4",
-  "durationS": 1409.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Heavy Metal War _ Transformers - Generation 1 _ Season 1 _ E14 _ Hasbro Pulse.mp4",
+  "durationS": 1373.3,
   "year": "1984",
-  "title": "The Transformers #79",
-  "width": 640,
+  "title": "The Transformers: Heavy Metal War",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D713.mp4",
-  "durationS": 1484.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Hoist Goes Hollywood _ Transformers - Generation 1 _ Season 2 _ E38 _ Hasbro Pulse.mp4",
+  "durationS": 1369.7,
   "year": "1984",
-  "title": "The Transformers #80",
-  "width": 640,
+  "title": "The Transformers: Hoist Goes Hollywood",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S2_D714.mp4",
-  "durationS": 1484.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Kremzeek! _ Transformers - Generation 1 _ Season 2 _ E45 _ Hasbro Pulse.mp4",
+  "durationS": 1364.9,
   "year": "1984",
-  "title": "The Transformers #81",
-  "width": 640,
+  "title": "The Transformers: Kremzeek!",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D1.mp4",
-  "durationS": 1494.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Make Tracks _ Transformers - Generation 1 _ Season 2 _ E25 _ Hasbro Pulse.mp4",
+  "durationS": 1369,
   "year": "1984",
-  "title": "The Transformers #82",
-  "width": 640,
+  "title": "The Transformers: Make Tracks",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D2.mp4",
-  "durationS": 1478.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Masquerade _ Transformers - Generation 1 _ Season 2 _ E41 _ Hasbro Pulse.mp4",
+  "durationS": 1366.4,
   "year": "1984",
-  "title": "The Transformers #83",
-  "width": 640,
+  "title": "The Transformers: Masquerade",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D3.mp4",
-  "durationS": 1411.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Megatron's Master Plan, Part 1 _ Transformers - Generation 1 _ Season 2 _ E15 _ Hasbro Pulse.mp4",
+  "durationS": 1370.8,
   "year": "1984",
-  "title": "The Transformers #84",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Megatron's Master Plan, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|megatron's master plan",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D4.mp4",
-  "durationS": 1492.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Megatron's Master Plan, Part 2 _ Transformers - Generation 1 _ Season 2 _ E16 _ Hasbro Pulse.mp4",
+  "durationS": 1371,
   "year": "1984",
-  "title": "The Transformers #85",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: Megatron's Master Plan, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|megatron's master plan",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D5.mp4",
-  "durationS": 1123.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Microbots _ Transformers - Generation 1 _ Season 2 _ E11 _ Hasbro Pulse.mp4",
+  "durationS": 1372.7,
   "year": "1984",
-  "title": "The Transformers #86",
-  "width": 852,
+  "title": "The Transformers: Microbots",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D11.mp4",
-  "durationS": 1409.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "More Than Meets the Eye, Part 1 _ Transformers - Generation 1 _ Season 1 _ E01 _ Hasbro Pulse.mp4",
+  "durationS": 1374.2,
   "year": "1984",
-  "title": "The Transformers #87",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: More Than Meets the Eye, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|more than meets the eye",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D14.mp4",
-  "durationS": 1494.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "More Than Meets the Eye, Part 2 _ Transformers - Generation 1 _ Season 1 _ E02 _ Hasbro Pulse.mp4",
+  "durationS": 1374,
   "year": "1984",
-  "title": "The Transformers #88",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: More Than Meets the Eye, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|more than meets the eye",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D21.mp4",
-  "durationS": 1384.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "More Than Meets the Eye, Part 3 _ Transformers - Generation 1 _ Season 1 _ E03 _ Hasbro Pulse.mp4",
+  "durationS": 1375,
   "year": "1984",
-  "title": "The Transformers #89",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: More Than Meets the Eye, Part 3",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|more than meets the eye",
+  "part": 3
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D23.mp4",
-  "durationS": 1312.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Prime Target _ Transformers - Generation 1 _ Season 2 _ E34 _ Hasbro Pulse.mp4",
+  "durationS": 1364.3,
   "year": "1984",
-  "title": "The Transformers #90",
-  "width": 640,
+  "title": "The Transformers: Prime Target",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D25.mp4",
-  "durationS": 1395.6,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Quest for Survival _ Transformers - Generation 1 _ Season 2 _ E28 _ Hasbro Pulse.mp4",
+  "durationS": 1368.6,
   "year": "1984",
-  "title": "The Transformers #91",
-  "width": 640,
+  "title": "The Transformers: Quest for Survival",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D27.mp4",
-  "durationS": 1300.6,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Roll for It _ Transformers - Generation 1 _ Season 1 _ E05 _ Hasbro Pulse.mp4",
+  "durationS": 1373.3,
   "year": "1984",
-  "title": "The Transformers #92",
-  "width": 640,
+  "title": "The Transformers: Roll for It",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D29.mp4",
-  "durationS": 1381.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "S.O.S. Dinobots _ Transformers - Generation 1 _ Season 1 _ E07 _ Hasbro Pulse.mp4",
+  "durationS": 1373.2,
   "year": "1984",
-  "title": "The Transformers #93",
-  "width": 640,
+  "title": "The Transformers: S.O.S. Dinobots",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D31.mp4",
-  "durationS": 1382.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Sea Change _ Transformers - Generation 1 _ Season 2 _ E37 _ Hasbro Pulse.mp4",
+  "durationS": 1374,
   "year": "1984",
-  "title": "The Transformers #94",
-  "width": 640,
+  "title": "The Transformers: Sea Change",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D33.mp4",
-  "durationS": 1264.6,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/A Plague of Insecticons _ Transformers - Generation 1 _ Season 1 _ E16 _ Hasbro Pulse.mp4",
+  "durationS": 1373.1,
   "year": "1984",
-  "title": "The Transformers #95",
-  "width": 640,
+  "title": "The Transformers: A Plague of Insecticons",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D37.mp4",
-  "durationS": 1311.9,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/The Ultimate Doom - Brainwash, Part 1 _ Transformers - Generation 1 _ Season 1 _ E08 _ Hasbro Pulse.mp4",
+  "durationS": 1373.2,
   "year": "1984",
-  "title": "The Transformers #96",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: The Ultimate Doom - Brainwash, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|the ultimate doom",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D39.mp4",
-  "durationS": 1333.8,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/The Ultimate Doom - Revival, Part 3 _ Transformers - Generation 1 _ Season 1 _ E10 _ Hasbro Pulse.mp4",
+  "durationS": 1373,
   "year": "1984",
-  "title": "The Transformers #97",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: The Ultimate Doom - Revival, Part 3",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|the ultimate doom",
+  "part": 3
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D41.mp4",
-  "durationS": 1333,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/The Ultimate Doom - Search, Part 2 _ Transformers - Generation 1 _ Season 1 _ E09 _ Hasbro Pulse.mp4",
+  "durationS": 1373.3,
   "year": "1984",
-  "title": "The Transformers #98",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: The Ultimate Doom - Search, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|the ultimate doom",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D44.mp4",
-  "durationS": 1288.9,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/Transport to Oblivion _ Transformers - Generation 1 _ Season 1 _ E04 _ Hasbro Pulse.mp4",
+  "durationS": 1371.9,
   "year": "1984",
-  "title": "The Transformers #99",
-  "width": 640,
+  "title": "The Transformers: Transport to Oblivion",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D47.mp4",
-  "durationS": 1334.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 1/War of the Dinobots _ Transformers - Generation 1 _ Season 1 _ E11 _ Hasbro Pulse.mp4",
+  "durationS": 1372.3,
   "year": "1984",
-  "title": "The Transformers #100",
-  "width": 640,
+  "title": "The Transformers: War of the Dinobots",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D110.mp4",
-  "durationS": 1410.9,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 2/A Prime Problem _ Transformers - Generation 1 _ Season 2 _ E08 _ Hasbro Pulse.mp4",
+  "durationS": 1370.4,
   "year": "1984",
-  "title": "The Transformers #101",
-  "width": 640,
+  "title": "The Transformers: A Prime Problem",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D113.mp4",
-  "durationS": 1494.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Season 2/Aerial Assault _ Transformers - Generation 1 _ Season 2 _ E48 _ Hasbro Pulse.mp4",
+  "durationS": 1365.3,
   "year": "1984",
-  "title": "The Transformers #102",
-  "width": 640,
+  "title": "The Transformers: Aerial Assault",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D116.mp4",
-  "durationS": 1493.5,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Starscream's Brigade _ Transformers - Generation 1 _ Season 2 _ E46 _ Hasbro Pulse.mp4",
+  "durationS": 1363.9,
   "year": "1984",
-  "title": "The Transformers #103",
-  "width": 640,
+  "title": "The Transformers: Starscream's Brigade",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D119.mp4",
-  "durationS": 1409.8,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Autobot Run _ Transformers - Generation 1 _ Season 2 _ E26 _ Hasbro Pulse.mp4",
+  "durationS": 1369.3,
   "year": "1984",
-  "title": "The Transformers #104",
-  "width": 640,
+  "title": "The Transformers: The Autobot Run",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D122.mp4",
-  "durationS": 1493.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Core _ Transformers - Generation 1 _ Season 2 _ E24 _ Hasbro Pulse.mp4",
+  "durationS": 1362.2,
   "year": "1984",
-  "title": "The Transformers #105",
-  "width": 640,
+  "title": "The Transformers: The Core",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D126.mp4",
-  "durationS": 1408.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Gambler _ Transformers - Generation 1 _ Season 2 _ E31 _ Hasbro Pulse.mp4",
+  "durationS": 1361.2,
   "year": "1984",
-  "title": "The Transformers #106",
-  "width": 640,
+  "title": "The Transformers: The Gambler",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D127.mp4",
-  "durationS": 1408.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Girl Who Loved Powerglide _ Transformers - Generation 1 _ Season 2 _ E35 _ Hasbro Pulse.mp4",
+  "durationS": 1369.3,
   "year": "1984",
-  "title": "The Transformers #107",
-  "width": 640,
+  "title": "The Transformers: The Girl Who Loved Powerglide",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D128.mp4",
-  "durationS": 1408.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The God Gambit _ Transformers - Generation 1 _ Season 2 _ E23 _ Hasbro Pulse.mp4",
+  "durationS": 1366.2,
   "year": "1984",
-  "title": "The Transformers #108",
-  "width": 640,
+  "title": "The Transformers: The God Gambit",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D211.mp4",
-  "durationS": 1298,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Golden Lagoon _ Transformers - Generation 1 _ Season 2 _ E27 _ Hasbro Pulse.mp4",
+  "durationS": 1369.3,
   "year": "1984",
-  "title": "The Transformers #109",
-  "width": 640,
+  "title": "The Transformers: The Golden Lagoon",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D213.mp4",
-  "durationS": 1418.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Immobilizer _ Transformers - Generation 1 _ Season 2 _ E02 _ Hasbro Pulse.mp4",
+  "durationS": 1371.3,
   "year": "1984",
-  "title": "The Transformers #110",
-  "width": 640,
+  "title": "The Transformers: The Immobilizer",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D217.mp4",
-  "durationS": 1478.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Insecticon Syndrome _ Transformers - Generation 1 _ Season 2 _ E13 _ Hasbro Pulse.mp4",
+  "durationS": 1370.5,
   "year": "1984",
-  "title": "The Transformers #111",
-  "width": 640,
+  "title": "The Transformers: The Insecticon Syndrome",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D311.mp4",
-  "durationS": 1493,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Key to Vector Sigma, Part 1 _ Transformers - Generation 1 _ Season 2 _ E39 _ Hasbro Pulse.mp4",
+  "durationS": 1368.8,
   "year": "1984",
-  "title": "The Transformers #112",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: The Key to Vector Sigma, Part 1",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|the key to vector sigma",
+  "part": 1
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D313.mp4",
-  "durationS": 1441.7,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Key to Vector Sigma, Part 2 _ Transformers - Generation 1 _ Season 2 _ E40 _ Hasbro Pulse.mp4",
+  "durationS": 1371.3,
   "year": "1984",
-  "title": "The Transformers #113",
-  "width": 640,
-  "height": 480
+  "title": "The Transformers: The Key to Vector Sigma, Part 2",
+  "width": 854,
+  "height": 480,
+  "group": "The Transformers|the key to vector sigma",
+  "part": 2
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D316.mp4",
-  "durationS": 1336.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Master Builders _ Transformers - Generation 1 _ Season 2 _ E12 _ Hasbro Pulse.mp4",
+  "durationS": 1370.5,
   "year": "1984",
-  "title": "The Transformers #114",
-  "width": 640,
+  "title": "The Transformers: The Master Builders",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D317.mp4",
-  "durationS": 1336.4,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Revenge of Bruticus _ Transformers - Generation 1 _ Season 2 _ E47 _ Hasbro Pulse.mp4",
+  "durationS": 1364.9,
   "year": "1984",
-  "title": "The Transformers #115",
-  "width": 640,
+  "title": "The Transformers: The Revenge of Bruticus",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D410.mp4",
-  "durationS": 1418.2,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Search for Alpha Trion _ Transformers - Generation 1 _ Season 2 _ E32 _ Hasbro Pulse.mp4",
+  "durationS": 1366.1,
   "year": "1984",
-  "title": "The Transformers #116",
-  "width": 640,
+  "title": "The Transformers: The Search for Alpha Trion",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D413.mp4",
-  "durationS": 1441.3,
+  "id": "transformers-g1-hasbropulse",
+  "file": "The Secret of Omega Supreme _ Transformers - Generation 1 _ Season 2 _ E29 _ Hasbro Pulse.mp4",
+  "durationS": 1370.4,
   "year": "1984",
-  "title": "The Transformers #117",
-  "width": 640,
+  "title": "The Transformers: The Secret of Omega Supreme",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D419.mp4",
-  "durationS": 1492.7,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Traitor _ Transformers - Generation 1 _ Season 2 _ E05 _ Hasbro Pulse.mp4",
+  "durationS": 1370.7,
   "year": "1984",
-  "title": "The Transformers #118",
-  "width": 640,
+  "title": "The Transformers: Traitor",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D423.mp4",
-  "durationS": 1411.8,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Trans-Europe Express _ Transformers - Generation 1 _ Season 2 _ E42 _ Hasbro Pulse.mp4",
+  "durationS": 1365.9,
   "year": "1984",
-  "title": "The Transformers #119",
-  "width": 640,
+  "title": "The Transformers: Trans-Europe Express",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D424.mp4",
-  "durationS": 1360.1,
+  "id": "transformers-g1-hasbropulse",
+  "file": "Triple Takeover _ Transformers - Generation 1 _ Season 2 _ E36 _ Hasbro Pulse.mp4",
+  "durationS": 1366.4,
   "year": "1984",
-  "title": "The Transformers #120",
-  "width": 640,
+  "title": "The Transformers: Triple Takeover",
+  "width": 854,
   "height": 480
  },
  {
   "show": "The Transformers",
-  "id": "The_Transformers_DVDISO",
-  "file": "TRANSFORMERS_S3_4_D425.mp4",
-  "durationS": 1411.8,
+  "id": "transformers-g1-hasbropulse",
+  "file": "War Dawn _ Transformers - Generation 1 _ Season 2 _ E43 _ Hasbro Pulse.mp4",
+  "durationS": 1349.2,
   "year": "1984",
-  "title": "The Transformers #121",
-  "width": 640,
+  "title": "The Transformers: War Dawn",
+  "width": 854,
   "height": 480
  },
  {
@@ -5371,283 +5115,273 @@
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_1.mp4",
-  "durationS": 1376.5,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E01 (The Night of No Tomorrow).mp4",
+  "durationS": 1263.5,
   "year": "1983",
-  "title": "Dungeons & Dragons #1",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Night of No Tomorrow",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_2.mp4",
-  "durationS": 1417.5,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E02 (The Eve of the Beholder).mp4",
+  "durationS": 1256.1,
   "year": "1983",
-  "title": "Dungeons & Dragons #2",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Eve of the Beholder",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_3.mp4",
-  "durationS": 1407.2,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E03 (The Hall of Bones).mp4",
+  "durationS": 1291.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #3",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Hall of Bones",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_4.mp4",
-  "durationS": 1420.4,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E04 (Valley of the Unicorns).mp4",
+  "durationS": 1285.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #4",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Valley of the Unicorns",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_5.mp4",
-  "durationS": 1403.4,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E05 (In Search of the Dungeon Master).mp4",
+  "durationS": 1267.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #5",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: In Search of the Dungeon Master",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D1/VTS_01_6.mp4",
-  "durationS": 1486.5,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E06 (Beauty and the Bogbeast).mp4",
+  "durationS": 1287.1,
   "year": "1983",
-  "title": "Dungeons & Dragons #6",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Beauty and the Bogbeast",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_1.mp4",
-  "durationS": 1643.8,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E07 (Prison Without Walls).mp4",
+  "durationS": 1259.4,
   "year": "1983",
-  "title": "Dungeons & Dragons #7",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Prison Without Walls",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_2.mp4",
-  "durationS": 1642.4,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E08 (Servant of Evil).mp4",
+  "durationS": 1256,
   "year": "1983",
-  "title": "Dungeons & Dragons #8",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Servant of Evil",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_3.mp4",
-  "durationS": 1621.4,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E09 (Quest of the Skeleton Warrior).mp4",
+  "durationS": 1253.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #9",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Quest of the Skeleton Warrior",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_4.mp4",
-  "durationS": 1621.6,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E10 (The Garden of Zinn).mp4",
+  "durationS": 1286.9,
   "year": "1983",
-  "title": "Dungeons & Dragons #10",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Garden of Zinn",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_5.mp4",
-  "durationS": 1578.2,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E11 (The Box).mp4",
+  "durationS": 1257.6,
   "year": "1983",
-  "title": "Dungeons & Dragons #11",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Box",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D2/VTS_01_6.mp4",
-  "durationS": 1088,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E12 (The Lost Children).mp4",
+  "durationS": 1294.6,
   "year": "1983",
-  "title": "Dungeons & Dragons #12",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Lost Children",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_1.mp4",
-  "durationS": 1454.6,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S01E13 (P-R-E-S-T-O Spells Disaster).mp4",
+  "durationS": 1257.1,
   "year": "1983",
-  "title": "Dungeons & Dragons #13",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: P-R-E-S-T-O Spells Disaster",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_2.mp4",
-  "durationS": 1456,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E01 (The Girl Who Dreamed Tomorrow).mp4",
+  "durationS": 1256.2,
   "year": "1983",
-  "title": "Dungeons & Dragons #14",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Girl Who Dreamed Tomorrow",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_3.mp4",
-  "durationS": 1456.6,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E02 (The Treasure Of Tardos).mp4",
+  "durationS": 1255.2,
   "year": "1983",
-  "title": "Dungeons & Dragons #15",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Treasure Of Tardos",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_4.mp4",
-  "durationS": 1448.7,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E03 (City at the Edge of Midnight).mp4",
+  "durationS": 1296.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #16",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: City at the Edge of Midnight",
+  "width": 1024,
+  "height": 576
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_5.mp4",
-  "durationS": 1457.9,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E04 (The Traitor).mp4",
+  "durationS": 1255.8,
   "year": "1983",
-  "title": "Dungeons & Dragons #17",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Traitor",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D3/VTS_01_6.mp4",
-  "durationS": 1483.5,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E05 (Day of the Dungeon Master).mp4",
+  "durationS": 1290.9,
   "year": "1983",
-  "title": "Dungeons & Dragons #18",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Day of the Dungeon Master",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D4/VTS_01_1.mp4",
-  "durationS": 1501.5,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E06 (The Last Illusion).mp4",
+  "durationS": 1256.2,
   "year": "1983",
-  "title": "Dungeons & Dragons #19",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Last Illusion",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D4/VTS_01_2.mp4",
-  "durationS": 1508.1,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E07 (The Dragon's Graveyard).mp4",
+  "durationS": 1292.2,
   "year": "1983",
-  "title": "Dungeons & Dragons #20",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Dragon's Graveyard",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D4/VTS_01_3.mp4",
-  "durationS": 1503.3,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S02E08 (Child of the Stargazer).mp4",
+  "durationS": 1258.1,
   "year": "1983",
-  "title": "Dungeons & Dragons #21",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Child of the Stargazer",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D4/VTS_01_4.mp4",
-  "durationS": 1511.4,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E01 (The Dungeon at the Heart of Dawn).mp4",
+  "durationS": 1255.7,
   "year": "1983",
-  "title": "Dungeons & Dragons #22",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Dungeon at the Heart of Dawn",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D4/VTS_01_5.mp4",
-  "durationS": 1501.8,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E02 (Odyssey of the 12th Talisman).mp4",
+  "durationS": 1258.3,
   "year": "1983",
-  "title": "Dungeons & Dragons #23",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Odyssey of the 12th Talisman",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D5/VTS_01_1.mp4",
-  "durationS": 1914.9,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E03 (Citadel Of Shadow).mp4",
+  "durationS": 1256.2,
   "year": "1983",
-  "title": "Dungeons & Dragons #24",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Citadel Of Shadow",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D5/VTS_02_2.mp4",
-  "durationS": 1417,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E04 (The Time Lost).mp4",
+  "durationS": 1256.4,
   "year": "1983",
-  "title": "Dungeons & Dragons #25",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Time Lost",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D5/VTS_54_1.mp4",
-  "durationS": 1913,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E05 (Cave of the Fairie Dragons).mp4",
+  "durationS": 1255.4,
   "year": "1983",
-  "title": "Dungeons & Dragons #26",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: Cave of the Fairie Dragons",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D5/VTS_69_1.mp4",
-  "durationS": 1313.2,
+  "id": "dungeons-and-dragons_202605",
+  "file": "Dungeons and Dragons - S03E06 (The Winds Of Darkness).mp4",
+  "durationS": 1252,
   "year": "1983",
-  "title": "Dungeons & Dragons #27",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "Dungeons & Dragons",
-  "id": "dungeons-dragons-tv-series",
-  "file": "DUNGEONS_AND_DRAGONS_D5/VTS_70_1.mp4",
-  "durationS": 1580.8,
-  "year": "1983",
-  "title": "Dungeons & Dragons #28",
-  "width": 640,
-  "height": 480
+  "title": "Dungeons & Dragons: The Winds Of Darkness",
+  "width": 1920,
+  "height": 1080
  },
  {
   "show": "Voltron",
@@ -6560,136 +6294,6 @@
   "height": 480
  },
  {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)2.mp4",
-  "durationS": 864.1,
-  "year": "1989",
-  "title": "The Legend of Zelda #14",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)3.mp4",
-  "durationS": 863.8,
-  "year": "1989",
-  "title": "The Legend of Zelda #15",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)4.mp4",
-  "durationS": 863.2,
-  "year": "1989",
-  "title": "The Legend of Zelda #16",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)5.mp4",
-  "durationS": 859.8,
-  "year": "1989",
-  "title": "The Legend of Zelda #17",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)6.mp4",
-  "durationS": 861.6,
-  "year": "1989",
-  "title": "The Legend of Zelda #18",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)7.mp4",
-  "durationS": 860.8,
-  "year": "1989",
-  "title": "The Legend of Zelda #19",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)8.mp4",
-  "durationS": 860.5,
-  "year": "1989",
-  "title": "The Legend of Zelda #20",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)9.mp4",
-  "durationS": 860.8,
-  "year": "1989",
-  "title": "The Legend of Zelda #21",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)11.mp4",
-  "durationS": 864,
-  "year": "1989",
-  "title": "The Legend of Zelda #22",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)12.mp4",
-  "durationS": 859.2,
-  "year": "1989",
-  "title": "The Legend of Zelda #23",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)13.mp4",
-  "durationS": 862,
-  "year": "1989",
-  "title": "The Legend of Zelda #24",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)14.mp4",
-  "durationS": 917.6,
-  "year": "1989",
-  "title": "The Legend of Zelda #25",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "The Legend of Zelda",
-  "id": "the-legend-of-zelda-1989-full-series",
-  "file": "The Legend of Zelda (1989)15.mp4",
-  "durationS": 860.1,
-  "year": "1989",
-  "title": "The Legend of Zelda #26",
-  "width": 640,
-  "height": 480
- },
- {
   "show": "Star Wars Droids",
   "id": "10starwarsdroids1x09.5thegreatheep",
   "file": "1 Star Wars  Droids 1x01 - The White Witch.mp4",
@@ -7437,7 +7041,9 @@
   "year": "1987",
   "title": "DuckTales: Catch as Cash Can Part 1 - A Drain on the Economy",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|catch as cash can",
+  "part": 1
  },
  {
   "show": "DuckTales",
@@ -7447,7 +7053,9 @@
   "year": "1987",
   "title": "DuckTales: Catch as Cash Can Part 2 - A Whale of a Bad Time",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|catch as cash can",
+  "part": 2
  },
  {
   "show": "DuckTales",
@@ -7457,7 +7065,9 @@
   "year": "1987",
   "title": "DuckTales: Catch as Cash Can Part 3 - Aqua Ducks",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|catch as cash can",
+  "part": 3
  },
  {
   "show": "DuckTales",
@@ -7467,7 +7077,9 @@
   "year": "1987",
   "title": "DuckTales: Catch as Cash Can Part 4 - Working for Scales",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|catch as cash can",
+  "part": 4
  },
  {
   "show": "DuckTales",
@@ -7827,7 +7439,9 @@
   "year": "1987",
   "title": "DuckTales: Time Is Money Part 1 - Marking Time",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|time is money",
+  "part": 1
  },
  {
   "show": "DuckTales",
@@ -7837,7 +7451,9 @@
   "year": "1987",
   "title": "DuckTales: Time Is Money Part 2 - The Duck Who Would Be King",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|time is money",
+  "part": 2
  },
  {
   "show": "DuckTales",
@@ -7847,7 +7463,9 @@
   "year": "1987",
   "title": "DuckTales: Time Is Money Part 3 - Bubba Trubba",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|time is money",
+  "part": 3
  },
  {
   "show": "DuckTales",
@@ -7857,7 +7475,9 @@
   "year": "1987",
   "title": "DuckTales: Time Is Money Part 4 - Ducks on the Lam",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|time is money",
+  "part": 4
  },
  {
   "show": "DuckTales",
@@ -7867,7 +7487,9 @@
   "year": "1987",
   "title": "DuckTales: Time Is Money Part 5 - Ali Bubba's Cave",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|time is money",
+  "part": 5
  },
  {
   "show": "DuckTales",
@@ -7875,9 +7497,11 @@
   "file": "Season 2/Ducktales - S02E06 - Super DuckTales Part 1 - Liquid Assets.mp4",
   "durationS": 1372.7,
   "year": "1987",
-  "title": "DuckTales: Super Part 1 - Liquid Assets",
+  "title": "DuckTales: Super DuckTales Part 1 - Liquid Assets",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|super ducktales",
+  "part": 1
  },
  {
   "show": "DuckTales",
@@ -7885,9 +7509,11 @@
   "file": "Season 2/Ducktales - S02E07 - Super DuckTales Part 2 - Frozen Assets.mp4",
   "durationS": 1371.4,
   "year": "1987",
-  "title": "DuckTales: Super Part 2 - Frozen Assets",
+  "title": "DuckTales: Super DuckTales Part 2 - Frozen Assets",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|super ducktales",
+  "part": 2
  },
  {
   "show": "DuckTales",
@@ -7895,9 +7521,11 @@
   "file": "Season 2/Ducktales - S02E08 - Super DuckTales Part 3 - Full Metal Duck.mp4",
   "durationS": 1371.9,
   "year": "1987",
-  "title": "DuckTales: Super Part 3 - Full Metal Duck",
+  "title": "DuckTales: Super DuckTales Part 3 - Full Metal Duck",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|super ducktales",
+  "part": 3
  },
  {
   "show": "DuckTales",
@@ -7905,9 +7533,11 @@
   "file": "Season 2/Ducktales - S02E09 - Super DuckTales Part 4 - The Billionaire Beagle Boys Club.mp4",
   "durationS": 1371.8,
   "year": "1987",
-  "title": "DuckTales: Super Part 4 - The Billionaire Beagle Boys Club",
+  "title": "DuckTales: Super DuckTales Part 4 - The Billionaire Beagle Boys Club",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|super ducktales",
+  "part": 4
  },
  {
   "show": "DuckTales",
@@ -7915,9 +7545,11 @@
   "file": "Season 2/Ducktales - S02E10 - Super DuckTales Part 5 - Money to Burn.mp4",
   "durationS": 1368,
   "year": "1987",
-  "title": "DuckTales: Super Part 5 - Money to Burn",
+  "title": "DuckTales: Super DuckTales Part 5 - Money to Burn",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|super ducktales",
+  "part": 5
  },
  {
   "show": "DuckTales",
@@ -8095,7 +7727,7 @@
   "file": "Season 3/Ducktales - S03E18 - A DuckTales Valentine (Amour or Less).mp4",
   "durationS": 1373.1,
   "year": "1987",
-  "title": "DuckTales: A Valentine (Amour or Less)",
+  "title": "DuckTales: A DuckTales Valentine (Amour or Less)",
   "width": 640,
   "height": 480
  },
@@ -8157,7 +7789,9 @@
   "year": "1987",
   "title": "DuckTales: The Golden Goose Part 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|the golden goose",
+  "part": 1
  },
  {
   "show": "DuckTales",
@@ -8167,7 +7801,9 @@
   "year": "1987",
   "title": "DuckTales: The Golden Goose Part 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "DuckTales|the golden goose",
+  "part": 2
  },
  {
   "show": "TaleSpin",
@@ -8177,7 +7813,9 @@
   "year": "1990",
   "title": "TaleSpin: Plunder and Lightning, Part 1",
   "width": 633,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|plunder and lightning",
+  "part": 1
  },
  {
   "show": "TaleSpin",
@@ -8187,7 +7825,9 @@
   "year": "1990",
   "title": "TaleSpin: Plunder and Lightning, Part 2",
   "width": 633,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|plunder and lightning",
+  "part": 2
  },
  {
   "show": "TaleSpin",
@@ -8197,7 +7837,9 @@
   "year": "1990",
   "title": "TaleSpin: Plunder and Lightning, Part 3",
   "width": 633,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|plunder and lightning",
+  "part": 3
  },
  {
   "show": "TaleSpin",
@@ -8207,7 +7849,9 @@
   "year": "1990",
   "title": "TaleSpin: Plunder and Lightning, Part 4",
   "width": 633,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|plunder and lightning",
+  "part": 4
  },
  {
   "show": "TaleSpin",
@@ -8367,7 +8011,9 @@
   "year": "1990",
   "title": "TaleSpin: A Bad Reflection on You, Part 1",
   "width": 631,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|a bad reflection on you",
+  "part": 1
  },
  {
   "show": "TaleSpin",
@@ -8377,7 +8023,9 @@
   "year": "1990",
   "title": "TaleSpin: A Bad Reflection on You, Part 2",
   "width": 630,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|a bad reflection on you",
+  "part": 2
  },
  {
   "show": "TaleSpin",
@@ -8557,7 +8205,9 @@
   "year": "1990",
   "title": "TaleSpin: For Whom the Bell Klangs, Part 1",
   "width": 633,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|for whom the bell klangs",
+  "part": 1
  },
  {
   "show": "TaleSpin",
@@ -8567,7 +8217,9 @@
   "year": "1990",
   "title": "TaleSpin: For Whom the Bell Klangs, Part 2",
   "width": 631,
-  "height": 478
+  "height": 478,
+  "group": "TaleSpin|for whom the bell klangs",
+  "part": 2
  },
  {
   "show": "TaleSpin",
@@ -8827,7 +8479,9 @@
   "year": "1991",
   "title": "Darkwing Duck: Darkly Dawns the Duck (1)",
   "width": 634,
-  "height": 476
+  "height": 476,
+  "group": "Darkwing Duck|darkly dawns the duck",
+  "part": 1
  },
  {
   "show": "Darkwing Duck",
@@ -8837,7 +8491,9 @@
   "year": "1991",
   "title": "Darkwing Duck: Darkly Dawns the Duck (2)",
   "width": 634,
-  "height": 476
+  "height": 476,
+  "group": "Darkwing Duck|darkly dawns the duck",
+  "part": 2
  },
  {
   "show": "Darkwing Duck",
@@ -9017,7 +8673,9 @@
   "year": "1991",
   "title": "Darkwing Duck: Just Us Justice Ducks (1)",
   "width": 634,
-  "height": 476
+  "height": 476,
+  "group": "Darkwing Duck|just us justice ducks",
+  "part": 1
  },
  {
   "show": "Darkwing Duck",
@@ -9027,7 +8685,9 @@
   "year": "1991",
   "title": "Darkwing Duck: Just Us Justice Ducks (2)",
   "width": 634,
-  "height": 476
+  "height": 476,
+  "group": "Darkwing Duck|just us justice ducks",
+  "part": 2
  },
  {
   "show": "Darkwing Duck",
@@ -9145,7 +8805,7 @@
   "file": "Season 1/Darkwing Duck - S01E33 - The Secret Origins of Darkwing Duck.mp4",
   "durationS": 1364.5,
   "year": "1991",
-  "title": "Darkwing Duck: The Secret Origins of",
+  "title": "Darkwing Duck: The Secret Origins of Darkwing Duck",
   "width": 632,
   "height": 474
  },
@@ -9737,7 +9397,9 @@
   "year": "1994",
   "title": "Gargoyles: Awakening (1)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|awakening",
+  "part": 1
  },
  {
   "show": "Gargoyles",
@@ -9747,7 +9409,9 @@
   "year": "1994",
   "title": "Gargoyles: Awakening (2)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|awakening",
+  "part": 2
  },
  {
   "show": "Gargoyles",
@@ -9757,7 +9421,9 @@
   "year": "1994",
   "title": "Gargoyles: Awakening (3)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|awakening",
+  "part": 3
  },
  {
   "show": "Gargoyles",
@@ -9767,7 +9433,9 @@
   "year": "1994",
   "title": "Gargoyles: Awakening (4)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|awakening",
+  "part": 4
  },
  {
   "show": "Gargoyles",
@@ -9777,7 +9445,9 @@
   "year": "1994",
   "title": "Gargoyles: Awakening (5)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|awakening",
+  "part": 5
  },
  {
   "show": "Gargoyles",
@@ -9845,7 +9515,7 @@
   "file": "Gargoyles (1994)/Season 1/Gargoyles - 01x12 - Her Brother`s Keeper.mp4",
   "durationS": 1365,
   "year": "1994",
-  "title": "Gargoyles: Her Brother`s Keeper",
+  "title": "Gargoyles: Her Brother's Keeper",
   "width": 640,
   "height": 480
  },
@@ -9947,7 +9617,9 @@
   "year": "1994",
   "title": "Gargoyles: City of Stone (1)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|city of stone",
+  "part": 1
  },
  {
   "show": "Gargoyles",
@@ -9957,7 +9629,9 @@
   "year": "1994",
   "title": "Gargoyles: City of Stone (2)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|city of stone",
+  "part": 2
  },
  {
   "show": "Gargoyles",
@@ -9967,7 +9641,9 @@
   "year": "1994",
   "title": "Gargoyles: City of Stone (3)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|city of stone",
+  "part": 3
  },
  {
   "show": "Gargoyles",
@@ -9977,7 +9653,9 @@
   "year": "1994",
   "title": "Gargoyles: City of Stone (4)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|city of stone",
+  "part": 4
  },
  {
   "show": "Gargoyles",
@@ -10067,7 +9745,9 @@
   "year": "1994",
   "title": "Gargoyles: Avalon (1)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|avalon",
+  "part": 1
  },
  {
   "show": "Gargoyles",
@@ -10077,7 +9757,9 @@
   "year": "1994",
   "title": "Gargoyles: Avalon (2)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|avalon",
+  "part": 2
  },
  {
   "show": "Gargoyles",
@@ -10087,7 +9769,9 @@
   "year": "1994",
   "title": "Gargoyles: Avalon (3)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|avalon",
+  "part": 3
  },
  {
   "show": "Gargoyles",
@@ -10297,7 +9981,9 @@
   "year": "1994",
   "title": "Gargoyles: The Gathering (1)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|the gathering",
+  "part": 1
  },
  {
   "show": "Gargoyles",
@@ -10307,7 +9993,9 @@
   "year": "1994",
   "title": "Gargoyles: The Gathering (2)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|the gathering",
+  "part": 2
  },
  {
   "show": "Gargoyles",
@@ -10355,9 +10043,11 @@
   "file": "Gargoyles (1994)/Season 2/Gargoyles - 02x50 - Hunter`s Moon (1).mp4",
   "durationS": 1373.3,
   "year": "1994",
-  "title": "Gargoyles: Hunter`s Moon (1)",
+  "title": "Gargoyles: Hunter's Moon (1)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|hunter's moon",
+  "part": 1
  },
  {
   "show": "Gargoyles",
@@ -10365,9 +10055,11 @@
   "file": "Gargoyles (1994)/Season 2/Gargoyles - 02x51 - Hunter`s Moon (2).mp4",
   "durationS": 1373.5,
   "year": "1994",
-  "title": "Gargoyles: Hunter`s Moon (2)",
+  "title": "Gargoyles: Hunter's Moon (2)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|hunter's moon",
+  "part": 2
  },
  {
   "show": "Gargoyles",
@@ -10375,9 +10067,11 @@
   "file": "Gargoyles (1994)/Season 2/Gargoyles - 02x52 - Hunter`s Moon (3).mp4",
   "durationS": 1374.8,
   "year": "1994",
-  "title": "Gargoyles: Hunter`s Moon (3)",
+  "title": "Gargoyles: Hunter's Moon (3)",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "Gargoyles|hunter's moon",
+  "part": 3
  },
  {
   "show": "Gargoyles",
@@ -10495,7 +10189,7 @@
   "file": "Gargoyles (1994)/Season 3/Gargoyles - 03x12 - Seeing Isn`t Believing.mp4",
   "durationS": 1348.7,
   "year": "1994",
-  "title": "Gargoyles: Seeing Isn`t Believing",
+  "title": "Gargoyles: Seeing Isn't Believing",
   "width": 640,
   "height": 480
  },
@@ -10515,7 +10209,7 @@
   "file": "V1D1 - Bravestarr and the Law2.mp4",
   "durationS": 1392.5,
   "year": "1987",
-  "title": "BraveStarr #1",
+  "title": "BraveStarr: Tunnel of Terror",
   "width": 640,
   "height": 480
  },
@@ -10525,7 +10219,7 @@
   "file": "V1D1 - Bravestarr and the Law3.mp4",
   "durationS": 1393.2,
   "year": "1987",
-  "title": "BraveStarr #2",
+  "title": "BraveStarr: Memories",
   "width": 640,
   "height": 480
  },
@@ -10535,7 +10229,7 @@
   "file": "V1D1 - Bravestarr and the Law4.mp4",
   "durationS": 1332.3,
   "year": "1987",
-  "title": "BraveStarr #3",
+  "title": "BraveStarr: The Day the Town Was Taken",
   "width": 640,
   "height": 480
  },
@@ -10545,7 +10239,7 @@
   "file": "V1D1 - Bravestarr and the Law5.mp4",
   "durationS": 1392.5,
   "year": "1987",
-  "title": "BraveStarr #4",
+  "title": "BraveStarr: Brother's Keeper",
   "width": 640,
   "height": 480
  },
@@ -10555,7 +10249,7 @@
   "file": "V1D1 - Bravestarr and the Law6.mp4",
   "durationS": 1330.4,
   "year": "1987",
-  "title": "BraveStarr #5",
+  "title": "BraveStarr: Kerium Fever",
   "width": 640,
   "height": 480
  },
@@ -10565,7 +10259,7 @@
   "file": "V1D1 - Bravestarr and the Law7.mp4",
   "durationS": 1329.4,
   "year": "1987",
-  "title": "BraveStarr #6",
+  "title": "BraveStarr: The Taking of Thistledown 123",
   "width": 640,
   "height": 480
  },
@@ -10575,7 +10269,7 @@
   "file": "V1D1 - Bravestarr and the Law8.mp4",
   "durationS": 1331.7,
   "year": "1987",
-  "title": "BraveStarr #7",
+  "title": "BraveStarr: No Drums, No Trumpets",
   "width": 640,
   "height": 480
  },
@@ -10585,7 +10279,7 @@
   "file": "V1D1 - Bravestarr and the Law9.mp4",
   "durationS": 1393.3,
   "year": "1987",
-  "title": "BraveStarr #8",
+  "title": "BraveStarr: Showdown at Sawtooth",
   "width": 640,
   "height": 480
  },
@@ -10595,7 +10289,7 @@
   "file": "V1D1 - Bravestarr and the Law10.mp4",
   "durationS": 1392.7,
   "year": "1987",
-  "title": "BraveStarr #9",
+  "title": "BraveStarr: BraveStarr and the Law",
   "width": 640,
   "height": 480
  },
@@ -10605,7 +10299,7 @@
   "file": "V1D1 - Bravestarr and the Law11.mp4",
   "durationS": 1330.7,
   "year": "1987",
-  "title": "BraveStarr #10",
+  "title": "BraveStarr: Eye of the Beholder",
   "width": 640,
   "height": 480
  },
@@ -10615,17 +10309,7 @@
   "file": "V1D1 - Bravestarr and the Law12.mp4",
   "durationS": 1393.7,
   "year": "1987",
-  "title": "BraveStarr #11",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "BraveStarr",
-  "id": "bravestarr-bci-dvd",
-  "file": "V1D1 - Bravestarr and the Law13.mp4",
-  "durationS": 1330.7,
-  "year": "1987",
-  "title": "BraveStarr #12",
+  "title": "BraveStarr: Eyewitness",
   "width": 640,
   "height": 480
  },
@@ -10635,7 +10319,7 @@
   "file": "V1D2 - To Walk a Mile2.mp4",
   "durationS": 1362.5,
   "year": "1987",
-  "title": "BraveStarr #13",
+  "title": "BraveStarr: Big Thirty and Little Wimble",
   "width": 640,
   "height": 480
  },
@@ -10645,7 +10329,7 @@
   "file": "V1D2 - To Walk a Mile3.mp4",
   "durationS": 1329.4,
   "year": "1987",
-  "title": "BraveStarr #14",
+  "title": "BraveStarr: BraveStarr and the Medallion",
   "width": 640,
   "height": 480
  },
@@ -10655,9 +10339,11 @@
   "file": "V1D2 - To Walk a Mile4.mp4",
   "durationS": 1327.4,
   "year": "1987",
-  "title": "BraveStarr #15",
+  "title": "BraveStarr: Sherlock Holmes in the 23rd Century, Part 1",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "BraveStarr|sherlock holmes in the 23rd century",
+  "part": 1
  },
  {
   "show": "BraveStarr",
@@ -10665,9 +10351,11 @@
   "file": "V1D2 - To Walk a Mile5.mp4",
   "durationS": 1330.4,
   "year": "1987",
-  "title": "BraveStarr #16",
+  "title": "BraveStarr: Sherlock Holmes in the 23rd Century, Part 2",
   "width": 640,
-  "height": 480
+  "height": 480,
+  "group": "BraveStarr|sherlock holmes in the 23rd century",
+  "part": 2
  },
  {
   "show": "BraveStarr",
@@ -10675,7 +10363,7 @@
   "file": "V1D2 - To Walk a Mile6.mp4",
   "durationS": 1329.4,
   "year": "1987",
-  "title": "BraveStarr #17",
+  "title": "BraveStarr: Hail, Hail, the Gang's All Here",
   "width": 640,
   "height": 480
  },
@@ -10685,7 +10373,7 @@
   "file": "V1D2 - To Walk a Mile7.mp4",
   "durationS": 1330.4,
   "year": "1987",
-  "title": "BraveStarr #18",
+  "title": "BraveStarr: Thoren the Slavemaster",
   "width": 640,
   "height": 480
  },
@@ -10695,7 +10383,7 @@
   "file": "V1D2 - To Walk a Mile8.mp4",
   "durationS": 1394.6,
   "year": "1987",
-  "title": "BraveStarr #19",
+  "title": "BraveStarr: To Walk a Mile",
   "width": 640,
   "height": 480
  },
@@ -10705,7 +10393,7 @@
   "file": "V1D2 - To Walk a Mile9.mp4",
   "durationS": 1329.6,
   "year": "1987",
-  "title": "BraveStarr #20",
+  "title": "BraveStarr: Skuzz and Fuzz",
   "width": 640,
   "height": 480
  },
@@ -10715,7 +10403,7 @@
   "file": "V1D2 - To Walk a Mile10.mp4",
   "durationS": 1392.5,
   "year": "1987",
-  "title": "BraveStarr #21",
+  "title": "BraveStarr: Who Am I?",
   "width": 640,
   "height": 480
  },
@@ -10725,7 +10413,7 @@
   "file": "V1D2 - To Walk a Mile11.mp4",
   "durationS": 1332.6,
   "year": "1987",
-  "title": "BraveStarr #22",
+  "title": "BraveStarr: The Vigilantes",
   "width": 640,
   "height": 480
  },
@@ -10735,7 +10423,7 @@
   "file": "V1D2 - To Walk a Mile12.mp4",
   "durationS": 1395.7,
   "year": "1987",
-  "title": "BraveStarr #23",
+  "title": "BraveStarr: The Witnesses",
   "width": 640,
   "height": 480
  },
@@ -10745,7 +10433,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People2.mp4",
   "durationS": 1328.4,
   "year": "1987",
-  "title": "BraveStarr #24",
+  "title": "BraveStarr: The Wrong Hands",
   "width": 640,
   "height": 480
  },
@@ -10755,7 +10443,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People3.mp4",
   "durationS": 1329.4,
   "year": "1987",
-  "title": "BraveStarr #25",
+  "title": "BraveStarr: The Good, the Bad and the Clumsy",
   "width": 640,
   "height": 480
  },
@@ -10765,7 +10453,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People4.mp4",
   "durationS": 1395.7,
   "year": "1987",
-  "title": "BraveStarr #26",
+  "title": "BraveStarr: Wild Child",
   "width": 640,
   "height": 480
  },
@@ -10775,7 +10463,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People5.mp4",
   "durationS": 1333.5,
   "year": "1987",
-  "title": "BraveStarr #27",
+  "title": "BraveStarr: Jeremiah and the Prairie People",
   "width": 640,
   "height": 480
  },
@@ -10785,7 +10473,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People6.mp4",
   "durationS": 1333.5,
   "year": "1987",
-  "title": "BraveStarr #28",
+  "title": "BraveStarr: Unsung Hero",
   "width": 640,
   "height": 480
  },
@@ -10795,7 +10483,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People7.mp4",
   "durationS": 1332.5,
   "year": "1987",
-  "title": "BraveStarr #29",
+  "title": "BraveStarr: An Older Hand",
   "width": 640,
   "height": 480
  },
@@ -10805,7 +10493,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People8.mp4",
   "durationS": 1333.5,
   "year": "1987",
-  "title": "BraveStarr #30",
+  "title": "BraveStarr: Hostage",
   "width": 640,
   "height": 480
  },
@@ -10815,7 +10503,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People9.mp4",
   "durationS": 1396.7,
   "year": "1987",
-  "title": "BraveStarr #31",
+  "title": "BraveStarr: Runaway Planet",
   "width": 640,
   "height": 480
  },
@@ -10825,7 +10513,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People10.mp4",
   "durationS": 1333.5,
   "year": "1987",
-  "title": "BraveStarr #32",
+  "title": "BraveStarr: BraveStarr and the Treaty",
   "width": 640,
   "height": 480
  },
@@ -10835,7 +10523,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People11.mp4",
   "durationS": 1331.5,
   "year": "1987",
-  "title": "BraveStarr #33",
+  "title": "BraveStarr: Lost Mountain",
   "width": 640,
   "height": 480
  },
@@ -10845,17 +10533,7 @@
   "file": "V1D3 - Jeremiah and the Prairie People12.mp4",
   "durationS": 1394,
   "year": "1987",
-  "title": "BraveStarr #34",
-  "width": 640,
-  "height": 480
- },
- {
-  "show": "BraveStarr",
-  "id": "bravestarr-bci-dvd",
-  "file": "V1D4 - SPECIAL FEATURES.mp4",
-  "durationS": 1321.5,
-  "year": "1987",
-  "title": "BraveStarr #35",
+  "title": "BraveStarr: Rampage",
   "width": 640,
   "height": 480
  },
@@ -10865,7 +10543,7 @@
   "file": "V2D1 - Night of the Bronco-Tank2.mp4",
   "durationS": 1331.8,
   "year": "1987",
-  "title": "BraveStarr #36",
+  "title": "BraveStarr: The Haunted Shield",
   "width": 640,
   "height": 480
  },
@@ -10875,7 +10553,7 @@
   "file": "V2D1 - Night of the Bronco-Tank3.mp4",
   "durationS": 1331.7,
   "year": "1987",
-  "title": "BraveStarr #37",
+  "title": "BraveStarr: Fallen Idol",
   "width": 640,
   "height": 480
  },
@@ -10885,7 +10563,7 @@
   "file": "V2D1 - Night of the Bronco-Tank4.mp4",
   "durationS": 1391.1,
   "year": "1987",
-  "title": "BraveStarr #38",
+  "title": "BraveStarr: Nomad Is an Island",
   "width": 640,
   "height": 480
  },
@@ -10895,7 +10573,7 @@
   "file": "V2D1 - Night of the Bronco-Tank5.mp4",
   "durationS": 1391.6,
   "year": "1987",
-  "title": "BraveStarr #39",
+  "title": "BraveStarr: Night of the Bronco-Tank",
   "width": 640,
   "height": 480
  },
@@ -10905,7 +10583,7 @@
   "file": "V2D1 - Night of the Bronco-Tank6.mp4",
   "durationS": 1330.7,
   "year": "1987",
-  "title": "BraveStarr #40",
+  "title": "BraveStarr: Buddy",
   "width": 640,
   "height": 480
  },
@@ -10915,7 +10593,7 @@
   "file": "V2D1 - Night of the Bronco-Tank7.mp4",
   "durationS": 1393.5,
   "year": "1987",
-  "title": "BraveStarr #41",
+  "title": "BraveStarr: Handlebar and Rampage",
   "width": 640,
   "height": 480
  },
@@ -10925,7 +10603,7 @@
   "file": "V2D1 - Night of the Bronco-Tank8.mp4",
   "durationS": 1423.7,
   "year": "1987",
-  "title": "BraveStarr #42",
+  "title": "BraveStarr: New Texas Blues",
   "width": 640,
   "height": 480
  },
@@ -10935,7 +10613,7 @@
   "file": "V2D1 - Night of the Bronco-Tank9.mp4",
   "durationS": 1391.5,
   "year": "1987",
-  "title": "BraveStarr #43",
+  "title": "BraveStarr: Trouble Wears a Badge",
   "width": 640,
   "height": 480
  },
@@ -10945,7 +10623,7 @@
   "file": "V2D1 - Night of the Bronco-Tank10.mp4",
   "durationS": 1330.5,
   "year": "1987",
-  "title": "BraveStarr #44",
+  "title": "BraveStarr: BraveStarr and the Three Suns",
   "width": 640,
   "height": 480
  },
@@ -10955,7 +10633,7 @@
   "file": "V2D1 - Night of the Bronco-Tank11.mp4",
   "durationS": 1392.7,
   "year": "1987",
-  "title": "BraveStarr #45",
+  "title": "BraveStarr: Running Wild",
   "width": 640,
   "height": 480
  },
@@ -10965,7 +10643,7 @@
   "file": "V2D1 - Night of the Bronco-Tank12.mp4",
   "durationS": 1392.5,
   "year": "1987",
-  "title": "BraveStarr #46",
+  "title": "BraveStarr: Tex's Terrible Night",
   "width": 640,
   "height": 480
  },
@@ -10975,7 +10653,7 @@
   "file": "V2D2 - Tex But No Hex2.mp4",
   "durationS": 1328.2,
   "year": "1987",
-  "title": "BraveStarr #47",
+  "title": "BraveStarr: Revolt of the Prairie People",
   "width": 640,
   "height": 480
  },
@@ -10985,7 +10663,7 @@
   "file": "V2D2 - Tex But No Hex3.mp4",
   "durationS": 1389,
   "year": "1987",
-  "title": "BraveStarr #48",
+  "title": "BraveStarr: A Day in the Life of a New Texas Judge",
   "width": 640,
   "height": 480
  },
@@ -10995,7 +10673,7 @@
   "file": "V2D2 - Tex But No Hex4.mp4",
   "durationS": 1329.9,
   "year": "1987",
-  "title": "BraveStarr #49",
+  "title": "BraveStarr: The Price",
   "width": 640,
   "height": 480
  },
@@ -11005,7 +10683,7 @@
   "file": "V2D2 - Tex But No Hex5.mp4",
   "durationS": 1390.4,
   "year": "1987",
-  "title": "BraveStarr #50",
+  "title": "BraveStarr: Tex But No Hex",
   "width": 640,
   "height": 480
  },
@@ -11015,7 +10693,7 @@
   "file": "V2D2 - Tex But No Hex6.mp4",
   "durationS": 1392.8,
   "year": "1987",
-  "title": "BraveStarr #51",
+  "title": "BraveStarr: Call to Arms",
   "width": 640,
   "height": 480
  },
@@ -11025,7 +10703,7 @@
   "file": "V2D2 - Tex But No Hex7.mp4",
   "durationS": 1333.7,
   "year": "1987",
-  "title": "BraveStarr #52",
+  "title": "BraveStarr: Balance of Power",
   "width": 640,
   "height": 480
  },
@@ -11035,7 +10713,7 @@
   "file": "V2D2 - Tex But No Hex8.mp4",
   "durationS": 1331.6,
   "year": "1987",
-  "title": "BraveStarr #53",
+  "title": "BraveStarr: The Disappearance of Thirty/Thirty",
   "width": 640,
   "height": 480
  },
@@ -11045,7 +10723,7 @@
   "file": "V2D2 - Tex But No Hex9.mp4",
   "durationS": 1393.7,
   "year": "1987",
-  "title": "BraveStarr #54",
+  "title": "BraveStarr: Brothers in Crime",
   "width": 640,
   "height": 480
  },
@@ -11055,7 +10733,7 @@
   "file": "V2D2 - Tex But No Hex10.mp4",
   "durationS": 1391.8,
   "year": "1987",
-  "title": "BraveStarr #55",
+  "title": "BraveStarr: The Bounty Hunter",
   "width": 640,
   "height": 480
  },
@@ -11065,7 +10743,7 @@
   "file": "V2D2 - Tex But No Hex11.mp4",
   "durationS": 1392.8,
   "year": "1987",
-  "title": "BraveStarr #56",
+  "title": "BraveStarr: Shake Hands with Long Arm John",
   "width": 640,
   "height": 480
  },
@@ -11075,7 +10753,7 @@
   "file": "V2D2 - Tex But No Hex12.mp4",
   "durationS": 1395,
   "year": "1987",
-  "title": "BraveStarr #57",
+  "title": "BraveStarr: Ship of No Return",
   "width": 640,
   "height": 480
  },
@@ -11085,7 +10763,7 @@
   "file": "V2D3 - Strength of the Bear2.mp4",
   "durationS": 1393.1,
   "year": "1987",
-  "title": "BraveStarr #58",
+  "title": "BraveStarr: Call of the Wild",
   "width": 640,
   "height": 480
  },
@@ -11095,7 +10773,7 @@
   "file": "V2D3 - Strength of the Bear3.mp4",
   "durationS": 1331.3,
   "year": "1987",
-  "title": "BraveStarr #59",
+  "title": "BraveStarr: The Ballad of Sara Jane",
   "width": 640,
   "height": 480
  },
@@ -11105,7 +10783,7 @@
   "file": "V2D3 - Strength of the Bear4.mp4",
   "durationS": 1332.5,
   "year": "1987",
-  "title": "BraveStarr #60",
+  "title": "BraveStarr: The Little Lie That Grew",
   "width": 640,
   "height": 480
  },
@@ -11115,7 +10793,7 @@
   "file": "V2D3 - Strength of the Bear5.mp4",
   "durationS": 1330.5,
   "year": "1987",
-  "title": "BraveStarr #61",
+  "title": "BraveStarr: Space Zoo",
   "width": 640,
   "height": 480
  },
@@ -11125,7 +10803,7 @@
   "file": "V2D3 - Strength of the Bear6.mp4",
   "durationS": 1393.7,
   "year": "1987",
-  "title": "BraveStarr #62",
+  "title": "BraveStarr: Sunrise, Sunset",
   "width": 640,
   "height": 480
  },
@@ -11135,7 +10813,7 @@
   "file": "V2D3 - Strength of the Bear7.mp4",
   "durationS": 1392.8,
   "year": "1987",
-  "title": "BraveStarr #63",
+  "title": "BraveStarr: Legend of a Pretty Lady",
   "width": 640,
   "height": 480
  },
@@ -11145,7 +10823,7 @@
   "file": "V2D3 - Strength of the Bear8.mp4",
   "durationS": 1393.2,
   "year": "1987",
-  "title": "BraveStarr #64",
+  "title": "BraveStarr: BraveStarr and the Empress",
   "width": 640,
   "height": 480
  },
@@ -11155,7 +10833,7 @@
   "file": "V2D3 - Strength of the Bear9.mp4",
   "durationS": 1332.1,
   "year": "1987",
-  "title": "BraveStarr #65",
+  "title": "BraveStarr: The Blockade",
   "width": 640,
   "height": 480
  },
@@ -11165,7 +10843,7 @@
   "file": "V2D3 - Strength of the Bear10.mp4",
   "durationS": 1391.4,
   "year": "1987",
-  "title": "BraveStarr #66",
+  "title": "BraveStarr: Thirty/Thirty Goes Camping",
   "width": 640,
   "height": 480
  },
@@ -11175,7 +10853,7 @@
   "file": "V2D3 - Strength of the Bear11.mp4",
   "durationS": 1392.2,
   "year": "1987",
-  "title": "BraveStarr #67",
+  "title": "BraveStarr: Strength of the Bear",
   "width": 640,
   "height": 480
  },
@@ -11607,7 +11285,9 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Invasion From The 21St Level Pt1",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "group": "Challenge of the GoBots|invasion from the 21st level",
+  "part": 1
  },
  {
   "show": "Challenge of the GoBots",
@@ -11617,7 +11297,9 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Invasion From The 21St Level Pt2",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "group": "Challenge of the GoBots|invasion from the 21st level",
+  "part": 2
  },
  {
   "show": "Challenge of the GoBots",
@@ -11687,7 +11369,9 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Renegades' Rampage Pt1",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "group": "Challenge of the GoBots|renegades' rampage",
+  "part": 1
  },
  {
   "show": "Challenge of the GoBots",
@@ -11697,7 +11381,9 @@
   "year": "1984",
   "title": "Challenge of the GoBots: Renegades' Rampage Pt2",
   "width": 854,
-  "height": 480
+  "height": 480,
+  "group": "Challenge of the GoBots|renegades' rampage",
+  "part": 2
  },
  {
   "show": "Challenge of the GoBots",
@@ -11725,7 +11411,7 @@
   "file": "GOBOTS - Challenge of the GoBots (1984)/34 Wolf In The Fold  Temp.mp4",
   "durationS": 1208,
   "year": "1984",
-  "title": "Challenge of the GoBots: Wolf In The Fold Temp",
+  "title": "Challenge of the GoBots: Wolf In The Fold",
   "width": 854,
   "height": 480
  },

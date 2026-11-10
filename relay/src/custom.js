@@ -102,6 +102,7 @@ export const DEFINITIONS = [
     logomark: SUNSET_LOGO, seed: 1985,
     shows: ['channels/toons.json'], bumps: 'channels/toons-bumps.json',
     ads: ['channels/tapeads-80s-kids.json', 'channels/tvads-80s-kids.json'], adsPerBreak: [3, 4],
+    spread: true, // no show twice in a row, except a multi-part story
   },
 ];
 
@@ -110,7 +111,7 @@ export const DEFINITIONS = [
  * part order. Units with repeat k > 1 air k times: the rest are split into k stretches
  * and each stretch gets one copy of every repeated unit, so repeats stay far apart.
  */
-function order(episodes, rand, repeat) {
+function order(episodes, rand, repeat, spread) {
   const units = [], byGroup = new Map();
   for (const e of episodes) {
     if (!e.group) { units.push([e]); continue; }
@@ -120,7 +121,8 @@ function order(episodes, rand, repeat) {
   for (const u of byGroup.values()) u.sort((a, b) => (a.part ?? 0) - (b.part ?? 0));
   const times = u => Math.max(1, Math.floor(repeat ? repeat(u[0]) : 1));
   const k = Math.max(1, ...units.map(times));
-  const once = shuffle(units.filter(u => times(u) === 1), rand);
+  const mix = list => (spread ? spreadShows(shuffle(list, rand)) : shuffle(list, rand));
+  const once = mix(units.filter(u => times(u) === 1));
   const again = shuffle(units.filter(u => times(u) > 1), rand); // same order in every stretch
   const out = [];
   for (let r = 0; r < k; r++) {
@@ -137,6 +139,21 @@ function order(episodes, rand, repeat) {
     out.push(...merged);
   }
   return out.flat();
+}
+
+/**
+ * Reorders shuffled units so no show follows itself: each time the next unit is the same
+ * show as the last one placed, the nearest later unit of another show moves up instead.
+ */
+function spreadShows(units) {
+  const out = [], rest = units.slice();
+  while (rest.length) {
+    const last = out.length ? out[out.length - 1][0].show : null;
+    let i = rest.findIndex(u => u[0].show !== last);
+    if (i < 0) i = 0; // only that show is left
+    out.push(rest.splice(i, 1)[0]);
+  }
+  return out;
 }
 
 function rng(seed) {
@@ -163,11 +180,11 @@ function deck(list, rand) {
 
 export class CustomChannel {
   constructor(def) {
-    const { shows, bumps, ads, adsPerBreak = [2, 3], seed, repeat, ...meta } = def;
+    const { shows, bumps, ads, adsPerBreak = [2, 3], seed, repeat, spread, ...meta } = def;
     this.meta = meta;
     const rand = rng(seed);
     const platform = read('channels/spelunkr-platform.json');
-    const episodes = order(shows.flatMap(read), rand, repeat);
+    const episodes = order(shows.flatMap(read), rand, repeat, spread);
     const channelBump = deck(bumps ? read(bumps) : [], rand);
     const platformBump = deck(platform.bumps, rand);
     const song = deck(platform.audio, rand);
